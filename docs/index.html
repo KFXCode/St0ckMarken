@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0e1420"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="St0ckMarken">
-<title>St0ckMarken — 2026-07-17 (SAMPLE)</title><style>
+<title>St0ckMarken — 2026-07-30</title><style>
 :root{--bg:#0e1420;--card:#17202f;--card2:#1e2a3c;--line:#293a52;--txt:#e9edf4;--dim:#93a1b8;
 --green:#34d399;--red:#fb7185;--gold:#f5b84c;--blue:#7aa5f8;--purple:#b79df5}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -73,18 +73,17 @@ button{cursor:pointer;font-family:inherit}
 .scn:last-child{border-bottom:none}
 .scn-h{color:var(--txt);font-weight:600}
 #sm-broker{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--txt);font-size:14px;flex:1;min-width:0}
-.sample{background:#152238;border:1px solid #2c4468;border-radius:12px;padding:12px 14px;margin:14px 0;font-size:13.5px;color:#9ec1f0}
 </style></head><body>
-<div class="topbar"><div class="brand">St0ck<span>Marken</span></div><div class="pl" style="color:var(--dim);font-size:12px">2026-07-17</div></div>
+<div class="topbar"><div class="brand">St0ck<span>Marken</span></div>
+<div class="pl" style="color:var(--dim);font-size:12px">2026-07-30</div></div>
 <div class="hero"><div class="pl">Your paper portfolio</div>
 <div class="pv" id="sm-hero-pv">Set a budget ↓</div>
 <div class="pc" id="sm-hero-pc"></div>
-<div class="pl">SPY 627.58 (+0.4%) · VIX 16.2 · 3 trades today</div></div>
+<div class="pl">SPY 740.33 (+1.5%) · VIX n/a · 5 trades today</div></div>
 <div class="wrap">
-<div class="sample"><b>SAMPLE REPORT</b> — this is example output with illustrative numbers so you can see the format. Your first real report replaces this after the pipeline's first run.</div>
-<div class="meta">Market: SPY <b>627.58</b> (+0.4%) · VIX <b>16.2</b><br>
-Scanned: <b>98 tickers</b> · Cleared the bar: <b>3</b><br>
-Moon: <b>Waxing Crescent</b> in <b>Virgo</b> · Numerology: <b>7</b>
+<div class="meta">Market: SPY <b>740.33</b> (+1.5%) · VIX <b>n/a</b><br>
+Scanned: <b>126 tickers</b> · Cleared the bar: <b>5</b><br>
+Moon: <b>Full Moon</b> in <b>Aquarius</b> · Numerology: <b>2</b>
 <span class="hint">(flavor layer, 5% weight)</span></div>
 <details class="guide" open>
 <summary>👋 How to use this app (read me first!)</summary>
@@ -111,113 +110,87 @@ Moon: <b>Waxing Crescent</b> in <b>Virgo</b> · Numerology: <b>7</b>
 <div class="gsec"><b>⚠️ It does NOT sell itself.</b> If the premium rises, nothing happens automatically — the profit is only yours when you tap <b>Sell to Close</b> on that contract. If you never sell: the option loses a little value every single day (<b>time decay</b>), a paper profit can melt back to zero, and at expiration an out-of-the-money option becomes worthless — you lose the whole premium. (If it finishes IN the money, most brokers auto-sell or auto-exercise it on expiration day, but never rely on that — sell it yourself before expiry week.)</div>
 <div class="gsec"><b>A simple exit plan (what most disciplined traders do).</b> Decide before you buy: take profit by selling at +50% to +100%; cut the loss by selling at −50%; and no matter what, be out at least a week before expiration, when time decay is fastest.</div>
 <div class="gsec"><b>Why the engine picked these.</b> Every night it scans ~100 liquid stocks, and only shows a trade when trend, momentum (RSI/MACD), volume, and strength vs the market all point the same way — then it backtests that exact setup on up to 10 years of history (the purple box) to show how often it actually worked. If nothing clears the bar, it shows nothing. Staying in cash is a position.</div>
-</details>
-<div class="warn"><b>Earnings this week — extra risk</b><ul><li>NFLX reports earnings Jul 21 — big-move risk in either direction.</li></ul></div>
-<div class="card" data-screen-label="Trade 1">
+</details><div class="warn"><b>Data quality warning</b><br>Congressional-disclosure feed was unavailable today — elite-flows factor scored neutral.</div><div class="warn"><b>Earnings this week — extra risk</b><ul><li>BBAI reports earnings Jul 30 — big-move risk in either direction.</li></ul></div><div class="card" data-screen-label="Trade 1">
 <div class="playtag">Trade #1 · SWING (days–weeks) · 1 position</div>
-<div class="title">NIO <span class="dir-b">LONG CALL</span></div>
-<div class="sub">BUY the $5 strike · expires 2026-08-21 · stock at $4.85</div>
+<div class="title">PLUG <span class="dir-s">LONG PUT</span></div>
+<div class="sub">BUY the $2 strike · expires 2026-08-21 · stock at $2.07</div>
 <div class="stats">
-<div class="stat"><div class="v">28</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">26</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">37</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.15</div><div class="l">Premium</div></div>
+</div>
+<div class="plain bear"><b>In plain English:</b> Buy the $2 put expiring 2026-08-21 for ~$16. Max loss = what you pay. Profits if PLUG falls meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$16 once (the $0.15 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $0.30, your $16 becomes $32 (+100%). On a big move past the $2 strike it could reach $0.75, turning $16 into $80 (+400%). <b>Can you lose more than $16?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="hist"><b>History check (10 yrs of data):</b> this exact signal setup appeared <b>418</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>78%</b> of the time (avg best move +11.2%). July has averaged +2.0% for PLUG historically.</div>
+<div class="why">Why this trade sets up:</div><ul><li><b>Trend:</b> SMA20 below SMA50, price below SMA20, 1-month return -22.0%</li><li><b>Candlestick:</b> no clear candlestick pattern on the latest bar</li><li><b>RSI:</b> RSI(14) = 37 (bearish momentum zone)</li><li><b>MACD:</b> MACD above signal, histogram rising</li><li><b>Volume:</b> volume 0.7x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: -21.2%</li><li><b>Volatility:</b> 20-day HV 61%, 12th percentile of past year (sleepy — option may decay before a move)</li><li><b>News:</b> 10 headlines, mixed/neutral tone</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> Full Moon (98% illuminated) -&gt; mild bearish bias</li><li><b>Flavor:</b> Moon in Aquarius (air sign) -&gt; risk-on tilt</li><li><b>Flavor:</b> Date reduces to 2 -&gt; mean-reversion bias</li></ul>
+<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 1,851</span><span class="tag">Bearish</span></div>
+<div class="take" data-t="PLUG" data-date="2026-07-30" data-cost="16.0" data-prem="0.15" data-spot="2.07" data-kind="LONG PUT" data-strike="2" data-exp="2026-08-21" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div><div class="card" data-screen-label="Trade 2">
+<div class="playtag">Trade #2 · SWING (days–weeks) · 1 position</div>
+<div class="title">AMC <span class="dir-b">CASH-SECURED PUT</span></div>
+<div class="sub">SELL the $2 strike · expires 2026-08-21 · stock at $2.73</div>
+<div class="stats">
+<div class="stat"><div class="v">33</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">66</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.17</div><div class="l">Premium</div></div>
+</div>
+<div class="plain"><b>In plain English:</b> Sell the $2 put expiring 2026-08-21. You collect ~$17 up front. Requires $250 cash collateral — you&#x27;re agreeing to buy 100 shares at $2 if assigned.</div><div class="grow"><b>How the money works here:</b> you set aside $250 as collateral and collect ~$17 up front — that premium is the most you can make, and you keep it if AMC stays above $2. <b>Can you lose more?</b> Yes, this one is different: if the stock drops below $2 you must buy 100 shares there, so losses grow the further it falls (worst case, stock to $0 = −$233). That is why it needs the full collateral.</div><div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul><li><b>Bullish Pin Bar</b> (bullish): A skinny candle with a long bottom wick. The market dipped, got rejected, and closed back up — like a &#x27;no thanks&#x27; to lower prices.</li><li><b>Doji</b> (bearish): Open and close are almost the same — a tug-of-war tie. The trend is losing steam and may flip.</li><li><b>Bearish Harami</b> (bearish): A small candle tucked inside yesterday&#x27;s big green one. The rally has paused — a turn down may be coming.</li><li><b>Inside Bar</b> (bullish): Today stayed completely inside yesterday&#x27;s range — the market is resting and squeezing. A breakout usually follows the trend.</li></ul></div><div class="hist"><b>History check (10 yrs of data):</b> this exact signal setup appeared <b>340</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>61%</b> of the time (avg best move +12.3%). July has averaged +4.3% for AMC historically.</div>
+<div class="why">Why this trade sets up:</div><ul><li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +42.0%</li><li><b>Candlestick:</b> Bullish Pin Bar, Doji, Bearish Harami, Inside Bar</li><li><b>RSI:</b> RSI(14) = 67 (bullish momentum zone)</li><li><b>MACD:</b> MACD above signal, histogram rising</li><li><b>Volume:</b> volume 0.4x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: +42.7%</li><li><b>Volatility:</b> 20-day HV 119%, 88th percentile of past year (extreme — options likely overpriced)</li><li><b>News:</b> 10 headlines: 4 positive vs 1 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> Full Moon (98% illuminated) -&gt; mild bearish bias</li><li><b>Flavor:</b> Moon in Aquarius (air sign) -&gt; risk-on tilt</li><li><b>Flavor:</b> Date reduces to 2 -&gt; mean-reversion bias</li></ul>
+<div class="tagrow"><span class="tag">needs ~$250</span><span class="tag">OI 7,957</span><span class="tag">Bullish</span></div>
+<div class="take" data-t="AMC" data-date="2026-07-30" data-cost="250.0" data-prem="0.17" data-spot="2.73" data-kind="CASH-SECURED PUT" data-strike="2" data-exp="2026-08-21" data-action="SELL">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div><div class="card" data-screen-label="Trade 3">
+<div class="playtag">Trade #3 · SWING (days–weeks) · 1 position</div>
+<div class="title">BBAI <span class="dir-s">LONG PUT</span></div>
+<div class="sub">BUY the $2 strike · expires 2026-08-21 · stock at $2.81</div>
+<div class="stats">
+<div class="stat"><div class="v">29</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">36</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.12</div><div class="l">Premium</div></div>
+</div>
+<div class="plain bear"><b>In plain English:</b> Buy the $2 put expiring 2026-08-21 for ~$13. Max loss = what you pay. Profits if BBAI falls meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$13 once (the $0.12 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $0.24, your $13 becomes $26 (+100%). On a big move past the $2 strike it could reach $0.60, turning $13 into $65 (+400%). <b>Can you lose more than $13?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="hist"><b>History check (5.3 yrs of data):</b> this exact signal setup appeared <b>246</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>84%</b> of the time (avg best move +12.5%). July has averaged -12.7% for BBAI historically.</div>
+<div class="why">Why this trade sets up:</div><ul><li><b>Trend:</b> SMA20 below SMA50, price below SMA20, 1-month return -22.8%</li><li><b>Candlestick:</b> no clear candlestick pattern on the latest bar</li><li><b>RSI:</b> RSI(14) = 37 (bearish momentum zone)</li><li><b>MACD:</b> MACD above signal, histogram rising</li><li><b>Volume:</b> volume 0.6x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: -22.1%</li><li><b>Volatility:</b> 20-day HV 59%, 10th percentile of past year (sleepy — option may decay before a move)</li><li><b>News:</b> 10 headlines: 0 positive vs 4 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> Full Moon (98% illuminated) -&gt; mild bearish bias</li><li><b>Flavor:</b> Moon in Aquarius (air sign) -&gt; risk-on tilt</li><li><b>Flavor:</b> Date reduces to 2 -&gt; mean-reversion bias</li></ul>
+<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 935</span><span class="tag">Bearish</span></div>
+<div class="take" data-t="BBAI" data-date="2026-07-30" data-cost="13.0" data-prem="0.12" data-spot="2.81" data-kind="LONG PUT" data-strike="2" data-exp="2026-08-21" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div><div class="card" data-screen-label="Trade 4">
+<div class="playtag">Trade #4 · SWING (days–weeks) · 1 position</div>
+<div class="title">JBLU <span class="dir-b">LONG CALL</span></div>
+<div class="sub">BUY the $6 strike · expires 2026-08-21 · stock at $5.99</div>
+<div class="stats">
+<div class="stat"><div class="v">26</div><div class="l">Conviction</div></div>
 <div class="stat"><div class="v">63</div><div class="l">Score /100</div></div>
 <div class="stat"><div class="v">$0.35</div><div class="l">Premium</div></div>
 </div>
-<div class="plain"><b>In plain English:</b> Buy the $5 call expiring 2026-08-21 for ~$35. Max loss = what you pay. Profits if NIO rises meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$35 once (the $0.35 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $0.70, your $35 becomes $70 (+100%). On a big move past the $5 strike it could reach $1.75, turning $35 into $175 (+400%). <b>Can you lose more than $35?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul><li><b>Bullish Engulfing</b> (bullish): Today's green candle completely swallows yesterday's red one. Buyers overpowered sellers in a big way.</li><li><b>Hammer</b> (bullish): A candle with a long tail poking DOWN. Sellers pushed price down but buyers slapped it right back up.</li></ul></div><div class="hist"><b>History check (10 yrs of data):</b> this exact signal setup appeared <b>176</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>68%</b> of the time (avg best move +7.4%). July has averaged +2.1% for NIO historically.</div>
-<div class="why">Why this trade sets up:</div><ul>
-<li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +11.3%</li><li><b>Candlestick:</b> Bullish Engulfing, Hammer</li>
-<li><b>RSI:</b> RSI(14) = 62 (bullish momentum zone)</li>
-<li><b>MACD:</b> MACD above signal, histogram rising</li>
-<li><b>Volume:</b> volume spike 1.8x 20-day avg on an up day</li>
-<li><b>Rel. strength:</b> 1-month return vs SPY: +6.1%</li>
-<li><b>Volatility:</b> 20-day HV 38%, 58th percentile of past year (elevated — good movement potential)</li>
-<li><b>News:</b> 7 headlines: 3 positive vs 1 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> 12 social mentions, tone +5 (StockTwits trending)</li>
-<li><b>Flavor:</b> Waxing Crescent (12% illuminated) -&gt; mild bullish bias</li>
-<li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li>
-<li><b>Flavor:</b> Date reduces to 7 -&gt; momentum bias</li>
-</ul>
-<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 41,900</span><span class="tag">Bullish</span></div>
-<div class="take" data-t="NIO" data-date="2026-07-17" data-strike="5" data-exp="2026-08-21" data-action="BUY" data-cost="35" data-prem="0.35" data-spot="4.85" data-kind="LONG CALL">
+<div class="plain"><b>In plain English:</b> Buy the $6 call expiring 2026-08-21 for ~$37. Max loss = what you pay. Profits if JBLU rises meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$37 once (the $0.35 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $0.70, your $37 becomes $74 (+100%). On a big move past the $6 strike it could reach $1.75, turning $37 into $185 (+400%). <b>Can you lose more than $37?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul><li><b>Inside Bar</b> (bullish): Today stayed completely inside yesterday&#x27;s range — the market is resting and squeezing. A breakout usually follows the trend.</li></ul></div><div class="hist"><b>History check (10 yrs of data):</b> this exact signal setup appeared <b>460</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>66%</b> of the time (avg best move +5.5%). July has averaged -1.9% for JBLU historically.</div>
+<div class="why">Why this trade sets up:</div><ul><li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +1.2%</li><li><b>Candlestick:</b> Inside Bar</li><li><b>RSI:</b> RSI(14) = 58 (bullish momentum zone)</li><li><b>MACD:</b> MACD above signal, histogram rising</li><li><b>Volume:</b> volume 0.9x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: +1.9%</li><li><b>Volatility:</b> 20-day HV 70%, 69th percentile of past year (elevated — good movement potential)</li><li><b>News:</b> 10 headlines: 7 positive vs 0 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> Full Moon (98% illuminated) -&gt; mild bearish bias</li><li><b>Flavor:</b> Moon in Aquarius (air sign) -&gt; risk-on tilt</li><li><b>Flavor:</b> Date reduces to 2 -&gt; mean-reversion bias</li></ul>
+<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 7,020</span><span class="tag">Bullish</span></div>
+<div class="take" data-t="JBLU" data-date="2026-07-30" data-cost="37.0" data-prem="0.35" data-spot="5.99" data-kind="LONG CALL" data-strike="6" data-exp="2026-08-21" data-action="BUY">
 <button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
 <span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
-</div>
-<div class="card" data-screen-label="Trade 2">
-<div class="playtag">Trade #2 · SWING (days–weeks) · 1 position</div>
-<div class="title">SOFI <span class="dir-b">LONG CALL</span></div>
-<div class="sub">BUY the $17 strike · expires 2026-08-21 · stock at $16.24</div>
+</div><div class="card" data-screen-label="Trade 5">
+<div class="playtag">Trade #5 · SWING (days–weeks) · 1 position</div>
+<div class="title">AUR <span class="dir-s">LONG PUT</span></div>
+<div class="sub">BUY the $6 strike · expires 2026-08-21 · stock at $6.08</div>
 <div class="stats">
-<div class="stat"><div class="v">27</div><div class="l">Conviction</div></div>
-<div class="stat"><div class="v">64</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v">$0.82</div><div class="l">Premium</div></div>
+<div class="stat"><div class="v">26</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">37</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.45</div><div class="l">Premium</div></div>
 </div>
-<div class="plain"><b>In plain English:</b> Buy the $17 call expiring 2026-08-21 for ~$84. Max loss = what you pay. Profits if SOFI rises meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$82 once (the $0.82 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $1.64, your $82 becomes $164 (+100%). On a big move past the $17 strike it could reach $4.17, turning $82 into $417 (+408%). <b>Can you lose more than $82?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul><li><b>Bullish Pin Bar</b> (bullish): A skinny candle with a long bottom wick. The market dipped, got rejected, and closed back up — a "no thanks" to lower prices.</li></ul></div><div class="hist"><b>History check (5.5 yrs of data):</b> this exact signal setup appeared <b>87</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>66%</b> of the time (avg best move +5.1%). July has averaged +1.8% for SOFI historically.</div>
-<div class="why">Why this trade sets up:</div><ul>
-<li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +7.8%</li><li><b>Candlestick:</b> Bullish Pin Bar</li>
-<li><b>RSI:</b> RSI(14) = 59 (bullish momentum zone)</li>
-<li><b>MACD:</b> MACD above signal, histogram rising</li>
-<li><b>Volume:</b> volume spike 2.3x 20-day avg on an up day</li>
-<li><b>Rel. strength:</b> 1-month return vs SPY: +4.7%</li>
-<li><b>Volatility:</b> 20-day HV 52%, 47th percentile of past year (normal)</li>
-<li><b>News:</b> 8 headlines: 3 positive vs 1 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> 9 social mentions, tone +3</li>
-<li><b>Flavor:</b> Waxing Crescent (12% illuminated) -&gt; mild bullish bias</li>
-<li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li>
-<li><b>Flavor:</b> Date reduces to 7 -&gt; momentum bias</li>
-</ul>
-<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 3,912</span><span class="tag">Bullish</span></div>
-<div class="take" data-t="SOFI" data-date="2026-07-17" data-strike="17" data-exp="2026-08-21" data-action="BUY" data-cost="84" data-prem="0.82" data-spot="16.24" data-kind="LONG CALL">
+<div class="plain bear"><b>In plain English:</b> Buy the $6 put expiring 2026-08-21 for ~$50. Max loss = what you pay. Profits if AUR falls meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$50 once (the $0.45 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $0.90, your $50 becomes $100 (+100%). On a big move past the $6 strike it could reach $2.25, turning $50 into $250 (+400%). <b>Can you lose more than $50?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="hist"><b>History check (5.2 yrs of data):</b> this exact signal setup appeared <b>220</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>80%</b> of the time (avg best move +12.3%). July has averaged +14.9% for AUR historically.</div>
+<div class="why">Why this trade sets up:</div><ul><li><b>Trend:</b> SMA20 below SMA50, price below SMA20, 1-month return -13.6%</li><li><b>Candlestick:</b> no clear candlestick pattern on the latest bar</li><li><b>RSI:</b> RSI(14) = 47 (neutral)</li><li><b>MACD:</b> MACD below signal, histogram falling</li><li><b>Volume:</b> volume 0.8x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: -12.9%</li><li><b>Volatility:</b> 20-day HV 64%, 65th percentile of past year (elevated — good movement potential)</li><li><b>News:</b> 10 headlines: 1 positive vs 0 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> Full Moon (98% illuminated) -&gt; mild bearish bias</li><li><b>Flavor:</b> Moon in Aquarius (air sign) -&gt; risk-on tilt</li><li><b>Flavor:</b> Date reduces to 2 -&gt; mean-reversion bias</li></ul>
+<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 656</span><span class="tag">Bearish</span></div>
+<div class="take" data-t="AUR" data-date="2026-07-30" data-cost="50.0" data-prem="0.45" data-spot="6.08" data-kind="LONG PUT" data-strike="6" data-exp="2026-08-21" data-action="BUY">
 <button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
 <span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
-</div>
-<div class="card" data-screen-label="Trade 3">
-<div class="playtag">Trade #3 · SWING (days–weeks) · 1 position</div>
-<div class="title">PLUG <span class="dir-b">LONG CALL</span></div>
-<div class="sub">BUY the $4 strike · expires 2026-08-21 · stock at $3.90</div>
-<div class="stats">
-<div class="stat"><div class="v">24</div><div class="l">Conviction</div></div>
-<div class="stat"><div class="v">38</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v">$0.28</div><div class="l">Premium</div></div>
-</div>
-<div class="plain"><b>In plain English:</b> Buy the $4 call expiring 2026-08-21 for ~$28. Max loss = what you pay. Profits if PLUG rises meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$28 once (the $0.28 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $0.56, your $28 becomes $56 (+100%). On a big move past the $4 strike it could reach $1.40, turning $28 into $140 (+400%). <b>Can you lose more than $28?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul><li><b>Morning Star</b> (bullish): Three candles — a big red, a tiny pause, then a big green. Classic "sun coming up" bottom; buyers take charge.</li><li><b>Bullish Pin Bar</b> (bullish): A long bottom wick — the market dipped, got rejected, and closed back up.</li></ul></div><div class="hist"><b>History check (7 yrs of data):</b> this exact signal setup appeared <b>98</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>65%</b> of the time (avg best move +8.9%). July has averaged +1.4% for PLUG historically.</div>
-<div class="why">Why this trade sets up:</div><ul>
-<li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +9.1%</li><li><b>Candlestick:</b> Morning Star, Bullish Pin Bar</li>
-<li><b>RSI:</b> RSI(14) = 57 (bullish momentum zone)</li>
-<li><b>MACD:</b> MACD above signal, histogram rising</li>
-<li><b>Volume:</b> volume spike 2.1x 20-day avg on an up day</li>
-<li><b>Rel. strength:</b> 1-month return vs SPY: +5.3%</li>
-<li><b>Volatility:</b> 20-day HV 68%, 66th percentile of past year (elevated — good movement potential)</li>
-<li><b>News:</b> 6 headlines: 3 positive vs 1 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> 8 social mentions, tone +3</li>
-<li><b>Flavor:</b> Waxing Crescent (12% illuminated) -&gt; mild bullish bias</li>
-<li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li>
-<li><b>Flavor:</b> Date reduces to 7 -&gt; momentum bias</li>
-</ul>
-<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 22,600</span><span class="tag">Bullish</span></div>
-<div class="take" data-t="PLUG" data-date="2026-07-17" data-strike="4" data-exp="2026-08-21" data-action="BUY" data-cost="28" data-prem="0.28" data-spot="3.90" data-kind="LONG CALL">
-<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
-<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
-<div class="pot"></div></div>
-</div>
-<h2>Why NOT to trade these</h2><div class="hint">Tempting on the surface, but they don't clear the bar:</div>
-<div class="avoid"><b>TSLA</b> — looked bullish (conviction 16, needs 20+)<br>
-<span class="hint">RSI(14) = 71 (overbought — chase risk); 20-day HV 74%, 88th percentile of past year (extreme — options likely overpriced)</span></div>
-<div class="avoid"><b>MARA</b> — looked bullish (conviction 14, needs 20+)<br>
-<span class="hint">volume 0.9x 20-day avg (no spike); 1-month return vs SPY: -1.2%</span></div>
-<div class="avoid"><b>PFE</b> — looked bearish (conviction 12, needs 20+)<br>
-<span class="hint">MACD above signal, histogram rising; 6 headlines, mixed/neutral tone</span></div>
-<div class="hint" style="margin:10px 0">Grok live-X layer is off in this sample (add an XAI_API_KEY secret to enable). Using free news + StockTwits/Reddit.</div><h2>Elite Flows Watch</h2><div class="hint">What lawmakers have been buying recently (free House/Senate disclosures). A confirmation layer, not a trigger.</div>
-<div class="flow"><b>Recent lawmaker buys:</b><br>
-<div class="pill">NVDA · 3 buys · Nancy Pelosi</div><div class="pill">AVGO · 2 buys · Ro Khanna</div><div class="pill">MSFT · 2 buys/1 sells · Josh Gottheimer</div><div class="pill">JPM · 1 buys</div></div>
-<h2>Social Buzz</h2><div class="hint">Loudest retail chatter on StockTwits / Reddit. X/Twitter has no free API, so these are the free stand-ins. Heavy hype is often a <i>fade</i> — we weight this small.</div>
-<div class="buzz"><b>Most talked-about:</b><br>
-<div class="pill">NVDA · 14 mentions · trending</div><div class="pill">TSLA · 11 mentions · trending</div><div class="pill">SOFI · 9 mentions</div><div class="pill">GME · 7 mentions</div><div class="pill">PLTR · 5 mentions</div></div>
-<div class="buzz"><b>Proven strategy playbook</b> <span class="hint">(vetted tactics circulating on trading X/Reddit, folded in as education)</span>
-<ul><li><b>Day trade:</b> Opening Range Breakout (ORB) — mark the high/low of the first 5–30 minutes, then trade the breakout with volume confirmation.</li>
-<li><b>Day trade:</b> VWAP + 9/20 EMA pullbacks — buy retests in the trend's direction on 5–10 min charts; strong on SPY/QQQ.</li>
-<li><b>Swing:</b> Weekly trend + Fib 62–79% entry — trade with the weekly trend, enter on the pullback, target ~3R, exit if it drags past ~2 weeks.</li>
-<li><b>Swing:</b> Momentum breakout — fresh trend with stacked 8/20/50 EMAs; buy the first clean consolidation breakout.</li>
-<li><b>Swing:</b> 200 SMA flip — price breaks above the daily 200 SMA and it turns from resistance into support.</li>
-<li><b>Rule:</b> Specialize in ONE setup, risk ~1% per trade. That discipline IS the edge — swing traders generally out-earn pure day traders.</li></ul></div>
-<h2>My Budget</h2>
+</div><h2>Why NOT to trade these</h2><div class="hint">Tempting on the surface, but they don't clear the bar:</div><div class="avoid"><b>WKHS</b> — looked bullish (conviction 16, needs 20+)<br><span class="hint">20-day HV 56%, 29th percentile of past year (sleepy — option may decay before a move)</span></div><div class="avoid"><b>GRAB</b> — looked bearish (conviction 15, needs 20+)<br><span class="hint">10 headlines: 1 positive vs 0 negative keyword hits</span></div><div class="avoid"><b>NIO</b> — looked bearish (conviction 11, needs 20+)<br><span class="hint">MACD above signal, histogram rising</span></div><div class="avoid"><b>F</b> — looked bullish (conviction 19, needs 20+)<br><span class="hint">no clear candlestick pattern on the latest bar</span></div><div class="avoid"><b>AAL</b> — looked bearish (conviction 16, needs 20+)<br><span class="hint">10 headlines: 5 positive vs 2 negative keyword hits</span></div><div class="avoid"><b>SOFI</b> — looked bearish (conviction 16, needs 20+)<br><span class="hint">20-day HV 58%, 63th percentile of past year (elevated — good movement potential); 10 headlines: 2 positive vs 0 negative keyword hits</span></div><h2>Elite Flows Watch</h2><div class="flow"><b>No fresh lawmaker buys on file</b> <span class="hint">(or the disclosure feed was quiet/unavailable today).</span></div><h2>Social Buzz</h2><div class="hint">Loudest retail chatter on StockTwits / Reddit. X/Twitter has no free API, so these are the free stand-ins. Heavy hype is often a <i>fade</i> — we weight this small.</div><div class="buzz"><b>Most talked-about:</b><br><div class="pill">MSFT · 3 mentions · trending</div><div class="pill">AMZN · 3 mentions · trending</div><div class="pill">HOOD · 3 mentions · trending</div><div class="pill">QCOM · 3 mentions · trending</div><div class="pill">ARM · 3 mentions · trending</div></div><div class="buzz"><b>Proven strategy playbook</b> <span class="hint">(vetted tactics circulating on trading X/Reddit, folded in as education)</span><ul><li><b>Day trade:</b> Opening Range Breakout (ORB) — mark the high/low of the first 5-30 minutes, then trade the breakout with volume confirmation. Repeatedly called one of the cleanest, most reliable day setups.</li><li><b>Day trade:</b> VWAP + 9/20 EMA pullbacks — on 5-10 min charts, buy retests in the direction of the trend. Strong on SPY/QQQ, often paired with ORB.</li><li><b>Swing:</b> Weekly trend + Optimal Trade Entry (Fib 62-79%) — trade with the weekly trend, enter on the pullback, target ~3R, and close if it takes longer than ~2 weeks.</li><li><b>Swing:</b> Momentum breakout after first consolidation — fresh trend with stacked 8/20/50 EMAs, buy the first clean pullback/consolidation breakout.</li><li><b>Swing:</b> 200 SMA flip — price breaks above the daily 200 SMA and it turns from resistance into support. Simple continuation.</li><li><b>Rule:</b> Specialize in ONE setup and use strict risk (~1% or less per trade). High-signal accounts say this discipline IS the edge — swing traders generally out-earn pure day traders.</li></ul></div><div class="hint" style="margin:10px 0">𝕏 Grok live X/news read is <b style="color:var(--green)">ON</b> for today's trades.</div><h2>My Budget</h2>
 <div class="hint">Simulated bankroll — stored only in your browser. Set a budget, tap "Take this trade" on picks you'd play, and it grows or shrinks automatically as picks get graded.</div>
 <div class="card" id="sm-budget">
 <div id="sm-setup">
@@ -251,19 +224,16 @@ Moon: <b>Waxing Crescent</b> in <b>Virgo</b> · Numerology: <b>7</b>
 <select id="sm-broker"><option value="">choose…</option><option value="robinhood" selected>Robinhood</option><option value="webull">Webull</option><option value="fidelity">Fidelity</option><option value="schwab">Charles Schwab</option><option value="thinkorswim">thinkorswim</option><option value="etrade">E*TRADE</option><option value="ibkr">Interactive Brokers</option><option value="tastytrade">tastytrade</option><option value="public">Public</option><option value="sofi">SoFi Invest</option><option value="ally">Ally Invest</option><option value="tradestation">TradeStation</option><option value="firstrade">Firstrade</option><option value="moomoo">moomoo</option></select>
 </div>
 <div class="hint" style="margin-top:8px">Brokers don't allow outside websites to place trades for you (that needs their own app + your login). "Open in broker" copies the exact order to your clipboard and opens the ticker at your broker — paste and confirm there.</div>
-</div>
-<h2>Performance</h2>
+</div><h2>Performance</h2>
 <div class="record">
 <div class="stat"><div class="v">0-0</div><div class="l">Win / Loss</div></div>
 <div class="stat"><div class="v" style="color:#34d399">+0.0%</div><div class="l">Est. cum P/L</div></div>
-<div class="stat"><div class="v">0</div><div class="l">Open</div></div>
+<div class="stat"><div class="v">5</div><div class="l">Open</div></div>
 </div>
-<div class="hint">Since 2026-07-17 · graded automatically after 10 trading days</div>
+<div class="hint">Since 2026-07-30 · graded automatically after 10 trading days</div>
 <div class="chart"><div class="hint">Chart appears once at least two picks are graded.</div></div>
 <div class="disc"><b>Not financial advice.</b> This is an automated research &amp; education experiment,
 built for tracking a system — not professional trading guidance. Options can lose 100% of the premium paid.
 Never trade money you can't afford to lose. The moon/numerology layer is for fun and weighted accordingly.</div>
 <div class="foot">Generated by St0ckMarken · conviction threshold 20 · free data via Yahoo Finance ·
-flat 1-position sizing · for your own records</div>
-</div><script>window.SM_DATA={"plays":[{"t":"NVDA","date":"2026-07-17","kind":"LONG CALL","cost":435,"prem":4.35,"spot":178.42},{"t":"SOFI","date":"2026-07-17","kind":"LONG CALL","cost":84,"prem":0.82,"spot":16.24},{"t":"CVNA","date":"2026-07-17","kind":"LONG PUT","cost":1475,"prem":14.60,"spot":319.80}],"graded":[]};</script>
-<script src="budget.js"></script></body></html>
+flat 1-position sizing · for your own records</div></div><script>window.SM_DATA={"plays": [{"t": "PLUG", "date": "2026-07-30", "kind": "LONG PUT", "cost": 16.0, "prem": 0.15, "spot": 2.07}, {"t": "AMC", "date": "2026-07-30", "kind": "CASH-SECURED PUT", "cost": 250.0, "prem": 0.17, "spot": 2.73}, {"t": "BBAI", "date": "2026-07-30", "kind": "LONG PUT", "cost": 13.0, "prem": 0.12, "spot": 2.81}, {"t": "JBLU", "date": "2026-07-30", "kind": "LONG CALL", "cost": 37.0, "prem": 0.35, "spot": 5.99}, {"t": "AUR", "date": "2026-07-30", "kind": "LONG PUT", "cost": 50.0, "prem": 0.45, "spot": 6.08}], "graded": []};</script><script src="budget.js"></script></body></html>
