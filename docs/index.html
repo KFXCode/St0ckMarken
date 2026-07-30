@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e1420"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="St0ckMarken">
+<title>St0ckMarken — 2026-07-17 (SAMPLE)</title><style>
+:root{--bg:#0e1420;--card:#17202f;--card2:#1e2a3c;--line:#293a52;--txt:#e9edf4;--dim:#93a1b8;
+--green:#34d399;--red:#fb7185;--gold:#f5b84c;--blue:#7aa5f8;--purple:#b79df5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font:16px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+padding:0 0 40px;max-width:520px;margin:0 auto}
+.wrap{padding:14px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:5}
+.brand{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.brand span{color:var(--green)}
+.hero{padding:18px 16px 6px}
+.hero .pv{font-size:38px;font-weight:800;letter-spacing:-.03em}
+.hero .pc{font-size:15px;font-weight:600;margin-top:2px}
+.hero .pl{font-size:13px;color:var(--dim);margin-top:2px}
+a{color:var(--blue)} a:hover{color:#93c5fd}
+h1{font-size:26px;margin:6px 0 2px} .sub{color:var(--dim);font-size:14px}
+.meta{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:14px 0;font-size:14px}
+.meta b{color:var(--gold)}
+.warn{background:#261e10;border:1px solid #4d3d18;border-radius:12px;padding:12px 14px;margin:14px 0;font-size:13.5px;color:#eec877}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:16px 0}
+.playtag{font-size:12px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.title{font-size:21px;font-weight:700;margin:4px 0 2px}
+.dir-b{color:var(--green)} .dir-s{color:var(--red)}
+.stats{display:flex;gap:8px;margin:12px 0}
+.stat{flex:1;background:var(--card2);border-radius:10px;padding:10px 6px;text-align:center}
+.stat .v{font-size:19px;font-weight:700} .stat .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.plain{background:#0f2620;border:1px solid #1f4a3a;border-radius:10px;padding:11px 13px;font-size:14px;margin:12px 0}
+.plain.bear{background:#271620;border-color:#4a2635}
+ul{margin:8px 0 0 18px;font-size:14px;color:#c6cdd8} li{margin:4px 0}
+.why{font-size:14px;font-weight:600;margin-top:12px}
+.tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tag{font-size:12px;padding:3px 10px;border-radius:99px;background:var(--card2);border:1px solid var(--line);color:var(--dim)}
+.tag.good{color:var(--green);border-color:#1f4a3a}
+.avoid{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:10px 0;font-size:14px}
+.avoid b{font-size:15px}
+.record{display:flex;gap:8px;margin:16px 0}
+h2{font-size:18px;margin:26px 0 6px} .hint{color:var(--dim);font-size:13px}
+.chart{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:14px 0}
+.foot{color:var(--dim);font-size:12.5px;text-align:center;margin-top:30px;line-height:1.7}
+.disc{background:#271620;border:1px solid #4a2635;border-radius:12px;padding:12px 14px;margin:20px 0;font-size:13px;color:#eeadbe}
+button{cursor:pointer;font-family:inherit}
+.take{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.tbtn{width:32px;height:32px;border-radius:8px;background:var(--card2);border:1px solid var(--line);color:var(--txt);font-size:17px}
+.tq{min-width:22px;text-align:center;font-weight:700}
+.takebtn{background:#1f4a3a;border:1px solid #2c6a52;color:#7de8bb;border-radius:8px;padding:7px 14px;font-size:14px;font-weight:600}
+.takebtn:disabled{opacity:.55;cursor:default}
+.pot{font-size:12.5px;color:var(--dim);width:100%}
+.pos{background:var(--card2);border-radius:8px;padding:8px 10px;margin:6px 0;font-size:14px}
+#sm-amt{flex:1;min-width:0;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:9px 12px;color:var(--txt);font-size:16px}
+.linkbtn{background:none;border:none;color:var(--dim);font-size:12.5px;text-decoration:underline;margin-top:10px;padding:0}
+.guide{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 16px;margin:16px 0}
+.guide summary{font-size:15px;font-weight:700;padding:12px 0;cursor:pointer;color:#7de8bb}
+.gsec{font-size:14px;color:#c6cdd8;margin:0 0 14px;line-height:1.6}
+.gsec b{color:var(--txt)}
+.flow{background:#101d17;border:1px solid #234032;border-radius:12px;padding:12px 14px;margin:10px 0;font-size:14px}
+.flow b{color:#7de8bb}
+.buzz{background:#1a1526;border:1px solid #3a2f52;border-radius:12px;padding:12px 14px;margin:10px 0;font-size:14px}
+.buzz b{color:#c3aef0}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:99px;background:var(--card2);border:1px solid var(--line);color:var(--dim);margin:3px 4px 0 0}
+.cndl{background:#0d1a26;border:1px solid #1d3a52;border-radius:10px;padding:11px 13px;font-size:13.5px;margin:12px 0;color:#a9d2ec}
+.cndl b{color:#7ec8f5}
+.grok{background:#12140f;border:1px solid #2c3320;border-radius:10px;padding:11px 13px;font-size:13.5px;margin:12px 0;color:#c9d6b5}
+.grok b{color:var(--green)}
+.grow{background:#0f2620;border:1px solid #1f4a3a;border-radius:10px;padding:11px 13px;font-size:13.5px;margin:12px 0;color:#a9dcc3}
+.grow b{color:#7de8bb}
+.hist{background:#1d1a2e;border:1px solid #3a3260;border-radius:10px;padding:11px 13px;font-size:13.5px;margin:12px 0;color:#c9c2ea}
+.brokerbtn{background:#1b2c4a;border:1px solid #2c4468;color:#9ec1f0;border-radius:8px;padding:7px 14px;font-size:14px;font-weight:600}
+.scn{display:flex;justify-content:space-between;font-size:12.5px;color:var(--dim);padding:2.5px 0;border-bottom:1px dashed #223044}
+.scn:last-child{border-bottom:none}
+.scn-h{color:var(--txt);font-weight:600}
+#sm-broker{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--txt);font-size:14px;flex:1;min-width:0}
+.sample{background:#152238;border:1px solid #2c4468;border-radius:12px;padding:12px 14px;margin:14px 0;font-size:13.5px;color:#9ec1f0}
+</style></head><body>
+<div class="topbar"><div class="brand">St0ck<span>Marken</span></div><div class="pl" style="color:var(--dim);font-size:12px">2026-07-17</div></div>
+<div class="hero"><div class="pl">Your paper portfolio</div>
+<div class="pv" id="sm-hero-pv">Set a budget ↓</div>
+<div class="pc" id="sm-hero-pc"></div>
+<div class="pl">SPY 627.58 (+0.4%) · VIX 16.2 · 3 trades today</div></div>
+<div class="wrap">
+<div class="sample"><b>SAMPLE REPORT</b> — this is example output with illustrative numbers so you can see the format. Your first real report replaces this after the pipeline's first run.</div>
+<div class="meta">Market: SPY <b>627.58</b> (+0.4%) · VIX <b>16.2</b><br>
+Scanned: <b>98 tickers</b> · Cleared the bar: <b>3</b><br>
+Moon: <b>Waxing Crescent</b> in <b>Virgo</b> · Numerology: <b>7</b>
+<span class="hint">(flavor layer, 5% weight)</span></div>
+<details class="guide" open>
+<summary>👋 How to use this app (read me first!)</summary>
+<div class="gsec"><b>What this app is.</b> Every morning a robot looks at hundreds of stocks and picks a few really good ones it thinks will go up (or down). It shows you exactly what to buy. Your job is just to copy the trade. Easy!</div>
+<div class="gsec"><b>Step 1 — put in your money amount.</b> Scroll to <b>My Budget</b> and type how much you're starting with (even $20 is fine). Tap <b>Start</b>. This is pretend money at first, so you can practice with zero risk.</div>
+<div class="gsec"><b>Step 2 — pick a trade.</b> Each <b>green card</b> is one trade idea. Look for the green <b>$100-friendly ✓</b> tag — those are cheap enough for a small budget. Read the <b>"In plain English"</b> box to see what it does.</div>
+<div class="gsec"><b>Step 3 — see how much you could make.</b> The <b>"How your money can grow"</b> box shows what happens if the stock goes up… and the most you could lose (never more than what you pay). The blue box shows the <b>chart shapes</b> the robot spotted and why they matter.</div>
+<div class="gsec"><b>Step 4 — take the trade.</b> Pick how many contracts with the <b>−</b> and <b>+</b> buttons, then tap <b>Take this trade</b> to add it to your practice money. Ready for real? Tap <b>Open in Robinhood</b> — it copies the order so you just paste and press buy in your Robinhood app.</div>
+<div class="gsec"><b>Step 5 — watch it grow.</b> After a trade finishes, the app grades it a WIN or LOSS and updates your money. The <b>📈 Weekly Progress</b> section shows your money getting bigger week by week. Set a <b>🎯 weekly goal</b> and it tells you the honest truth about what's possible.</div>
+<div class="gsec"><b>⭐ Golden rules.</b> 1) Only use money you're okay losing. 2) Start with the cheap trades. 3) Nothing sells by itself — you must tap <b>Sell to Close</b> in Robinhood to keep your profit. 4) Slow and steady wins — small wins stack up into big money over time.</div>
+</details>
+<details class="guide">
+<summary>📗 New to options? Start here — the plain-English guide</summary>
+<div class="gsec"><b>What you're actually buying.</b> A <b>call</b> is like a coupon: it gives you the right to buy 100 shares at a set price (the <b>strike</b>) until a set date (the <b>expiration</b>). A <b>put</b> is the same but for selling — it gains value when the stock FALLS. The price of the coupon itself is the <b>premium</b>. Premium $0.82 = one contract costs $82 (× 100 shares). You never have to actually buy the 100 shares — almost everyone just sells the coupon itself once it's worth more.</div>
+<div class="gsec"><b>Step 0 — turn on options at your broker (one time).</b> Every app makes you enable options first: find <i>Settings → Options Trading → Enable</i> (Robinhood, Webull) or apply for "options approval" (Fidelity, Schwab). They ask a few questions about experience and income — answer honestly; <b>"Level 1–2" approval is all you need</b> to buy calls and puts. Approval usually takes minutes to a day.</div>
+<div class="gsec"><b>Step-by-step: placing a pick from this report.</b><br>
+1. Open your broker and search the ticker (e.g. SOFI).<br>
+2. Tap <i>Trade → Options</i> (not the regular Buy button — that buys shares).<br>
+3. Pick the <b>expiration date</b> shown on the card.<br>
+4. Scroll the strike list to the <b>strike</b> on the card. Calls and puts are separate tabs — make sure you're on the right one.<br>
+5. Choose <b>Buy to Open</b>, quantity <b>1 contract</b>.<br>
+6. Set a <b>limit price</b> at (or a couple cents above) the premium on the card — never use a market order on options.<br>
+7. Review: the cost should match the card (premium × 100). Submit.</div>
+<div class="gsec"><b>⚠️ It does NOT sell itself.</b> If the premium rises, nothing happens automatically — the profit is only yours when you tap <b>Sell to Close</b> on that contract. If you never sell: the option loses a little value every single day (<b>time decay</b>), a paper profit can melt back to zero, and at expiration an out-of-the-money option becomes worthless — you lose the whole premium. (If it finishes IN the money, most brokers auto-sell or auto-exercise it on expiration day, but never rely on that — sell it yourself before expiry week.)</div>
+<div class="gsec"><b>A simple exit plan (what most disciplined traders do).</b> Decide before you buy: take profit by selling at +50% to +100%; cut the loss by selling at −50%; and no matter what, be out at least a week before expiration, when time decay is fastest.</div>
+<div class="gsec"><b>Why the engine picked these.</b> Every night it scans ~100 liquid stocks, and only shows a trade when trend, momentum (RSI/MACD), volume, and strength vs the market all point the same way — then it backtests that exact setup on up to 10 years of history (the purple box) to show how often it actually worked. If nothing clears the bar, it shows nothing. Staying in cash is a position.</div>
+</details>
+<div class="warn"><b>Earnings this week — extra risk</b><ul><li>NFLX reports earnings Jul 21 — big-move risk in either direction.</li></ul></div>
+<div class="card" data-screen-label="Trade 1">
+<div class="playtag">Trade #1 · SWING (days–weeks) · 1 position</div>
+<div class="title">NIO <span class="dir-b">LONG CALL</span></div>
+<div class="sub">BUY the $5 strike · expires 2026-08-21 · stock at $4.85</div>
+<div class="stats">
+<div class="stat"><div class="v">28</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">63</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.35</div><div class="l">Premium</div></div>
+</div>
+<div class="plain"><b>In plain English:</b> Buy the $5 call expiring 2026-08-21 for ~$35. Max loss = what you pay. Profits if NIO rises meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$35 once (the $0.35 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $0.70, your $35 becomes $70 (+100%). On a big move past the $5 strike it could reach $1.75, turning $35 into $175 (+400%). <b>Can you lose more than $35?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul><li><b>Bullish Engulfing</b> (bullish): Today's green candle completely swallows yesterday's red one. Buyers overpowered sellers in a big way.</li><li><b>Hammer</b> (bullish): A candle with a long tail poking DOWN. Sellers pushed price down but buyers slapped it right back up.</li></ul></div><div class="hist"><b>History check (10 yrs of data):</b> this exact signal setup appeared <b>176</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>68%</b> of the time (avg best move +7.4%). July has averaged +2.1% for NIO historically.</div>
+<div class="why">Why this trade sets up:</div><ul>
+<li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +11.3%</li><li><b>Candlestick:</b> Bullish Engulfing, Hammer</li>
+<li><b>RSI:</b> RSI(14) = 62 (bullish momentum zone)</li>
+<li><b>MACD:</b> MACD above signal, histogram rising</li>
+<li><b>Volume:</b> volume spike 1.8x 20-day avg on an up day</li>
+<li><b>Rel. strength:</b> 1-month return vs SPY: +6.1%</li>
+<li><b>Volatility:</b> 20-day HV 38%, 58th percentile of past year (elevated — good movement potential)</li>
+<li><b>News:</b> 7 headlines: 3 positive vs 1 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> 12 social mentions, tone +5 (StockTwits trending)</li>
+<li><b>Flavor:</b> Waxing Crescent (12% illuminated) -&gt; mild bullish bias</li>
+<li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li>
+<li><b>Flavor:</b> Date reduces to 7 -&gt; momentum bias</li>
+</ul>
+<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 41,900</span><span class="tag">Bullish</span></div>
+<div class="take" data-t="NIO" data-date="2026-07-17" data-strike="5" data-exp="2026-08-21" data-action="BUY" data-cost="35" data-prem="0.35" data-spot="4.85" data-kind="LONG CALL">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div>
+<div class="card" data-screen-label="Trade 2">
+<div class="playtag">Trade #2 · SWING (days–weeks) · 1 position</div>
+<div class="title">SOFI <span class="dir-b">LONG CALL</span></div>
+<div class="sub">BUY the $17 strike · expires 2026-08-21 · stock at $16.24</div>
+<div class="stats">
+<div class="stat"><div class="v">27</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">64</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.82</div><div class="l">Premium</div></div>
+</div>
+<div class="plain"><b>In plain English:</b> Buy the $17 call expiring 2026-08-21 for ~$84. Max loss = what you pay. Profits if SOFI rises meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$82 once (the $0.82 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $1.64, your $82 becomes $164 (+100%). On a big move past the $17 strike it could reach $4.17, turning $82 into $417 (+408%). <b>Can you lose more than $82?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul><li><b>Bullish Pin Bar</b> (bullish): A skinny candle with a long bottom wick. The market dipped, got rejected, and closed back up — a "no thanks" to lower prices.</li></ul></div><div class="hist"><b>History check (5.5 yrs of data):</b> this exact signal setup appeared <b>87</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>66%</b> of the time (avg best move +5.1%). July has averaged +1.8% for SOFI historically.</div>
+<div class="why">Why this trade sets up:</div><ul>
+<li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +7.8%</li><li><b>Candlestick:</b> Bullish Pin Bar</li>
+<li><b>RSI:</b> RSI(14) = 59 (bullish momentum zone)</li>
+<li><b>MACD:</b> MACD above signal, histogram rising</li>
+<li><b>Volume:</b> volume spike 2.3x 20-day avg on an up day</li>
+<li><b>Rel. strength:</b> 1-month return vs SPY: +4.7%</li>
+<li><b>Volatility:</b> 20-day HV 52%, 47th percentile of past year (normal)</li>
+<li><b>News:</b> 8 headlines: 3 positive vs 1 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> 9 social mentions, tone +3</li>
+<li><b>Flavor:</b> Waxing Crescent (12% illuminated) -&gt; mild bullish bias</li>
+<li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li>
+<li><b>Flavor:</b> Date reduces to 7 -&gt; momentum bias</li>
+</ul>
+<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 3,912</span><span class="tag">Bullish</span></div>
+<div class="take" data-t="SOFI" data-date="2026-07-17" data-strike="17" data-exp="2026-08-21" data-action="BUY" data-cost="84" data-prem="0.82" data-spot="16.24" data-kind="LONG CALL">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div>
+<div class="card" data-screen-label="Trade 3">
+<div class="playtag">Trade #3 · SWING (days–weeks) · 1 position</div>
+<div class="title">PLUG <span class="dir-b">LONG CALL</span></div>
+<div class="sub">BUY the $4 strike · expires 2026-08-21 · stock at $3.90</div>
+<div class="stats">
+<div class="stat"><div class="v">24</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">38</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.28</div><div class="l">Premium</div></div>
+</div>
+<div class="plain"><b>In plain English:</b> Buy the $4 call expiring 2026-08-21 for ~$28. Max loss = what you pay. Profits if PLUG rises meaningfully before expiry.</div><div class="grow"><b>How your money can grow:</b> you pay ~$28 once (the $0.28 premium × 100 shares) — and that is your entire risk. The contract itself trades, and its price moves several times faster than the stock. If the premium doubles to $0.56, your $28 becomes $56 (+100%). On a big move past the $4 strike it could reach $1.40, turning $28 into $140 (+400%). <b>Can you lose more than $28?</b> No — when you BUY a call or put, your loss is capped at exactly what you paid; worst case it expires worthless. <b>Can you gain more than you paid?</b> Yes — the upside is uncapped. <b>One more thing:</b> profits are NOT taken automatically — you must tap "Sell to Close" at your broker to lock them in before expiration (full walkthrough in the beginner guide up top).</div><div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul><li><b>Morning Star</b> (bullish): Three candles — a big red, a tiny pause, then a big green. Classic "sun coming up" bottom; buyers take charge.</li><li><b>Bullish Pin Bar</b> (bullish): A long bottom wick — the market dipped, got rejected, and closed back up.</li></ul></div><div class="hist"><b>History check (7 yrs of data):</b> this exact signal setup appeared <b>98</b> times; the stock moved ≥1.5% in this direction within 10 trading days <b>65%</b> of the time (avg best move +8.9%). July has averaged +1.4% for PLUG historically.</div>
+<div class="why">Why this trade sets up:</div><ul>
+<li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +9.1%</li><li><b>Candlestick:</b> Morning Star, Bullish Pin Bar</li>
+<li><b>RSI:</b> RSI(14) = 57 (bullish momentum zone)</li>
+<li><b>MACD:</b> MACD above signal, histogram rising</li>
+<li><b>Volume:</b> volume spike 2.1x 20-day avg on an up day</li>
+<li><b>Rel. strength:</b> 1-month return vs SPY: +5.3%</li>
+<li><b>Volatility:</b> 20-day HV 68%, 66th percentile of past year (elevated — good movement potential)</li>
+<li><b>News:</b> 6 headlines: 3 positive vs 1 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> 8 social mentions, tone +3</li>
+<li><b>Flavor:</b> Waxing Crescent (12% illuminated) -&gt; mild bullish bias</li>
+<li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li>
+<li><b>Flavor:</b> Date reduces to 7 -&gt; momentum bias</li>
+</ul>
+<div class="tagrow"><span class="tag good">$100-friendly ✓</span><span class="tag">OI 22,600</span><span class="tag">Bullish</span></div>
+<div class="take" data-t="PLUG" data-date="2026-07-17" data-strike="4" data-exp="2026-08-21" data-action="BUY" data-cost="28" data-prem="0.28" data-spot="3.90" data-kind="LONG CALL">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div>
+<h2>Why NOT to trade these</h2><div class="hint">Tempting on the surface, but they don't clear the bar:</div>
+<div class="avoid"><b>TSLA</b> — looked bullish (conviction 16, needs 20+)<br>
+<span class="hint">RSI(14) = 71 (overbought — chase risk); 20-day HV 74%, 88th percentile of past year (extreme — options likely overpriced)</span></div>
+<div class="avoid"><b>MARA</b> — looked bullish (conviction 14, needs 20+)<br>
+<span class="hint">volume 0.9x 20-day avg (no spike); 1-month return vs SPY: -1.2%</span></div>
+<div class="avoid"><b>PFE</b> — looked bearish (conviction 12, needs 20+)<br>
+<span class="hint">MACD above signal, histogram rising; 6 headlines, mixed/neutral tone</span></div>
+<div class="hint" style="margin:10px 0">Grok live-X layer is off in this sample (add an XAI_API_KEY secret to enable). Using free news + StockTwits/Reddit.</div><h2>Elite Flows Watch</h2><div class="hint">What lawmakers have been buying recently (free House/Senate disclosures). A confirmation layer, not a trigger.</div>
+<div class="flow"><b>Recent lawmaker buys:</b><br>
+<div class="pill">NVDA · 3 buys · Nancy Pelosi</div><div class="pill">AVGO · 2 buys · Ro Khanna</div><div class="pill">MSFT · 2 buys/1 sells · Josh Gottheimer</div><div class="pill">JPM · 1 buys</div></div>
+<h2>Social Buzz</h2><div class="hint">Loudest retail chatter on StockTwits / Reddit. X/Twitter has no free API, so these are the free stand-ins. Heavy hype is often a <i>fade</i> — we weight this small.</div>
+<div class="buzz"><b>Most talked-about:</b><br>
+<div class="pill">NVDA · 14 mentions · trending</div><div class="pill">TSLA · 11 mentions · trending</div><div class="pill">SOFI · 9 mentions</div><div class="pill">GME · 7 mentions</div><div class="pill">PLTR · 5 mentions</div></div>
+<div class="buzz"><b>Proven strategy playbook</b> <span class="hint">(vetted tactics circulating on trading X/Reddit, folded in as education)</span>
+<ul><li><b>Day trade:</b> Opening Range Breakout (ORB) — mark the high/low of the first 5–30 minutes, then trade the breakout with volume confirmation.</li>
+<li><b>Day trade:</b> VWAP + 9/20 EMA pullbacks — buy retests in the trend's direction on 5–10 min charts; strong on SPY/QQQ.</li>
+<li><b>Swing:</b> Weekly trend + Fib 62–79% entry — trade with the weekly trend, enter on the pullback, target ~3R, exit if it drags past ~2 weeks.</li>
+<li><b>Swing:</b> Momentum breakout — fresh trend with stacked 8/20/50 EMAs; buy the first clean consolidation breakout.</li>
+<li><b>Swing:</b> 200 SMA flip — price breaks above the daily 200 SMA and it turns from resistance into support.</li>
+<li><b>Rule:</b> Specialize in ONE setup, risk ~1% per trade. That discipline IS the edge — swing traders generally out-earn pure day traders.</li></ul></div>
+<h2>My Budget</h2>
+<div class="hint">Simulated bankroll — stored only in your browser. Set a budget, tap "Take this trade" on picks you'd play, and it grows or shrinks automatically as picks get graded.</div>
+<div class="card" id="sm-budget">
+<div id="sm-setup">
+<div class="title" style="font-size:17px">Set your starting budget</div>
+<div class="hint">Any amount — even $20 works. Nothing leaves your device.</div><div class="hint" style="margin-top:8px">💡 <b>Starting with $20?</b> Look for the green <b>$100-friendly ✓</b> trades — many cost under $20 for one contract. Buy ONE, let it work, and grow from there. You can never lose more than what one contract costs.</div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<input id="sm-amt" type="number" min="1" inputmode="decimal" placeholder="e.g. 100">
+<button class="takebtn" id="sm-start-btn">Start</button>
+</div></div>
+<div id="sm-dash" style="display:none">
+<div class="stats">
+<div class="stat"><div class="v" id="sm-v-start">$0</div><div class="l">Started</div></div>
+<div class="stat"><div class="v" id="sm-v-now">$0</div><div class="l">Now</div></div>
+<div class="stat"><div class="v" id="sm-v-gr">0%</div><div class="l">Growth</div></div>
+</div>
+<div class="hint" id="sm-cash"></div>
+<div style="border-top:1px solid var(--line);margin-top:14px;padding-top:12px">
+<div class="why" style="margin-top:0">🎯 My weekly goal</div>
+<div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+<span class="hint" style="white-space:nowrap">Make per week:</span>
+<input id="sm-goal" type="number" min="1" inputmode="decimal" placeholder="e.g. 100" style="flex:1;min-width:0;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;color:var(--txt);font-size:15px">
+</div>
+<div id="sm-goal-out" style="margin-top:10px"><span class="hint">Type a weekly $ goal above to see the honest math.</span></div>
+</div>
+<div id="sm-open"></div><div id="sm-closed"></div>
+<div id="sm-weekly" style="border-top:1px solid var(--line);margin-top:14px;padding-top:12px"></div>
+<button class="linkbtn" id="sm-reset">Reset budget tracker</button>
+</div>
+<div style="display:flex;gap:8px;align-items:center;margin-top:14px;border-top:1px solid var(--line);padding-top:12px">
+<span class="hint" style="white-space:nowrap">Your broker:</span>
+<select id="sm-broker"><option value="">choose…</option><option value="robinhood" selected>Robinhood</option><option value="webull">Webull</option><option value="fidelity">Fidelity</option><option value="schwab">Charles Schwab</option><option value="thinkorswim">thinkorswim</option><option value="etrade">E*TRADE</option><option value="ibkr">Interactive Brokers</option><option value="tastytrade">tastytrade</option><option value="public">Public</option><option value="sofi">SoFi Invest</option><option value="ally">Ally Invest</option><option value="tradestation">TradeStation</option><option value="firstrade">Firstrade</option><option value="moomoo">moomoo</option></select>
+</div>
+<div class="hint" style="margin-top:8px">Brokers don't allow outside websites to place trades for you (that needs their own app + your login). "Open in broker" copies the exact order to your clipboard and opens the ticker at your broker — paste and confirm there.</div>
+</div>
+<h2>Performance</h2>
+<div class="record">
+<div class="stat"><div class="v">0-0</div><div class="l">Win / Loss</div></div>
+<div class="stat"><div class="v" style="color:#34d399">+0.0%</div><div class="l">Est. cum P/L</div></div>
+<div class="stat"><div class="v">0</div><div class="l">Open</div></div>
+</div>
+<div class="hint">Since 2026-07-17 · graded automatically after 10 trading days</div>
+<div class="chart"><div class="hint">Chart appears once at least two picks are graded.</div></div>
+<div class="disc"><b>Not financial advice.</b> This is an automated research &amp; education experiment,
+built for tracking a system — not professional trading guidance. Options can lose 100% of the premium paid.
+Never trade money you can't afford to lose. The moon/numerology layer is for fun and weighted accordingly.</div>
+<div class="foot">Generated by St0ckMarken · conviction threshold 20 · free data via Yahoo Finance ·
+flat 1-position sizing · for your own records</div>
+</div><script>window.SM_DATA={"plays":[{"t":"NVDA","date":"2026-07-17","kind":"LONG CALL","cost":435,"prem":4.35,"spot":178.42},{"t":"SOFI","date":"2026-07-17","kind":"LONG CALL","cost":84,"prem":0.82,"spot":16.24},{"t":"CVNA","date":"2026-07-17","kind":"LONG PUT","cost":1475,"prem":14.60,"spot":319.80}],"graded":[]};</script>
+<script src="budget.js"></script></body></html>
