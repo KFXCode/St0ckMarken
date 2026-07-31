@@ -230,8 +230,8 @@ wire();labelBrokerBtns();render();
 /* ================= AUTO-BOT (pretend money, fully hands-free) ================= */
 function bg(k){return JSON.parse(localStorage.getItem('smbot_'+k)||'null')}
 function bs(k,v){localStorage.setItem('smbot_'+k,JSON.stringify(v))}
-function botState(){return{on:bg('on')||false,start:bg('start'),cash:bg('cash')||0,open:bg('open')||[],closed:bg('closed')||[],per:bg('per')||10}}
-function botSave(b){bs('on',b.on);bs('cash',b.cash);bs('open',b.open);bs('closed',b.closed);bs('per',b.per)}
+function botState(){return{on:bg('on')||false,start:bg('start'),cash:bg('cash')||0,open:bg('open')||[],closed:bg('closed')||[],speed:bg('speed')||7}}
+function botSave(b){bs('on',b.on);bs('cash',b.cash);bs('open',b.open);bs('closed',b.closed);bs('speed',b.speed)}
 function botReconcile(b){var ch=false;
  b.open=b.open.filter(function(pos){
   var gr=D.graded.find(function(x){return x.date===pos.date&&x.t===pos.t});
@@ -240,14 +240,23 @@ function botReconcile(b){var ch=false;
   b.cash+=proceeds;b.closed.push(Object.assign({},pos,{pl:gr.pl,result:gr.result,proceeds:proceeds}));
   ch=true;return false});
  if(ch)botSave(b);}
-function botAutoTake(b){ // auto-buy today's picks with the bot's pretend money
+function botAutoTake(b){ // aim to double within b.speed days — fewer days = bigger, riskier bets
  if(!b.on||b.start==null)return;
- var per=b.per/100; var took=0;
- (D.plays||[]).forEach(function(p){
-  var already=b.open.concat(b.closed).some(function(x){return x.t===p.t&&x.date===p.date});
-  if(already)return;
-  var spend=Math.max(p.cost, b.cash*per); // aim ~per% of bankroll, at least one contract
-  var qty=Math.max(1,Math.floor((b.cash*per)/p.cost));
+ var today=(D.plays&&D.plays[0]&&D.plays[0].date)||null;
+ // set/refresh the doubling window: goal = 2x the balance when this window started
+ var winDate=bg('winDate'), winStart=bg('winStart'), winEnd=bg('winEnd');
+ var bal=b.cash+b.open.reduce(function(a,p){return a+p.cost},0);
+ if(!winStart){bs('winStart',bal);bs('winDate',today);winStart=bal;}
+ // aggressiveness by speed: 1 day=go big, 3 days=medium, 7 days=gentle
+ var frac = b.speed<=1?0.9 : b.speed<=3?0.55 : 0.30;
+ var picks=(D.plays||[]).filter(function(p){
+  if(p.rh===false)return false; // ONLY trades you can actually make on Robinhood
+  return !b.open.concat(b.closed).some(function(x){return x.t===p.t&&x.date===p.date});});
+ if(!picks.length)return;
+ var budgetEach=(b.cash*frac)/picks.length;
+ var took=0;
+ picks.forEach(function(p){
+  var qty=Math.max(1,Math.floor(budgetEach/p.cost));
   var cost=p.cost*qty;
   if(cost>b.cash){qty=Math.floor(b.cash/p.cost);cost=p.cost*qty;}
   if(qty<1||cost<=0)return;
@@ -268,8 +277,10 @@ function botRender(){var b=botState();
  txt('bot-record',wins+' wins · '+losses+' losses · '+b.open.length+' still going');
  var goalEl=document.getElementById('bot-goal');
  if(goalEl){
-  if(now>=b.start*2){goalEl.innerHTML='🎉 <b>YOU DID IT!</b> The bot DOUBLED the pretend money — from '+fmt(b.start)+' to '+fmt(now)+'! This is proof the practice worked. Real money is still risky, so go slow.';goalEl.style.background='#e5faef';goalEl.style.borderColor='#bfead2';goalEl.style.color='#0a6b45';}
-  else{var pct=Math.min(100,(now-b.start)/b.start*100);goalEl.innerHTML='🎯 Goal: <b>double the money</b> ('+fmt(b.start*2)+'). You are <b>'+pct.toFixed(0)+'%</b> of the way there.<div style="height:10px;background:#eceaff;border-radius:99px;margin-top:8px;overflow:hidden"><div style="height:100%;width:'+Math.max(2,pct)+'%;background:linear-gradient(90deg,#6c5ce7,#3aa0ff)"></div></div>';goalEl.style.background='';goalEl.style.borderColor='';goalEl.style.color='';}
+  var winStart=bg('winStart')||b.start, goal=winStart*2;
+  var label=b.speed<=1?'about 1 day':b.speed<=3?'about 3 days':'about a week';
+  if(now>=goal){bs('winStart',now);goalEl.innerHTML='🎉 <b>DOUBLED IT!</b> The bot grew '+fmt(winStart)+' into '+fmt(now)+' — 2× or more! Starting a fresh doubling goal now. Remember: bets grade over ~2 weeks, and some tries will miss.';goalEl.style.background='#e5faef';goalEl.style.borderColor='#bfead2';goalEl.style.color='#0a6b45';}
+  else{var pct=Math.min(100,(now-winStart)/winStart*100);goalEl.innerHTML='🎯 <b>Goal: double the money in '+label+'</b> — from '+fmt(winStart)+' to <b>'+fmt(goal)+'</b>. Right now: <b>'+pct.toFixed(0)+'%</b> there.<div style="height:10px;background:#eceaff;border-radius:99px;margin-top:8px;overflow:hidden"><div style="height:100%;width:'+Math.max(2,pct)+'%;background:linear-gradient(90deg,#6c5ce7,#3aa0ff)"></div></div><div class="hint" style="margin-top:6px">Slower goals are safer. A weekly double is already amazing if it keeps happening — small snowballs into big!</div>';goalEl.style.background='';goalEl.style.borderColor='';goalEl.style.color='';}
  }
  var oc=document.getElementById('bot-list');
  if(oc)oc.innerHTML=(b.closed.slice(-6).reverse().map(function(p){
@@ -288,7 +299,7 @@ if(botStart)botStart.onclick=function(){var v=parseFloat(document.getElementById
 var botReset=document.getElementById('bot-reset');
 if(botReset)botReset.onclick=function(){if(confirm('Reset the bot? Clears its pretend money and trades.')){
  ['on','start','cash','open','closed','per'].forEach(function(k){localStorage.removeItem('smbot_'+k)});botRender();}};
-var botPer=document.getElementById('bot-per');
-if(botPer){botPer.value=(bg('per')||10);botPer.onchange=function(){var b=botState();b.per=Math.max(1,Math.min(100,+botPer.value||10));botSave(b);botRender();}}
+var botPer=document.getElementById('bot-speed');
+if(botPer){botPer.value=(bg('speed')||7);botPer.onchange=function(){var b=botState();b.speed=+botPer.value||7;botSave(b);botRender();}}
 botRender();
 })();

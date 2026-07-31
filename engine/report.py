@@ -172,7 +172,7 @@ def _spark(series):
 
 BOT_CARD = """<h2>🤖 Auto-Bot (pretend money)</h2>
 <div class="botcard">
-<div class="hint" style="margin-bottom:10px">Turn this ON and the robot will <b>automatically "buy" every pick for you</b> with pretend money — no finger lifting! It sets the sell target, closes each bet, and keeps score. Watch it try to <b>double your money</b> over time, with zero real risk. This is how you test if the robot is any good BEFORE using real money.</div>
+<div class="hint" style="margin-bottom:10px">Turn this ON and the robot will <b>automatically "buy" trades for you every day</b> — no finger lifting! Its mission: <b>try to DOUBLE your money each day</b> by swinging big on the best picks (one trade, or a few trades — whatever it takes). It sets sell targets, closes bets, and keeps score. All <b>pretend money</b>, so you can watch a go-for-it bot with zero real risk.</div>
 <div id="bot-setup">
 <div class="title" style="font-size:18px">Give the bot some pretend money</div>
 <div class="hint">Pick a start amount. The bot does the rest by itself.</div>
@@ -192,12 +192,17 @@ BOT_CARD = """<h2>🤖 Auto-Bot (pretend money)</h2>
 </div>
 <div class="hint" id="bot-record" style="margin:4px 0 10px"></div>
 <div class="botgoal" id="bot-goal"></div>
-<div class="selrow"><span class="hint" style="white-space:nowrap">Bet size each trade:</span>
-<input id="bot-per" type="number" min="1" max="100" value="10" class="numin" style="max-width:80px"><span class="hint">% of money</span></div>
+<div class="selrow"><span class="hint" style="white-space:nowrap">Try to double in:</span>
+<select id="bot-speed" class="sel">
+<option value="7">About a week (safer 🐢)</option>
+<option value="3">About 3 days (medium)</option>
+<option value="1">About 1 day (wild 🔥)</option>
+</select></div>
 <div id="bot-list" style="margin-top:10px"></div>
 <button class="linkbtn" id="bot-reset">Reset the bot</button>
 </div>
-<div class="hint" style="margin-top:8px">🔒 <b>Why it's pretend:</b> real apps like Robinhood don't let outside websites place real trades for you, and a hands-free real-money bot can lose everything fast. Practice here first — if the bot doubles pretend money over months, THEN think about real money, slowly and with a grown-up.</div>
+<div class="hint" style="margin-top:8px">✅ <b>Robinhood-only:</b> the bot only takes trades you can actually make on Robinhood, so you can copy it. (It skips forex and gold/oil, which Robinhood doesn't do.)</div>
+<div class="hint" style="margin-top:8px">🔒 <b>Real talk:</b> doubling money fast is a giant goal — no real bot or trader can promise it, and trying with real money is how people lose everything. That's why this bot uses <b>pretend money</b>: watch the wins AND the misses safely. A steady weekly double is already amazing if it keeps happening.</div>
 </div>"""
 
 BUDGET_CARD = """<h2>💰 My Pretend Money</h2>
@@ -509,10 +514,13 @@ Trading real money is risky, and bets can lose ALL the money you put in. What ha
     for cls_items in (watch or {}).values():
         spot_plays += [w for w in cls_items if w.get("is_trade")]
     spot_plays += [w for w in (meme or []) if w.get("is_trade")]
+    RH_CRYPTO = {"BTC", "ETH", "SOL", "XRP", "ADA", "LINK", "AVAX", "LTC", "DOGE", "SHIB", "PEPE", "BONK"}
     sm_plays = [{"t": p["ticker"], "date": date_str, "kind": p["kind"], "cost": p["cost"],
-                 "prem": p["premium"], "spot": p["spot"]} for p in plays]
+                 "prem": p["premium"], "spot": p["spot"], "rh": True} for p in plays]  # stock options: all RH-tradeable
     sm_plays += [{"t": w["symbol"], "date": date_str, "kind": "SPOT", "cost": C.SPOT_POSITION_USD,
-                  "prem": w["price"], "spot": w["price"]} for w in spot_plays]
+                  "prem": w["price"], "spot": w["price"],
+                  "rh": w["symbol"].replace("-USD", "").replace("=X", "").replace("=F", "") in RH_CRYPTO}
+                 for w in spot_plays]
     sm_data = {"plays": sm_plays, "graded": graded}
     parts.append(f'</div><script>window.SM_DATA={json.dumps(sm_data)};</script>'
                  '<script src="budget.js"></script></body></html>')
