@@ -96,6 +96,14 @@ padding:10px 0;margin:0 0 4px}
 .tookbox input{width:20px;height:20px;accent-color:var(--green)}
 .limitbox{background:#fff7e6;border:1.5px solid #ffd98a;border-radius:14px;padding:12px 14px;font-size:13.5px;margin:12px 0;color:#8a5a12}
 .limitbox b{color:#b3730f}
+.botcard{background:linear-gradient(135deg,#efeaff,#e6f3ff);border:2px solid #c9bcff;border-radius:20px;padding:18px;margin:16px 0;box-shadow:0 8px 24px rgba(108,92,231,.14)}
+.switch{position:relative;display:inline-block;width:52px;height:30px}
+.switch input{opacity:0;width:0;height:0}
+.slider2{position:absolute;cursor:pointer;inset:0;background:#c9c9db;border-radius:99px;transition:.2s}
+.slider2:before{content:"";position:absolute;height:24px;width:24px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked+.slider2{background:#6c5ce7}
+.switch input:checked+.slider2:before{transform:translateX(22px)}
+.botgoal{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;margin:12px 0}
 """
 
 GUIDE = """
@@ -148,6 +156,36 @@ def _spark(series):
     return (f'<svg viewBox="0 0 {w} {h}" style="width:100%;height:auto">'
             f'<line x1="0" y1="{zero_y:.1f}" x2="{w}" y2="{zero_y:.1f}" stroke="#e3e6f4" stroke-dasharray="4 4"/>'
             f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="3" stroke-linejoin="round"/></svg>')
+
+BOT_CARD = """<h2>🤖 Auto-Bot (pretend money)</h2>
+<div class="botcard">
+<div class="hint" style="margin-bottom:10px">Turn this ON and the robot will <b>automatically "buy" every pick for you</b> with pretend money — no finger lifting! It sets the sell target, closes each bet, and keeps score. Watch it try to <b>double your money</b> over time, with zero real risk. This is how you test if the robot is any good BEFORE using real money.</div>
+<div id="bot-setup">
+<div class="title" style="font-size:18px">Give the bot some pretend money</div>
+<div class="hint">Pick a start amount. The bot does the rest by itself.</div>
+<div class="selrow">
+<input id="bot-amt" type="number" min="1" inputmode="decimal" placeholder="e.g. 100" class="numin">
+<button class="takebtn" id="bot-start-btn">Start the bot 🤖</button>
+</div></div>
+<div id="bot-dash" style="display:none">
+<div class="selrow" style="justify-content:space-between;align-items:center;margin-top:0">
+<span style="font-weight:800">Bot is running</span>
+<label class="switch"><input type="checkbox" id="bot-toggle"><span class="slider2"></span></label>
+</div>
+<div class="stats" style="margin-top:12px">
+<div class="stat"><div class="v" id="bot-v-start">$0</div><div class="l">Started</div></div>
+<div class="stat"><div class="v" id="bot-v-now">$0</div><div class="l">Now</div></div>
+<div class="stat"><div class="v" id="bot-v-gr">0%</div><div class="l">Growth</div></div>
+</div>
+<div class="hint" id="bot-record" style="margin:4px 0 10px"></div>
+<div class="botgoal" id="bot-goal"></div>
+<div class="selrow"><span class="hint" style="white-space:nowrap">Bet size each trade:</span>
+<input id="bot-per" type="number" min="1" max="100" value="10" class="numin" style="max-width:80px"><span class="hint">% of money</span></div>
+<div id="bot-list" style="margin-top:10px"></div>
+<button class="linkbtn" id="bot-reset">Reset the bot</button>
+</div>
+<div class="hint" style="margin-top:8px">🔒 <b>Why it's pretend:</b> real apps like Robinhood don't let outside websites place real trades for you, and a hands-free real-money bot can lose everything fast. Practice here first — if the bot doubles pretend money over months, THEN think about real money, slowly and with a grown-up.</div>
+</div>"""
 
 BUDGET_CARD = """<h2>💰 My Pretend Money</h2>
 <div class="card" id="sm-budget">
@@ -334,6 +372,7 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
 <div class="mkt">📊 The whole market (SPY) is at {market['spy']} ({market['spy_chg']:+.1f}% today) · {len(beginner or [])+len(experienced or [])} good bets today · robot looked at {market['scanned']} stocks</div></div>
 <div class="wrap">"""]
     parts.append(BUDGET_CARD)
+    parts.append(BOT_CARD)
     parts.append(GUIDE)
     for wtxt in warnings:
         parts.append(f'<div class="disc"><b>Heads up:</b> {e(wtxt)}</div>')

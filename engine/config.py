@@ -17,7 +17,7 @@ UNIVERSE = [
     # Healthcare / biotech
     "UNH","JNJ","PFE","LLY","MRK","ABBV","MRNA","GILD","AMGN","VRTX","HIMS",
     # Meme / high-volatility
-    "TSLA","GME","AMC","RIVN","NIO","MARA","RIOT","CLSK","DKNG",
+    "TSLA","GME","RIVN","NIO","MARA","RIOT","CLSK","DKNG",
     "RBLX","AFRM","UPST","CVNA","IONQ","RKLB","ASTS",
     # Low-priced / small-account favorites (optionable on Robinhood, cheap premiums)
     "PLUG","CHPT","GRAB","NU","PATH","LAZR",
@@ -91,4 +91,4 @@ SPOT_POSITION_USD = 25   # flat suggested dollar size for a spot (crypto/forex/c
 
 # Tickers NOT tradeable on Robinhood — filtered out so every stock trade works there.
 # Add any others you find unsupported.
-ROBINHOOD_UNSUPPORTED = {"LCID"}
+ROBINHOOD_UNSUPPORTED = {"LCID", "AMC"}

@@ -226,4 +226,69 @@ var modeBtns=document.querySelectorAll('.modebtn');
 if(modeBtns.length){var cm=g('mode')||'beginner';applyMode(cm);
  modeBtns.forEach(function(b){b.onclick=function(){s('mode',b.dataset.mode);applyMode(b.dataset.mode)}})}
 wire();labelBrokerBtns();render();
+
+/* ================= AUTO-BOT (pretend money, fully hands-free) ================= */
+function bg(k){return JSON.parse(localStorage.getItem('smbot_'+k)||'null')}
+function bs(k,v){localStorage.setItem('smbot_'+k,JSON.stringify(v))}
+function botState(){return{on:bg('on')||false,start:bg('start'),cash:bg('cash')||0,open:bg('open')||[],closed:bg('closed')||[],per:bg('per')||10}}
+function botSave(b){bs('on',b.on);bs('cash',b.cash);bs('open',b.open);bs('closed',b.closed);bs('per',b.per)}
+function botReconcile(b){var ch=false;
+ b.open=b.open.filter(function(pos){
+  var gr=D.graded.find(function(x){return x.date===pos.date&&x.t===pos.t});
+  if(!gr)return true;
+  var proceeds=Math.max(0,pos.cost*(1+gr.pl/100));
+  b.cash+=proceeds;b.closed.push(Object.assign({},pos,{pl:gr.pl,result:gr.result,proceeds:proceeds}));
+  ch=true;return false});
+ if(ch)botSave(b);}
+function botAutoTake(b){ // auto-buy today's picks with the bot's pretend money
+ if(!b.on||b.start==null)return;
+ var per=b.per/100; var took=0;
+ (D.plays||[]).forEach(function(p){
+  var already=b.open.concat(b.closed).some(function(x){return x.t===p.t&&x.date===p.date});
+  if(already)return;
+  var spend=Math.max(p.cost, b.cash*per); // aim ~per% of bankroll, at least one contract
+  var qty=Math.max(1,Math.floor((b.cash*per)/p.cost));
+  var cost=p.cost*qty;
+  if(cost>b.cash){qty=Math.floor(b.cash/p.cost);cost=p.cost*qty;}
+  if(qty<1||cost<=0)return;
+  b.cash-=cost;b.open.push({t:p.t,kind:p.kind,date:p.date,qty:qty,cost:cost,prem:p.prem});took++;});
+ if(took)botSave(b);}
+function botRender(){var b=botState();
+ var setup=document.getElementById('bot-setup'),dash=document.getElementById('bot-dash'),toggle=document.getElementById('bot-toggle');
+ if(!setup)return;
+ if(toggle)toggle.checked=b.on;
+ if(b.start==null){setup.style.display='';dash.style.display='none';return}
+ setup.style.display='none';dash.style.display='';
+ botReconcile(b);botAutoTake(b);b=botState();botReconcile(b);
+ var openVal=b.open.reduce(function(a,p){return a+p.cost},0);
+ var now=b.cash+openVal, gr=(now-b.start)/b.start*100;
+ txt('bot-v-start',fmt(b.start));txt('bot-v-now',fmt(now));
+ var ge=document.getElementById('bot-v-gr');if(ge){ge.textContent=(gr>=0?'+':'')+gr.toFixed(1)+'%';ge.style.color=gr>=0?'#00b46e':'#ff4d6d';}
+ var wins=b.closed.filter(function(p){return p.result==='WIN'}).length, losses=b.closed.length-wins;
+ txt('bot-record',wins+' wins · '+losses+' losses · '+b.open.length+' still going');
+ var goalEl=document.getElementById('bot-goal');
+ if(goalEl){
+  if(now>=b.start*2){goalEl.innerHTML='🎉 <b>YOU DID IT!</b> The bot DOUBLED the pretend money — from '+fmt(b.start)+' to '+fmt(now)+'! This is proof the practice worked. Real money is still risky, so go slow.';goalEl.style.background='#e5faef';goalEl.style.borderColor='#bfead2';goalEl.style.color='#0a6b45';}
+  else{var pct=Math.min(100,(now-b.start)/b.start*100);goalEl.innerHTML='🎯 Goal: <b>double the money</b> ('+fmt(b.start*2)+'). You are <b>'+pct.toFixed(0)+'%</b> of the way there.<div style="height:10px;background:#eceaff;border-radius:99px;margin-top:8px;overflow:hidden"><div style="height:100%;width:'+Math.max(2,pct)+'%;background:linear-gradient(90deg,#6c5ce7,#3aa0ff)"></div></div>';goalEl.style.background='';goalEl.style.borderColor='';goalEl.style.color='';}
+ }
+ var oc=document.getElementById('bot-list');
+ if(oc)oc.innerHTML=(b.closed.slice(-6).reverse().map(function(p){
+   return '<div class="pos">'+p.t+' '+p.kind+' — '+(p.result==='WIN'?'WON 🎉':'lost')+' <span style="color:'+(p.pl>=0?'#00b46e':'#ff4d6d')+'">'+(p.pl>=0?'+':'')+p.pl+'%</span></div>'}).join(''))
+   +(b.open.length?'<div class="hint" style="margin-top:6px">'+b.open.length+' bets still open (grade after ~2 weeks)</div>':'');
+}
+var botToggle=document.getElementById('bot-toggle');
+if(botToggle)botToggle.onchange=function(){var b=botState();
+ if(botToggle.checked&&b.start==null){alert('First tell the bot how much pretend money to start with, then turn it on.');botToggle.checked=false;return}
+ b.on=botToggle.checked;botSave(b);if(b.on)botAutoTake(b);botRender();};
+var botStart=document.getElementById('bot-start-btn');
+if(botStart)botStart.onclick=function(){var v=parseFloat(document.getElementById('bot-amt').value);
+ if(!(v>0)){alert('Type how much pretend money to give the bot, e.g. 100.');return}
+ bs('start',v);bs('cash',v);bs('open',[]);bs('closed',[]);bs('on',true);
+ var b=botState();botAutoTake(b);botRender();};
+var botReset=document.getElementById('bot-reset');
+if(botReset)botReset.onclick=function(){if(confirm('Reset the bot? Clears its pretend money and trades.')){
+ ['on','start','cash','open','closed','per'].forEach(function(k){localStorage.removeItem('smbot_'+k)});botRender();}};
+var botPer=document.getElementById('bot-per');
+if(botPer){botPer.value=(bg('per')||10);botPer.onchange=function(){var b=botState();b.per=Math.max(1,Math.min(100,+botPer.value||10));botSave(b);botRender();}}
+botRender();
 })();
