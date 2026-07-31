@@ -68,3 +68,22 @@ DELTA_PROXY        = 0.40        # assumed option delta for premium P/L estimati
 PICKS_LOG   = "data/picks.csv"
 REPORT_PATH = "docs/index.html"
 TIMEZONE    = "US/Eastern"
+
+# ---- Other markets watchlist (spot, no options) ----------------------------
+# These trade in your broker's Crypto / Forex / Futures section, not as options.
+# yfinance symbols; friendly names for the report.
+WATCHLIST = {
+    "crypto": [("BTC-USD", "Bitcoin"), ("ETH-USD", "Ethereum"), ("SOL-USD", "Solana"),
+               ("XRP-USD", "XRP"), ("ADA-USD", "Cardano"), ("LINK-USD", "Chainlink"),
+               ("AVAX-USD", "Avalanche"), ("LTC-USD", "Litecoin")],
+    "forex":  [("EURUSD=X", "Euro / USD"), ("GBPUSD=X", "Pound / USD"),
+               ("USDJPY=X", "USD / Yen"), ("AUDUSD=X", "Aussie / USD")],
+    "commodities": [("GC=F", "Gold"), ("SI=F", "Silver"), ("CL=F", "Crude Oil"),
+                    ("NG=F", "Natural Gas")],
+}
+# Meme coins — HIGH RISK, small-money lottery tickets. Never "low risk."
+MEME_WATCH = [("DOGE-USD", "Dogecoin"), ("SHIB-USD", "Shiba Inu"), ("PEPE-USD", "Pepe"),
+              ("WIF-USD", "dogwifhat"), ("FLOKI-USD", "Floki"), ("BONK-USD", "Bonk")]
+WATCH_TOP = 4  # how many movers to surface per asset class
+WATCH_TRADE_CONV = 24    # |score-50|*2 needed for an other-market mover to be a SUGGESTED trade
+SPOT_POSITION_USD = 25   # flat suggested dollar size for a spot (crypto/forex/commodity) buy

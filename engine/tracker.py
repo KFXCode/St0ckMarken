@@ -41,6 +41,21 @@ def log_picks(plays, run_date):
     _save(rows)
     return rows
 
+def log_spot(spot_trades, run_date):
+    """Log actionable crypto/forex/commodity/meme spot buys so they get graded too."""
+    rows = _load()
+    seen = {(r["date"], r["ticker"]) for r in rows}
+    for w in spot_trades:
+        key = (run_date, w["symbol"])
+        if key in seen: continue
+        rows.append({"date": run_date, "ticker": w["symbol"], "direction": w["direction"],
+                     "kind": "SPOT", "action": "BUY", "expiry": "",
+                     "spot": w["price"], "strike": 0, "premium": w["price"],
+                     "cost": C.SPOT_POSITION_USD, "conviction": w.get("conv", ""), "status": "OPEN",
+                     "graded_on": "", "move_pct": "", "est_pl_pct": "", "result": ""})
+    _save(rows)
+    return rows
+
 def grade_open_picks():
     rows = _load()
     today = pd.Timestamp.today().normalize()
@@ -61,7 +76,13 @@ def grade_open_picks():
                 best = float(closes.min()); move = (entry / best - 1) * 100
             win = move >= C.WIN_MOVE_PCT
             prem = float(r["premium"]) or 0.01
-            if r["kind"] == "CASH-SECURED PUT":
+            if r["kind"] == "SPOT":
+                # Spot buy: profit/loss is simply the real % move (no leverage), close-based.
+                final = float(closes.iloc[-1])
+                move = (final / entry - 1) * 100
+                win = move >= C.WIN_MOVE_PCT
+                est_pl = round(move, 1)
+            elif r["kind"] == "CASH-SECURED PUT":
                 # CSP wins if the stock stayed above strike at window end
                 final = float(closes.iloc[-1])
                 win = final >= float(r["strike"])

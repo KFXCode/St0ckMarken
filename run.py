@@ -3,7 +3,8 @@ import os
 from datetime import datetime, timezone, timedelta
 import pandas as pd
 from engine import (config as C, data as D, flavor as F, history as H,
-                    congress as CG, social as SO, grok as GK, strategy, tracker, report)
+                    congress as CG, social as SO, grok as GK, watchlist as WL,
+                    strategy, tracker, report)
 
 def main():
     now = datetime.now(timezone.utc)
@@ -74,13 +75,27 @@ def main():
         if pd.Timestamp.today().normalize() <= ed <= week_end:
             earnings_warnings.append(f"{p['ticker']} reports earnings {ed.strftime('%b %d')} — big-move risk in either direction.")
     rows = tracker.log_picks(plays, date_str)
+
+    print("7/7 other markets (crypto/forex/commodities/meme)...")
+    try:
+        watch = WL.scan_watchlist()
+    except Exception:
+        watch = {}
+    try:
+        meme = WL.scan_meme()
+    except Exception:
+        meme = []
+    spot_trades = [w for lst in watch.values() for w in lst if w.get("is_trade")]
+    spot_trades += [w for w in meme if w.get("is_trade")]
+    if spot_trades:
+        rows = tracker.log_spot(spot_trades, date_str)
     record = tracker.record_summary(rows)
 
-    print("7/7 writing report...")
     html_out = report.render(date_str, updated, plays, near, record, flavor_meta,
                              market, earnings_warnings, warnings, picks_rows=rows,
                              congress_top=congress_top, social_top=social_top,
-                             playbook=SO.STRATEGY_PLAYBOOK, grok_on=GK.enabled())
+                             playbook=SO.STRATEGY_PLAYBOOK, grok_on=GK.enabled(),
+                             watch=watch, meme=meme)
     os.makedirs(os.path.dirname(C.REPORT_PATH), exist_ok=True)
     with open(C.REPORT_PATH, "w") as f:
         f.write(html_out)
