@@ -1,3 +1,1 @@
 date,ticker,direction,kind,action,expiry,spot,strike,premium,cost,conviction,status,graded_on,move_pct,est_pl_pct,result
-2026-07-31,LCID,BULLISH,LONG CALL,BUY,2026-08-21,8.12,4.5,0.19,21.0,32.4,OPEN,,,,
-2026-07-31,AAPL,BULLISH,LONG CALL,BUY,2026-08-21,333.43,115.0,212.9,21475.0,30.0,OPEN,,,,

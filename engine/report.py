@@ -92,6 +92,8 @@ padding:10px 0;margin:0 0 4px}
 .modetabs{display:flex;gap:8px;background:var(--soft);border-radius:14px;padding:5px}
 .modebtn{flex:1;border:none;background:transparent;color:var(--dim);border-radius:10px;padding:11px 8px;font-size:14.5px;font-weight:800}
 .modebtn.active{background:#fff;color:var(--primary);box-shadow:0 3px 10px rgba(90,90,160,.14)}
+.tookbox{display:flex;align-items:center;gap:8px;width:100%;margin-top:10px;padding:10px 12px;background:var(--soft);border:1.5px solid var(--line);border-radius:12px;font-size:14px;font-weight:700;cursor:pointer}
+.tookbox input{width:20px;height:20px;accent-color:var(--green)}
 """
 
 GUIDE = """
@@ -181,6 +183,17 @@ def _watch_card(w, asset, meme=False):
     warn = '<div class="hint" style="color:#b3400f;margin-top:8px">⚠️ Meme coins are a high-risk lottery — only ever use tiny money you\'re 100% fine losing.</div>' if meme else ''
     price = f"${w['price']:,.4f}" if w["price"] < 1 else f"${w['price']:,.2f}"
     base = w["symbol"].replace("-USD", "").replace("=X", "")
+    RH_CRYPTO = {"BTC", "ETH", "SOL", "XRP", "ADA", "LINK", "AVAX", "LTC", "DOGE", "SHIB", "PEPE", "BONK"}
+    if asset == "crypto":
+        where = ("Robinhood Crypto lists it ✓" if base in RH_CRYPTO else "not on Robinhood — use Coinbase or Kraken")
+        where = f"📱 <b>Where to trade:</b> {where} (buy the coin directly, not an option)."
+    elif asset == "meme":
+        where = ("Robinhood Crypto lists it ✓" if base in RH_CRYPTO else "usually NOT on Robinhood — use Coinbase")
+        where = f"📱 <b>Where to trade:</b> {where}. Tiny lottery money only."
+    elif asset == "forex":
+        where = "📱 <b>Where to trade:</b> Robinhood does NOT do forex — use OANDA, Interactive Brokers, or tastytrade."
+    else:  # commodities
+        where = "📱 <b>Where to trade:</b> Robinhood does NOT do futures/commodities — use tastytrade or Interactive Brokers (or a related ETF like GLD/USO on Robinhood)."
     if w.get("is_trade"):
         size = C.SPOT_POSITION_USD
         grow = (f'<div class="grow"><b>How this trade works:</b> buy about <b>${size} of {html.escape(w["name"])}</b> at {price} — '
@@ -197,7 +210,7 @@ def _watch_card(w, asset, meme=False):
 </div>
 <div class="plain"><b>In plain English:</b> the robot sees {html.escape(w['trend'])} — a good-looking {"momentum" if meme else "setup"}. Suggested size: about ${size}.</div>{grow}
 <div class="cndl"><b>📊 Chart shape:</b>{pat if pat else " no strong pattern — riding the trend"}.{warn}</div>
-<div class="hint">Trade this in your broker's <b>{section} section</b>. <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">Live chart →</a></div>
+<div class="hint">{where} <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">Live chart →</a></div>
 <div class="take" data-t="{html.escape(w['symbol'])}" data-base="{html.escape(base)}" data-date="__DATE__" data-cost="{size}" data-prem="{w['price']}" data-spot="{w['price']}" data-kind="SPOT" data-strike="0" data-exp="" data-action="BUY">
 <span class="hint">Practice size ${size}</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
@@ -207,7 +220,7 @@ def _watch_card(w, asset, meme=False):
 <div class="wprice">{price}</div></div>
 <div class="hint">{section} · <span style="color:{chgcol};font-weight:700">{arrow} {w['chg']:+.1f}% this week</span> · robot score {w['score']:.0f}/100 · <b>watch only</b> (signal not strong enough to suggest yet)</div>
 <div class="cndl" style="margin-top:10px">The robot sees {html.escape(w['trend'])}.{pat}{warn}</div>
-<div class="hint" style="margin-top:8px">💡 Trade this in your broker's <b>{section} section</b> (not as an option). <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">See the live chart →</a></div>
+<div class="hint" style="margin-top:8px">{where} <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">See the live chart →</a></div>
 </div>"""
 
 def _stock_card(p, i, date_str):
@@ -245,6 +258,7 @@ def _stock_card(p, i, date_str):
                  f'<b>Can you gain more?</b> Yes — the upside is uncapped. <b>Remember:</b> profits are NOT automatic — tap "Sell to Close" in your broker to lock them in.</div>')
     budget = '<span class="tag good">$100-friendly ✓</span>' if p["budget_ok"] else \
              f'<span class="tag">needs ~${p["cost"]:,.0f}</span>'
+    rh = '<span class="tag good">✓ Robinhood options</span>'
     return f"""<div class="card" data-asset="stocks" data-screen-label="Trade {i}">
 <details class="trade"><summary>
 <div class="playtag">Trade #{i} · {e(p.get('timeframe','SWING'))} · {e(p['size'])}</div>
@@ -257,7 +271,8 @@ def _stock_card(p, i, date_str):
 </div></summary>
 <div class="plain{bearcls}"><b>In plain English:</b> {e(p['plain'])}</div>{grow_html}{cndl_html}{grok_html}{hist_html}
 <div class="why">Why this trade sets up:</div><ul>{reasons}</ul>
-<div class="tagrow">{budget}<span class="tag">OI {p['oi']:,}</span><span class="tag">{e(p['direction'].title())}</span></div>
+<div class="hint" style="margin-top:10px">📱 <b>Where to trade:</b> this is a standard US stock option — available on <b>Robinhood</b> (Options tab) and every major app (Webull, Fidelity, Schwab, tastytrade). If a strike isn't listed on Robinhood, use tastytrade or Webull.</div>
+<div class="tagrow">{budget}<span class="tag">OI {p['oi']:,}</span>{rh}</div>
 </details>
 <div class="take" data-t="{e(p['ticker'])}" data-date="{e(date_str)}" data-cost="{p['cost']}" data-prem="{p['premium']}" data-spot="{p['spot']}" data-kind="{e(p['kind'])}" data-strike="{p['strike']:.0f}" data-exp="{e(p['expiry'])}" data-action="{e(p['action'])}">
 <button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
@@ -291,9 +306,12 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
         parts.append(f'<div class="disc"><b>Earnings this week — extra risk</b><ul>{items}</ul></div>')
     parts.append('<h2>🎓 Choose your level</h2>'
                  '<div class="filterbar"><div class="modetabs">'
-                 '<button class="modebtn" data-mode="beginner">🌱 Beginner</button>'
-                 '<button class="modebtn" data-mode="experienced">🚀 Experienced</button>'
-                 '</div></div>')
+                 '<button class="modebtn active" data-mode="beginner" onclick="smMode(\'beginner\')">🌱 Beginner</button>'
+                 '<button class="modebtn" data-mode="experienced" onclick="smMode(\'experienced\')">🚀 Experienced</button>'
+                 '</div></div>'
+                 '<script>function smMode(m){document.querySelectorAll("[data-mode]").forEach(function(el){el.style.display=el.dataset.mode===m?"":"none"});'
+                 'document.querySelectorAll(".modebtn").forEach(function(b){b.classList.toggle("active",b.dataset.mode===m)});try{localStorage.setItem("sm_mode",JSON.stringify(m))}catch(e){}}'
+                 'try{var _m=JSON.parse(localStorage.getItem("sm_mode")||"\\"beginner\\"");smMode(_m)}catch(e){}</script>')
     plays = (beginner or []) + (experienced or [])
     # ---- Beginner stock trades (cheap / low-priced) ----
     parts.append('<div data-mode="beginner">')
@@ -359,7 +377,28 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
                  + ('𝕏 Grok live X/news read is <b style="color:var(--green)">ON</b> for today\'s trades.' if grok_on
                     else 'Grok live-X layer is off (add an XAI_API_KEY secret to enable). Using free news + StockTwits/Reddit.')
                  + '</div>')
-    parts.append(f"""<h2>🏆 Performance</h2>
+    # ---- History: prior days' trades ----
+    if picks_rows:
+        by_date = {}
+        for r in picks_rows:
+            if r["date"] == date_str:
+                continue
+            by_date.setdefault(r["date"], []).append(r)
+        if by_date:
+            parts.append('<h2>📜 Trade History</h2><div class="hint">Every trade from earlier days and how it turned out. Graded automatically after 10 trading days.</div>')
+            for d in sorted(by_date, reverse=True)[:14]:
+                rows = ""
+                for r in by_date[d]:
+                    if r["status"] == "GRADED":
+                        pl = r["est_pl_pct"]
+                        col = "var(--green)" if str(pl).lstrip("-").replace(".", "").isdigit() and float(pl) >= 0 else "var(--red)"
+                        res = f'<span style="color:{col};font-weight:700">{r["result"]} ({float(pl):+.0f}%)</span>'
+                    else:
+                        res = '<span class="hint">open</span>'
+                    kind = e(r["kind"])
+                    tail = f' ${float(r["strike"]):.0f}' if r["kind"] != "SPOT" and r.get("strike") not in ("", "0", 0) else ""
+                    rows += f'<div class="scn"><span>{e(r["ticker"])} · {kind}{tail}</span>{res}</div>'
+                parts.append(f'<div class="card"><div class="playtag">{e(d)}</div>{rows}</div>')
 <div class="record">
 <div class="stat"><div class="v">{record['wins']}-{record['losses']}</div><div class="l">Win / Loss</div></div>
 <div class="stat"><div class="v" style="color:{'#00b46e' if record['total_pl']>=0 else '#ff4d6d'}">{record['total_pl']:+.1f}%</div><div class="l">Est. cum P/L</div></div>

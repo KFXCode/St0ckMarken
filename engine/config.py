@@ -9,7 +9,7 @@ UNIVERSE = [
     "SHOP","UBER","ABNB","PYPL","SQ","SNOW","PANW","CRWD","ZS","DDOG",
     # AI & semiconductors
     "NVDA","AMD","AVGO","TSM","INTC","MU","QCOM","ARM","SMCI","MRVL",
-    "ASML","LRCX","AMAT","KLAC","ON","PLTR","AI","SOUN",
+    "ASML","LRCX","AMAT","KLAC","ON","PLTR",
     # Energy
     "XOM","CVX","COP","OXY","SLB","HAL","DVN","FANG","MPC","VLO",
     # Financials
@@ -17,11 +17,11 @@ UNIVERSE = [
     # Healthcare / biotech
     "UNH","JNJ","PFE","LLY","MRK","ABBV","MRNA","GILD","AMGN","VRTX","HIMS",
     # Meme / high-volatility
-    "TSLA","GME","AMC","RIVN","LCID","NIO","MARA","RIOT","CLSK","DKNG",
-    "RBLX","AFRM","UPST","CVNA","IONQ","RKLB","ASTS","OKLO",
-    # Low-priced / small-account favorites (optionable, cheap premiums)
-    "PLUG","FCEL","CHPT","GRAB","NU","PATH","BBAI","LAZR","WKHS","GOEV",
-    "SIRI","VALE","T","PBR","KGC","AUR","JBLU","SNAP","PARA","WBD","BTG",
+    "TSLA","GME","AMC","RIVN","NIO","MARA","RIOT","CLSK","DKNG",
+    "RBLX","AFRM","UPST","CVNA","IONQ","RKLB","ASTS",
+    # Low-priced / small-account favorites (optionable on Robinhood, cheap premiums)
+    "PLUG","CHPT","GRAB","NU","PATH","LAZR",
+    "SIRI","VALE","T","PBR","KGC","JBLU","SNAP","PARA","WBD",
     # Broad-market / consumer / industrial liquidity
     "SPY","QQQ","IWM","DIS","NKE","SBUX","MCD","WMT","COST","TGT",
     "HD","LOW","BA","CAT","DE","F","GM","AAL","DAL","CCL",
@@ -88,3 +88,7 @@ MEME_WATCH = [("DOGE-USD", "Dogecoin"), ("SHIB-USD", "Shiba Inu"), ("PEPE-USD", 
 WATCH_TOP = 4  # how many movers to surface per asset class
 WATCH_TRADE_CONV = 24    # |score-50|*2 needed for an other-market mover to be a SUGGESTED trade
 SPOT_POSITION_USD = 25   # flat suggested dollar size for a spot (crypto/forex/commodity) buy
+
+# Tickers NOT tradeable on Robinhood — filtered out so every stock trade works there.
+# Add any others you find unsupported.
+ROBINHOOD_UNSUPPORTED = {"LCID"}

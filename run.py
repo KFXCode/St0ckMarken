@@ -17,7 +17,8 @@ def main():
     tracker.grade_open_picks()
 
     print("2/7 downloading history for", len(C.UNIVERSE), "tickers...")
-    hist = D.fetch_history(C.UNIVERSE)
+    universe = [t for t in C.UNIVERSE if t not in C.ROBINHOOD_UNSUPPORTED]
+    hist = D.fetch_history(universe)
     if "SPY" not in hist:
         raise SystemExit("SPY history unavailable — aborting run")
     if len(hist) < len(C.UNIVERSE) * 0.7:

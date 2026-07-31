@@ -93,7 +93,9 @@ function render(){var st=state();
 function markTaken(st){document.querySelectorAll('.take').forEach(function(el){
  var taken=st.open.concat(st.closed).some(function(p){return p.t===el.dataset.t&&p.date===el.dataset.date});
  var btn=el.querySelector('.takebtn');
- if(taken){btn.textContent='Taken ✓';btn.disabled=true}})}
+ if(btn){if(taken){btn.textContent='Taken ✓';btn.disabled=true}else{btn.textContent='Take this trade';btn.disabled=false}}
+ var chk=el.querySelector('.tookchk');
+ if(chk)chk.checked=taken;})}
 function orderText(p,q){
  if(p.kind==='SPOT')return 'BUY $'+(p.cost*q)+' of '+(p.base||p.t)+' (spot)';
  var right=p.kind==='CASH-SECURED PUT'?'PUT (sell to open)':p.kind.replace('LONG ','');
@@ -122,9 +124,27 @@ function wire(){document.querySelectorAll('.take').forEach(function(el){
   var order=orderText(p,q);
   var tgt=(p.kind==='SPOT'&&p.base)?p.base:p.t;
   var go=function(){window.open(BROKERS[bk].url(tgt),'_blank');
-   bb.textContent='Order copied ✓ paste at '+BROKERS[bk].name;
-   setTimeout(function(){bb.textContent='Open in '+BROKERS[bk].name},4000)};
+   bb.textContent='Order copied ✓ now tick “I took this trade”';
+   setTimeout(function(){bb.textContent='Open in '+BROKERS[bk].name},4500)};
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(order).then(go,go);else go()};
+ // ---- manual "I took this trade" checkbox ----
+ var lab=document.createElement('label');
+ lab.className='tookbox';
+ lab.innerHTML='<input type="checkbox" class="tookchk"> <span>I took this trade</span>';
+ el.appendChild(lab);
+ var chk=lab.querySelector('.tookchk');
+ chk.onchange=function(){var st=state();
+  if(st.start==null){alert('Set your money first — the My Money box is at the top.');chk.checked=false;return}
+  if(chk.checked){
+   var cost=p.cost*q;
+   if(cost>st.cash){alert('Not enough budget: this needs '+fmt(cost)+' but you have '+fmt(st.cash)+' free.');chk.checked=false;return}
+   st.cash-=cost;
+   st.open.push({t:p.t,kind:p.kind,date:p.date,qty:q,cost:cost,prem:p.prem});
+   save(st);render();
+  }else{
+   var idx=st.open.findIndex(function(x){return x.t===p.t&&x.date===p.date});
+   if(idx>=0){st.cash+=st.open[idx].cost;st.open.splice(idx,1);save(st);render();}
+  }};
  })}
 function labelBrokerBtns(){var bk=g('broker');
  document.querySelectorAll('.brokerbtn').forEach(function(b){
