@@ -94,6 +94,8 @@ padding:10px 0;margin:0 0 4px}
 .modebtn.active{background:#fff;color:var(--primary);box-shadow:0 3px 10px rgba(90,90,160,.14)}
 .tookbox{display:flex;align-items:center;gap:8px;width:100%;margin-top:10px;padding:10px 12px;background:var(--soft);border:1.5px solid var(--line);border-radius:12px;font-size:14px;font-weight:700;cursor:pointer}
 .tookbox input{width:20px;height:20px;accent-color:var(--green)}
+.limitbox{background:#fff7e6;border:1.5px solid #ffd98a;border-radius:14px;padding:12px 14px;font-size:13.5px;margin:12px 0;color:#8a5a12}
+.limitbox b{color:#b3730f}
 """
 
 GUIDE = """
@@ -209,6 +211,7 @@ def _watch_card(w, asset, meme=False):
 <div class="stat"><div class="v" style="color:{chgcol}">{arrow} {w['chg']:+.1f}%</div><div class="l">This week</div></div>
 </div>
 <div class="plain"><b>In plain English:</b> the robot sees {html.escape(w['trend'])} — a good-looking {"momentum" if meme else "setup"}. Suggested size: about ${size}.</div>{grow}
+<div class="limitbox"><b>🎯 Recommended sell target: {("$%.4f" % (w['price']*(1+ (0.15 if meme else 0.10)))) if w['price']<1 else ("$%,.2f" % (w['price']*(1+ (0.15 if meme else 0.10))))}</b> (about +{15 if meme else 10}%) · <b>📈 Expected swing: ~+{15 if meme else 10}%</b> in your favor. Set a <b>limit sell</b> at that price right after you buy — it auto-sells for a clean profit so you don't have to watch the charts.</div>
 <div class="cndl"><b>📊 Chart shape:</b>{pat if pat else " no strong pattern — riding the trend"}.{warn}</div>
 <div class="hint">{where} <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">Live chart →</a></div>
 <div class="take" data-t="{html.escape(w['symbol'])}" data-base="{html.escape(base)}" data-date="__DATE__" data-cost="{size}" data-prem="{w['price']}" data-spot="{w['price']}" data-kind="SPOT" data-strike="0" data-exp="" data-action="BUY">
@@ -259,6 +262,18 @@ def _stock_card(p, i, date_str):
     budget = '<span class="tag good">$100-friendly ✓</span>' if p["budget_ok"] else \
              f'<span class="tag">needs ~${p["cost"]:,.0f}</span>'
     rh = '<span class="tag good">✓ Robinhood options</span>'
+    tp = min(1.2, 0.45 + max(0, p["conviction"] - 20) * 0.02)  # higher conviction → higher target
+    sell_prem = p["premium"] * (1 + tp)
+    profit = (sell_prem - p["premium"]) * 100
+    und = abs(h["avg"]) if h and h.get("avg") is not None else max(4.0, p["conviction"] / 4)
+    prem_swing = und * (0.45 * p["spot"] / p["premium"])  # premium %-swing per expected underlying move
+    prem_swing = min(300, prem_swing)
+    limit_html = (f'<div class="limitbox"><b>🎯 Recommended sell limit: ${sell_prem:.2f}</b> '
+                  f'(about +{tp*100:.0f}% on the premium) · <b>📈 Expected swing: ~+{prem_swing:.0f}%</b> in your favor before expiry '
+                  f'(based on the ~{und:.1f}% move the robot expects in {e(p["ticker"])}). '
+                  f'Set the ${sell_prem:.2f} price as a <b>Sell-to-Close limit order</b> right after you buy — '
+                  f'your broker auto-sells the moment the premium hits it, locking in about '
+                  f'<b>+${profit:.0f} per contract</b> hands-free. Smart way to take good profit.</div>')
     return f"""<div class="card" data-asset="stocks" data-screen-label="Trade {i}">
 <details class="trade"><summary>
 <div class="playtag">Trade #{i} · {e(p.get('timeframe','SWING'))} · {e(p['size'])}</div>
@@ -269,7 +284,7 @@ def _stock_card(p, i, date_str):
 <div class="stat"><div class="v">{p['score']:.0f}</div><div class="l">Score /100</div></div>
 <div class="stat"><div class="v">${p['premium']:.2f}</div><div class="l">Premium</div></div>
 </div></summary>
-<div class="plain{bearcls}"><b>In plain English:</b> {e(p['plain'])}</div>{grow_html}{cndl_html}{grok_html}{hist_html}
+<div class="plain{bearcls}"><b>In plain English:</b> {e(p['plain'])}</div>{grow_html}{limit_html}{cndl_html}{grok_html}{hist_html}
 <div class="why">Why this trade sets up:</div><ul>{reasons}</ul>
 <div class="hint" style="margin-top:10px">📱 <b>Where to trade:</b> this is a standard US stock option — available on <b>Robinhood</b> (Options tab) and every major app (Webull, Fidelity, Schwab, tastytrade). If a strike isn't listed on Robinhood, use tastytrade or Webull.</div>
 <div class="tagrow">{budget}<span class="tag">OI {p['oi']:,}</span>{rh}</div>
@@ -309,7 +324,7 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
                  '<button class="modebtn active" data-mode="beginner" onclick="smMode(\'beginner\')">🌱 Beginner</button>'
                  '<button class="modebtn" data-mode="experienced" onclick="smMode(\'experienced\')">🚀 Experienced</button>'
                  '</div></div>'
-                 '<script>function smMode(m){document.querySelectorAll("[data-mode]").forEach(function(el){el.style.display=el.dataset.mode===m?"":"none"});'
+                 '<script>function smMode(m){document.querySelectorAll("[data-mode]:not(.modebtn)").forEach(function(el){el.style.display=el.dataset.mode===m?"":"none"});'
                  'document.querySelectorAll(".modebtn").forEach(function(b){b.classList.toggle("active",b.dataset.mode===m)});try{localStorage.setItem("sm_mode",JSON.stringify(m))}catch(e){}}'
                  'try{var _m=JSON.parse(localStorage.getItem("sm_mode")||"\\"beginner\\"");smMode(_m)}catch(e){}</script>')
     plays = (beginner or []) + (experienced or [])
