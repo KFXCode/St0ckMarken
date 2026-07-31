@@ -124,6 +124,19 @@ GUIDE = """
 <div class="gsec"><b>Simple exit plan.</b> Decide before you buy: take profit at +50% to +100%; cut losses at −50%; and be out at least a week before expiration.</div>
 </details>
 <details class="guide">
+<summary>⏰ What time should I trade? (super important!)</summary>
+<div class="gsec"><b>All times are Eastern Time (ET)</b> — that's the clock the stock market uses. If you're on the West Coast, that's 3 hours EARLIER for you (10 AM ET = 7 AM your time).</div>
+<div class="gsec"><b>📈 Stocks & options — Monday to Friday only:</b><br>
+• <b>Market opens 9:30 AM ET, closes 4:00 PM ET.</b><br>
+• <b>6–9 AM ET:</b> the app updates at 6 AM. Read the picks, no rush — the market's still closed.<br>
+• <b>Skip 9:30–9:45 AM.</b> The first 15 minutes are crazy jumpy and you often overpay.<br>
+• <b>⭐ BEST time to buy: 9:45–10:30 AM ET.</b> Prices calm down and get fair. If you only trade once, <b>10:00 AM ET is the sweet spot</b> — set a phone alarm!<br>
+• Right after you buy, set the <b>sell-limit</b> the app gives you. Then you're done for the day.</div>
+<div class="gsec"><b>🪙 Crypto — any time, 7 days a week.</b> It never closes! But calm times (mornings) are usually smoother than late nights.</div>
+<div class="gsec"><b>💱 Forex — almost all week.</b> Opens Sunday evening, runs to Friday evening ET. Closed most of the weekend.</div>
+<div class="gsec"><b>📢 One rule:</b> if the app shows an earnings warning for a stock that day, either skip it or expect a BIG swing either way.</div>
+</details>
+<details class="guide">
 <summary>📖 Kid Dictionary — every trading word in easy words</summary>
 <div class="gsec"><b>Call option</b> = A bet that a stock will go UP. Like saying "I think this toy will cost more later!"</div>
 <div class="gsec"><b>Put option</b> = A bet that a stock will go DOWN.</div>
@@ -357,7 +370,7 @@ def _stock_card(p, i, date_str):
 def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
            market, earnings_warnings, warnings, picks_rows=None,
            congress_top=None, social_top=None, playbook=None, grok_on=False,
-           watch=None, meme=None):
+           watch=None, meme=None, is_weekend=False):
     e = html.escape
     parts = [f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
@@ -390,6 +403,10 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
     plays = (beginner or []) + (experienced or [])
     # ---- Beginner stock trades (cheap / low-priced) ----
     parts.append('<div data-mode="beginner">')
+    if is_weekend:
+        parts.append('<div class="disc" data-asset="stocks" style="background:linear-gradient(135deg,#e6f3ff,#efeaff);border-color:#c9bcff;color:#3a3a6a">'
+                     '<b>😴 The stock market is closed on weekends.</b> Stocks and options only trade Monday–Friday. '
+                     'New stock bets come back Monday morning! But good news — <b>🪙 crypto never sleeps and 💱 forex trades almost all week</b>, so scroll down for what\'s moving right now.</div>')
     parts.append('<h2 data-asset="stocks">📈 Cheap Bets for Small Money <span class="hint" style="font-weight:600">(great if you have $100 or less)</span></h2>')
     if not beginner:
         parts.append('<div class="card" data-asset="stocks"><div class="title">No cheap bets today</div>'

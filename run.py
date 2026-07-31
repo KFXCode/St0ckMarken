@@ -11,6 +11,7 @@ def main():
     est = now - timedelta(hours=4)
     date_str = est.strftime("%Y-%m-%d")
     updated = est.strftime("%b %d, %Y - %I:%M %p EDT")
+    is_weekend = est.weekday() >= 5  # Sat=5, Sun=6 — US stock market closed
     warnings = []
 
     print("1/7 grading prior picks...")
@@ -97,7 +98,7 @@ def main():
                              market, earnings_warnings, warnings, picks_rows=rows,
                              congress_top=congress_top, social_top=social_top,
                              playbook=SO.STRATEGY_PLAYBOOK, grok_on=GK.enabled(),
-                             watch=watch, meme=meme)
+                             watch=watch, meme=meme, is_weekend=is_weekend)
     os.makedirs(os.path.dirname(C.REPORT_PATH), exist_ok=True)
     with open(C.REPORT_PATH, "w") as f:
         f.write(html_out)
