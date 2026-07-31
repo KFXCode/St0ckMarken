@@ -1,1 +1,2 @@
 date,ticker,direction,kind,action,expiry,spot,strike,premium,cost,conviction,status,graded_on,move_pct,est_pl_pct,result
+2026-07-31,AAPL,BULLISH,LONG CALL,BUY,2026-08-21,333.43,115.0,212.9,21475.0,31.6,OPEN,,,,
