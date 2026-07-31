@@ -1,1 +1,2 @@
 date,ticker,direction,kind,action,expiry,spot,strike,premium,cost,conviction,status,graded_on,move_pct,est_pl_pct,result
+2026-07-31,LCID,BULLISH,CASH-SECURED PUT,SELL,2026-08-21,8.12,1.5,0.35,150.0,32.4,OPEN,,,,
