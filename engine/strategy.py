@@ -68,16 +68,16 @@ def build_play(ticker, score, conviction, reasons, extras, spot_hint=None):
         kind, action = "LONG CALL", "BUY"
         cost = c["ask"] * 100
         budget_ok = cost <= C.SMALL_ACCOUNT_BUDGET
-        plain = (f"Buy the ${c['strike']:.0f} call expiring {expiry} for ~${c['ask']*100:.0f}. "
-                 f"Max loss = what you pay. Profits if {ticker} rises meaningfully before expiry.")
+        plain = (f"Make a bet that {ticker} will go UP. Buy the ${c['strike']:.0f} call that ends on {expiry} for about ${c['ask']*100:.0f}. "
+                 f"The most you can lose is the ${c['ask']*100:.0f} you pay — never more. You win if {ticker} goes up before {expiry}.")
     else:
         c = _pick_contract(puts, spot * (1 - C.OTM_PCT_PUT))
         if not c: return None
         kind, action = "LONG PUT", "BUY"
         cost = c["ask"] * 100
         budget_ok = cost <= C.SMALL_ACCOUNT_BUDGET
-        plain = (f"Buy the ${c['strike']:.0f} put expiring {expiry} for ~${c['ask']*100:.0f}. "
-                 f"Max loss = what you pay. Profits if {ticker} falls meaningfully before expiry.")
+        plain = (f"Make a bet that {ticker} will go DOWN. Buy the ${c['strike']:.0f} put that ends on {expiry} for about ${c['ask']*100:.0f}. "
+                 f"The most you can lose is the ${c['ask']*100:.0f} you pay — never more. You win if {ticker} goes down before {expiry}.")
 
     return {"ticker": ticker, "direction": "BULLISH" if bullish else "BEARISH",
             "kind": kind, "action": action, "expiry": expiry, "spot": round(float(spot), 2),

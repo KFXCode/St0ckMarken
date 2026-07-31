@@ -114,6 +114,26 @@ GUIDE = """
 <div class="gsec"><b>Turn on options first (one time).</b> In your broker: <i>Settings → Options → Enable</i> (Robinhood, Webull) or apply for options approval (Fidelity, Schwab). <b>Level 1–2 approval</b> is all you need to buy calls and puts.</div>
 <div class="gsec"><b>⚠️ It does NOT sell itself.</b> If the premium rises, the profit is only yours when you tap <b>Sell to Close</b>. Every day an option loses a little value (<b>time decay</b>); at expiration an out-of-the-money option becomes worthless — you lose the premium. Sell it yourself before expiry week.</div>
 <div class="gsec"><b>Simple exit plan.</b> Decide before you buy: take profit at +50% to +100%; cut losses at −50%; and be out at least a week before expiration.</div>
+</details>
+<details class="guide">
+<summary>📖 Kid Dictionary — every trading word in easy words</summary>
+<div class="gsec"><b>Call option</b> = A bet that a stock will go UP. Like saying "I think this toy will cost more later!"</div>
+<div class="gsec"><b>Put option</b> = A bet that a stock will go DOWN.</div>
+<div class="gsec"><b>Premium</b> = The price you paid for the bet. If it says $0.35, one bet costs $35 (you always times by 100).</div>
+<div class="gsec"><b>Contract</b> = One full bet. One contract watches 100 shares of the stock.</div>
+<div class="gsec"><b>Strike price</b> = The special number the stock has to pass for your bet to win.</div>
+<div class="gsec"><b>Expiration (Expiry)</b> = The day your bet ends. After this day the bet is over.</div>
+<div class="gsec"><b>Sell limit</b> = You tell the computer "Sell my bet when it reaches THIS price." Then you don't have to watch it — the computer does it for you.</div>
+<div class="gsec"><b>Market order</b> = "Sell it right now!" at whatever price people are paying.</div>
+<div class="gsec"><b>Bid</b> = The most someone will pay you right now. <b>Ask</b> = The least someone will sell to you for right now.</div>
+<div class="gsec"><b>Expected swing (move)</b> = How much the computer thinks the price might jump. Like guessing how far a rubber band will stretch.</div>
+<div class="gsec"><b>Profit</b> = The extra money you make. <b>Gain %</b> = How much bigger your money got. +50% means it grew by half!</div>
+<div class="gsec"><b>Break-even</b> = The price where you don't win OR lose. You just get your money back.</div>
+<div class="gsec"><b>Out of the money (OTM)</b> = Your bet isn't winning YET. <b>In the money (ITM)</b> = Your bet IS winning right now!</div>
+<div class="gsec"><b>Leverage</b> = Your bet can grow way faster than the stock. Like a tiny push that moves a big swing.</div>
+<div class="gsec"><b>Volatility (IV)</b> = How wild and jumpy a stock is. Jumpy = more exciting but more risky.</div>
+<div class="gsec"><b>Max loss</b> = The MOST you can lose. Good news: it's only the money you paid — never more. 🛡️</div>
+<div class="gsec"><b>Conviction</b> = How SURE the computer is about the bet. Higher number = more sure!</div>
 </details>"""
 
 def _spark(series):
@@ -129,7 +149,7 @@ def _spark(series):
             f'<line x1="0" y1="{zero_y:.1f}" x2="{w}" y2="{zero_y:.1f}" stroke="#e3e6f4" stroke-dasharray="4 4"/>'
             f'<polyline points="{pts}" fill="none" stroke="{color}" stroke-width="3" stroke-linejoin="round"/></svg>')
 
-BUDGET_CARD = """<h2>💰 My Money</h2>
+BUDGET_CARD = """<h2>💰 My Pretend Money</h2>
 <div class="card" id="sm-budget">
 <div id="sm-setup">
 <div class="title" style="font-size:18px">Set your starting money</div>
@@ -179,49 +199,49 @@ def _watch_card(w, asset, meme=False):
     dircls = "dir-b" if w["direction"] == "BULLISH" else "dir-s"
     arrow = "▲" if w["chg"] >= 0 else "▼"
     chgcol = "var(--green)" if w["chg"] >= 0 else "var(--red)"
-    lean = "leaning UP" if w["direction"] == "BULLISH" else "leaning DOWN"
-    pat = f" Chart shape spotted: <b>{html.escape(w['pattern_name'])}</b> — {html.escape(w['pattern'])}" if w.get("pattern_name") else ""
+    lean = "looks like it wants to go UP" if w["direction"] == "BULLISH" else "looks like it wants to go DOWN"
+    pat = f" Shape the robot saw: <b>{html.escape(w['pattern_name'])}</b> — {html.escape(w['pattern'])}" if w.get("pattern_name") else ""
     section = "Crypto" if asset == "crypto" else "Forex" if asset == "forex" else "Commodity" if asset == "commodities" else "Meme coin"
-    warn = '<div class="hint" style="color:#b3400f;margin-top:8px">⚠️ Meme coins are a high-risk lottery — only ever use tiny money you\'re 100% fine losing.</div>' if meme else ''
+    warn = '<div class="hint" style="color:#b3400f;margin-top:8px">⚠️ Meme coins are like a lottery ticket — they can jump up big OR drop to almost nothing fast. Only ever use tiny money you are totally okay losing.</div>' if meme else ''
     price = f"${w['price']:,.4f}" if w["price"] < 1 else f"${w['price']:,.2f}"
     base = w["symbol"].replace("-USD", "").replace("=X", "")
     RH_CRYPTO = {"BTC", "ETH", "SOL", "XRP", "ADA", "LINK", "AVAX", "LTC", "DOGE", "SHIB", "PEPE", "BONK"}
     if asset == "crypto":
-        where = ("Robinhood Crypto lists it ✓" if base in RH_CRYPTO else "not on Robinhood — use Coinbase or Kraken")
-        where = f"📱 <b>Where to trade:</b> {where} (buy the coin directly, not an option)."
+        where = ("Robinhood has it ✓" if base in RH_CRYPTO else "not on Robinhood — use Coinbase or Kraken")
+        where = f"📱 <b>Where to buy it:</b> {where} (you buy the real coin, not a bet)."
     elif asset == "meme":
-        where = ("Robinhood Crypto lists it ✓" if base in RH_CRYPTO else "usually NOT on Robinhood — use Coinbase")
-        where = f"📱 <b>Where to trade:</b> {where}. Tiny lottery money only."
+        where = ("Robinhood has it ✓" if base in RH_CRYPTO else "usually NOT on Robinhood — use Coinbase")
+        where = f"📱 <b>Where to buy it:</b> {where}. Only tiny money here!"
     elif asset == "forex":
-        where = "📱 <b>Where to trade:</b> Robinhood does NOT do forex — use OANDA, Interactive Brokers, or tastytrade."
+        where = "📱 <b>Where to buy it:</b> Robinhood does NOT do this one — use OANDA, Interactive Brokers, or tastytrade."
     else:  # commodities
-        where = "📱 <b>Where to trade:</b> Robinhood does NOT do futures/commodities — use tastytrade or Interactive Brokers (or a related ETF like GLD/USO on Robinhood)."
+        where = "📱 <b>Where to buy it:</b> Robinhood does NOT do this one — use tastytrade or Interactive Brokers (or a look-alike stock like GLD or USO on Robinhood)."
     if w.get("is_trade"):
         size = C.SPOT_POSITION_USD
-        grow = (f'<div class="grow"><b>How this trade works:</b> buy about <b>${size} of {html.escape(w["name"])}</b> at {price} — '
-                f'you own the real thing (spot), so there is no expiration and no time decay. If it rises 10%, your ${size} becomes '
-                f'${size*1.1:.0f}; if it rises 50%, ${size*1.5:.0f}. Worst case it drops hard — you can lose most of what you put in, '
-                f'so keep the size small.{" This is a meme coin: treat it as pure lottery money." if meme else ""}</div>')
+        grow = (f'<div class="grow"><b>How this works:</b> buy about <b>${size} of {html.escape(w["name"])}</b> at {price}. '
+                f'You own the real thing, so there is no ending day — you can hold it as long as you want. If it goes up 10%, your ${size} turns into '
+                f'about ${size*1.1:.0f}; if it goes up 50%, about ${size*1.5:.0f}. If it drops a lot you can lose most of your money, '
+                f'so keep it small.{" This one is a meme coin — treat it like lottery money." if meme else ""}</div>')
         return f"""<div class="card{' meme' if meme else ''}" data-asset="{asset}">
-<div class="playtag">Suggested {section} trade · spot buy</div>
+<div class="playtag">Robot’s {section} pick · buy the real thing</div>
 <div class="wtop"><div class="title" style="margin:0">{html.escape(w['name'])} <span class="{dircls}">BUY</span></div><div class="wprice">{price}</div></div>
 <div class="stats">
-<div class="stat"><div class="v">{w['conv']:.0f}</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">{w['conv']:.0f}</div><div class="l">How sure</div></div>
 <div class="stat"><div class="v">{w['score']:.0f}</div><div class="l">Score /100</div></div>
 <div class="stat"><div class="v" style="color:{chgcol}">{arrow} {w['chg']:+.1f}%</div><div class="l">This week</div></div>
 </div>
-<div class="plain"><b>In plain English:</b> the robot sees {html.escape(w['trend'])} — a good-looking {"momentum" if meme else "setup"}. Suggested size: about ${size}.</div>{grow}
-<div class="limitbox"><b>🎯 Recommended sell target: {("$%.4f" % (w['price']*(1+ (0.15 if meme else 0.10)))) if w['price']<1 else ("$%,.2f" % (w['price']*(1+ (0.15 if meme else 0.10))))}</b> (about +{15 if meme else 10}%) · <b>📈 Expected swing: ~+{15 if meme else 10}%</b> in your favor. Set a <b>limit sell</b> at that price right after you buy — it auto-sells for a clean profit so you don't have to watch the charts.</div>
-<div class="cndl"><b>📊 Chart shape:</b>{pat if pat else " no strong pattern — riding the trend"}.{warn}</div>
-<div class="hint">{where} <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">Live chart →</a></div>
+<div class="plain"><b>What to do, in easy words:</b> the robot sees {html.escape(w['trend'])} — that looks good. Buy about ${size} of it.</div>{grow}
+<div class="limitbox"><b>🎯 Best price to sell at: {("$%.4f" % (w['price']*(1+ (0.15 if meme else 0.10)))) if w['price']<1 else ("$%,.2f" % (w['price']*(1+ (0.15 if meme else 0.10))))}</b> (about +{15 if meme else 10}% bigger) · <b>📈 The robot thinks it could grow about +{15 if meme else 10}%</b>. Tell your app to sell when it reaches that price (a sell limit) — then it sells for you and you don’t have to watch!</div>
+<div class="cndl"><b>📊 Shape the robot saw:</b>{pat if pat else " no clear shape — just following the trend"}.{warn}</div>
+<div class="hint">{where} <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">See the live chart →</a></div>
 <div class="take" data-t="{html.escape(w['symbol'])}" data-base="{html.escape(base)}" data-date="__DATE__" data-cost="{size}" data-prem="{w['price']}" data-spot="{w['price']}" data-kind="SPOT" data-strike="0" data-exp="" data-action="BUY">
-<span class="hint">Practice size ${size}</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<span class="hint">Pretend size ${size}</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
 </div>"""
     return f"""<div class="watch{' meme' if meme else ''}" data-asset="{asset}">
 <div class="wtop"><div class="wname">{html.escape(w['name'])} <span class="{dircls}">{lean}</span></div>
 <div class="wprice">{price}</div></div>
-<div class="hint">{section} · <span style="color:{chgcol};font-weight:700">{arrow} {w['chg']:+.1f}% this week</span> · robot score {w['score']:.0f}/100 · <b>watch only</b> (signal not strong enough to suggest yet)</div>
+<div class="hint">{section} · <span style="color:{chgcol};font-weight:700">{arrow} {w['chg']:+.1f}% this week</span> · robot score {w['score']:.0f}/100 · <b>just watching</b> (not strong enough to buy yet)</div>
 <div class="cndl" style="margin-top:10px">The robot sees {html.escape(w['trend'])}.{pat}{warn}</div>
 <div class="hint" style="margin-top:8px">{where} <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">See the live chart →</a></div>
 </div>"""
@@ -233,8 +253,8 @@ def _stock_card(p, i, date_str):
     reasons = "".join(f"<li><b>{e(k)}:</b> {e(n)}</li>" for k, n, _ in p["reasons"])
     pats = p.get("patterns") or []
     if pats:
-        lis = "".join(f'<li><b>{e(nm)}</b> ({"bullish" if d=="bull" else "bearish"}): {e(pl)}</li>' for nm, d, pl in pats)
-        cndl_html = f'<div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul>{lis}</ul></div>'
+        lis = "".join(f'<li><b>{e(nm)}</b> ({"looks like it wants to go UP" if d=="bull" else "looks like it wants to go DOWN"}): {e(pl)}</li>' for nm, d, pl in pats)
+        cndl_html = f'<div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul>{lis}</ul></div>'
     else:
         cndl_html = ''
     gk = p.get("grok")
@@ -246,52 +266,53 @@ def _stock_card(p, i, date_str):
         grok_html = ''
     h = p.get("history")
     if h:
-        sea = f" {h['month']} has averaged {h['sea']:+.1f}% for {e(p['ticker'])} historically." if h.get("sea") is not None else ""
-        hist_html = (f'<div class="hist"><b>History check ({h["years"]:g} yrs of data):</b> this exact signal setup '
-                     f'appeared <b>{h["n"]}</b> times; the stock moved ≥{C.WIN_MOVE_PCT:g}% in this direction within '
-                     f'{C.GRADE_WINDOW_DAYS} trading days <b>{h["hit"]:.0f}%</b> of the time (avg best move {h["avg"]:+.1f}%).{sea}</div>')
+        sea = f" In past years, {h['month']} was usually {'a good' if h['sea']>=0 else 'a tricky'} month for {e(p['ticker'])} (about {h['sea']:+.1f}%)." if h.get("sea") is not None else ""
+        hist_html = (f'<div class="hist"><b>What happened before (looking back {h["years"]:g} years):</b> this same setup showed up '
+                     f'<b>{h["n"]}</b> times. When it did, the stock moved the way we hoped '
+                     f'<b>{h["hit"]:.0f} out of every 100 times</b> (about {h["avg"]:+.1f}% at its best).{sea}</div>')
     else:
-        hist_html = '<div class="hist"><b>History check:</b> not enough past occurrences of this setup to backtest — treat with extra caution.</div>'
+        hist_html = '<div class="hist"><b>What happened before:</b> we don\'t have many past examples of this exact setup, so be extra careful.</div>'
     c2, c5 = p["cost"] * 2, p["cost"] * 5
-    grow_html = (f'<div class="grow"><b>How your money can grow:</b> you pay ~${p["cost"]:,.0f} once (the ${p["premium"]:.2f} premium '
-                 f'× 100 shares) — and that is your entire risk. The contract moves several times faster than the stock. '
-                 f'If the premium doubles to ${p["premium"]*2:.2f}, your ${p["cost"]:,.0f} becomes ${c2:,.0f} (+100%). '
-                 f'On a big move past the ${p["strike"]:.0f} strike it could reach ${p["premium"]*5:.2f}, turning ${p["cost"]:,.0f} into '
-                 f'${c5:,.0f} (+400%). <b>Can you lose more than ${p["cost"]:,.0f}?</b> No — buying a call or put caps your loss at exactly what you paid. '
-                 f'<b>Can you gain more?</b> Yes — the upside is uncapped. <b>Remember:</b> profits are NOT automatic — tap "Sell to Close" in your broker to lock them in.</div>')
-    budget = '<span class="tag good">$100-friendly ✓</span>' if p["budget_ok"] else \
-             f'<span class="tag">needs ~${p["cost"]:,.0f}</span>'
-    rh = '<span class="tag good">✓ Robinhood options</span>'
+    grow_html = (f'<div class="grow"><b>How your money can grow:</b> you pay about <b>${p["cost"]:,.0f}</b> one time. That is the MOST you can lose — never more. '
+                 f'A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). '
+                 f'If the bet\'s price doubles, your ${p["cost"]:,.0f} turns into <b>${c2:,.0f}</b> (that is +100%, your money got twice as big). '
+                 f'On a really good move it could reach <b>${c5:,.0f}</b> (+400%, five times your money!). '
+                 f'<b>Can you lose more than ${p["cost"]:,.0f}?</b> Nope — only what you paid. '
+                 f'<b>Can you win more?</b> Yes — the top is wide open. '
+                 f'<b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div>')
+    budget = '<span class="tag good">Great for $100 or less ✓</span>' if p["budget_ok"] else \
+             f'<span class="tag">costs about ${p["cost"]:,.0f}</span>'
+    rh = '<span class="tag good">✓ Works on Robinhood</span>'
     tp = min(1.2, 0.45 + max(0, p["conviction"] - 20) * 0.02)  # higher conviction → higher target
     sell_prem = p["premium"] * (1 + tp)
     profit = (sell_prem - p["premium"]) * 100
     und = abs(h["avg"]) if h and h.get("avg") is not None else max(4.0, p["conviction"] / 4)
     prem_swing = und * (0.45 * p["spot"] / p["premium"])  # premium %-swing per expected underlying move
     prem_swing = min(300, prem_swing)
-    limit_html = (f'<div class="limitbox"><b>🎯 Recommended sell limit: ${sell_prem:.2f}</b> '
-                  f'(about +{tp*100:.0f}% on the premium) · <b>📈 Expected swing: ~+{prem_swing:.0f}%</b> in your favor before expiry '
-                  f'(based on the ~{und:.1f}% move the robot expects in {e(p["ticker"])}). '
-                  f'Set the ${sell_prem:.2f} price as a <b>Sell-to-Close limit order</b> right after you buy — '
-                  f'your broker auto-sells the moment the premium hits it, locking in about '
-                  f'<b>+${profit:.0f} per contract</b> hands-free. Smart way to take good profit.</div>')
+    limit_html = (f'<div class="limitbox"><b>🎯 Best price to sell at: ${sell_prem:.2f}</b> '
+                  f'(that is about +{tp*100:.0f}% bigger than what you paid) · <b>📈 The robot thinks it could grow about +{prem_swing:.0f}%</b> before the bet ends '
+                  f'(because it thinks {e(p["ticker"])} will move about {und:.1f}%). '
+                  f'Right after you buy, tell your app to “Sell when it reaches ${sell_prem:.2f}” (this is called a sell limit). '
+                  f'Then the app sells it for you and you make about '
+                  f'<b>+${profit:.0f} on each bet</b> — you don\'t even have to watch! Easy money.</div>')
     return f"""<div class="card" data-asset="stocks" data-screen-label="Trade {i}">
 <details class="trade"><summary>
 <div class="playtag">Trade #{i} · {e(p.get('timeframe','SWING'))} · {e(p['size'])}</div>
 <div class="title">{e(p['ticker'])} <span class="{dircls}">{e(p['kind'])}</span> <span class="chev">▾</span></div>
 <div class="sub">{e(p['action'])} the ${p['strike']:.0f} strike · expires {e(p['expiry'])} · stock at ${p['spot']:.2f}</div>
 <div class="stats">
-<div class="stat"><div class="v">{p['conviction']:.0f}</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">{p['conviction']:.0f}</div><div class="l">How sure</div></div>
 <div class="stat"><div class="v">{p['score']:.0f}</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v">${p['premium']:.2f}</div><div class="l">Premium</div></div>
+<div class="stat"><div class="v">${p['premium']:.2f}</div><div class="l">Bet price</div></div>
 </div></summary>
-<div class="plain{bearcls}"><b>In plain English:</b> {e(p['plain'])}</div>{grow_html}{limit_html}{cndl_html}{grok_html}{hist_html}
-<div class="why">Why this trade sets up:</div><ul>{reasons}</ul>
-<div class="hint" style="margin-top:10px">📱 <b>Where to trade:</b> this is a standard US stock option — available on <b>Robinhood</b> (Options tab) and every major app (Webull, Fidelity, Schwab, tastytrade). If a strike isn't listed on Robinhood, use tastytrade or Webull.</div>
+<div class="plain{bearcls}"><b>What to do, in easy words:</b> {e(p['plain'])}</div>{grow_html}{limit_html}{cndl_html}{grok_html}{hist_html}
+<div class="why">Why the robot likes this bet:</div><ul>{reasons}</ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
 <div class="tagrow">{budget}<span class="tag">OI {p['oi']:,}</span>{rh}</div>
 </details>
 <div class="take" data-t="{e(p['ticker'])}" data-date="{e(date_str)}" data-cost="{p['cost']}" data-prem="{p['premium']}" data-spot="{p['spot']}" data-kind="{e(p['kind'])}" data-strike="{p['strike']:.0f}" data-exp="{e(p['expiry'])}" data-action="{e(p['action'])}">
 <button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
-<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
 </div>"""
 
@@ -307,10 +328,10 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
 <title>St0ckMarken — {e(date_str)}</title><style>{CSS}</style></head><body>
 <div class="topbar"><div class="brand">St0ckMarken ✨</div>
 <div class="hint" style="text-align:right;line-height:1.3">Updated<br><span style="font-size:11px">{e(updated_str)}</span></div></div>
-<div class="hero"><div class="pl">Your practice portfolio</div>
-<div class="pv" id="sm-hero-pv">Set money ↓</div>
+<div class="hero"><div class="pl">Your pretend money</div>
+<div class="pv" id="sm-hero-pv">Add money ↓</div>
 <div class="pc" id="sm-hero-pc"></div>
-<div class="mkt">📊 SPY {market['spy']} ({market['spy_chg']:+.1f}%) · VIX {market['vix']} · {len(beginner or [])+len(experienced or [])} trades today · scanned {market['scanned']}</div></div>
+<div class="mkt">📊 The whole market (SPY) is at {market['spy']} ({market['spy_chg']:+.1f}% today) · {len(beginner or [])+len(experienced or [])} good bets today · robot looked at {market['scanned']} stocks</div></div>
 <div class="wrap">"""]
     parts.append(BUDGET_CARD)
     parts.append(GUIDE)
@@ -318,11 +339,11 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
         parts.append(f'<div class="disc"><b>Heads up:</b> {e(wtxt)}</div>')
     if earnings_warnings:
         items = "".join(f"<li>{e(x)}</li>" for x in earnings_warnings)
-        parts.append(f'<div class="disc"><b>Earnings this week — extra risk</b><ul>{items}</ul></div>')
-    parts.append('<h2>🎓 Choose your level</h2>'
+        parts.append(f'<div class="disc"><b>📢 Big news coming this week!</b> These companies share how much money they made soon, which can make the price jump a LOT either way — so be extra careful:<ul>{items}</ul></div>')
+    parts.append('<h2>🎓 Pick how much money you have</h2>'
                  '<div class="filterbar"><div class="modetabs">'
-                 '<button class="modebtn active" data-mode="beginner" onclick="smMode(\'beginner\')">🌱 Beginner</button>'
-                 '<button class="modebtn" data-mode="experienced" onclick="smMode(\'experienced\')">🚀 Experienced</button>'
+                 '<button class="modebtn active" data-mode="beginner" onclick="smMode(\'beginner\')">🌱 Just starting</button>'
+                 '<button class="modebtn" data-mode="experienced" onclick="smMode(\'experienced\')">🚀 More money</button>'
                  '</div></div>'
                  '<script>function smMode(m){document.querySelectorAll("[data-mode]:not(.modebtn)").forEach(function(el){el.style.display=el.dataset.mode===m?"":"none"});'
                  'document.querySelectorAll(".modebtn").forEach(function(b){b.classList.toggle("active",b.dataset.mode===m)});try{localStorage.setItem("sm_mode",JSON.stringify(m))}catch(e){}}'
@@ -330,26 +351,26 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
     plays = (beginner or []) + (experienced or [])
     # ---- Beginner stock trades (cheap / low-priced) ----
     parts.append('<div data-mode="beginner">')
-    parts.append('<h2 data-asset="stocks">📈 Beginner Stock Option Trades <span class="hint" style="font-weight:600">(cheap, small-account)</span></h2>')
+    parts.append('<h2 data-asset="stocks">📈 Cheap Bets for Small Money <span class="hint" style="font-weight:600">(great if you have $100 or less)</span></h2>')
     if not beginner:
-        parts.append('<div class="card" data-asset="stocks"><div class="title">No beginner trades today</div>'
-                     f'<div class="hint">Nothing low-priced cleared the safety bar ({C.MIN_CONVICTION:.0f}+ conviction). No filler trades — staying in cash IS a smart move.</div></div>')
+        parts.append('<div class="card" data-asset="stocks"><div class="title">No cheap bets today</div>'
+                     '<div class="hint">Nothing cheap looked good enough today. That is okay — keeping your money and NOT betting is a smart, safe move too!</div></div>')
     for i, p in enumerate(beginner or [], 1):
         parts.append(_stock_card(p, i, date_str))
     parts.append('</div>')
     # ---- Experienced stock trades (higher-value, real trades) ----
     parts.append('<div data-mode="experienced" style="display:none">')
-    parts.append('<h2 data-asset="stocks">🚀 Experienced Stock Option Trades <span class="hint" style="font-weight:600">(higher-value real trades)</span></h2>')
-    parts.append('<div class="hint" data-asset="stocks">Best-conviction setups regardless of price — these can cost $100–$500+ per contract. Same full breakdown, bigger names.</div>')
+    parts.append('<h2 data-asset="stocks">🚀 Bigger Bets for More Money <span class="hint" style="font-weight:600">(these cost more)</span></h2>')
+    parts.append('<div class="hint" data-asset="stocks">The robot\'s most-sure bets, even the pricey ones — these can cost $100 to $500+ each. Same easy breakdown, just bigger name-brand stocks.</div>')
     if not experienced:
-        parts.append('<div class="card" data-asset="stocks"><div class="title">No experienced trades today</div>'
-                     f'<div class="hint">Nothing cleared the safety bar ({C.MIN_CONVICTION:.0f}+ conviction) at higher price points today.</div></div>')
+        parts.append('<div class="card" data-asset="stocks"><div class="title">No bigger bets today</div>'
+                     '<div class="hint">Nothing pricey looked good enough today. Better to wait than to make a bad bet!</div></div>')
     for i, p in enumerate(experienced or [], 1):
         parts.append(_stock_card(p, i, date_str))
     parts.append('</div>')
 
     # ---- Other markets: crypto / forex / commodities ----
-    labels = {"crypto": "🪙 Crypto Watch", "forex": "💱 Forex Watch", "commodities": "🛢️ Commodities Watch"}
+    labels = {"crypto": "🪙 Crypto (digital money)", "forex": "💱 Forex (money from other countries)", "commodities": "🛢️ Commodities (stuff like gold & oil)"}
     for cls in ("crypto", "forex", "commodities"):
         items = (watch or {}).get(cls) or []
         parts.append(f'<h2 data-asset="{cls}">{labels[cls]}</h2>')
@@ -361,8 +382,8 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
             parts.append(f'<div class="watch" data-asset="{cls}"><div class="hint">⏳ {labels[cls].split(" ",1)[1] if " " in labels[cls] else cls} data didn\'t load from Yahoo this run (it sometimes rate-limits). It\'ll refresh on the next daily update.</div></div>')
 
     # ---- Meme coins ----
-    parts.append('<h2 data-asset="meme">🐕 Meme Coin Watch <span style="font-size:13px;color:var(--red)">(high risk!)</span></h2>')
-    parts.append('<div class="disc" data-asset="meme"><b>Real talk:</b> meme coins are NOT low-risk. They can go up huge or drop to almost nothing in a day. This is lottery-ticket money — only ever put in tiny amounts you are totally fine losing. There is no such thing as "low risk, high reward" here.</div>')
+    parts.append('<h2 data-asset="meme">🐕 Meme Coins <span style="font-size:13px;color:var(--red)">(super risky!)</span></h2>')
+    parts.append('<div class="disc" data-asset="meme"><b>Be careful:</b> meme coins are like a lottery ticket. They can jump up really big OR drop to almost nothing in one day. Only ever use tiny money you are totally okay to lose. There is no “safe” bet here!</div>')
     if meme:
         for w in meme:
             parts.append(_watch_card(w, "meme", meme=True))
@@ -374,19 +395,19 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
             f'<div class="pill">{e(t)} · {b} buys{("/"+str(s)+" sells") if s else ""}'
             + (f' · {e(names[0])}' if names else "") + '</div>'
             for t, b, s, names in congress_top)
-        parts.append(f'<h2>🏛️ Elite Flows Watch</h2><div class="hint">What lawmakers have been buying recently '
-                     f'(free House/Senate disclosures). A confirmation layer, not a trigger.</div>'
-                     f'<div class="flow"><b>Recent lawmaker buys:</b><br>{rows}</div>')
+        parts.append(f'<h2>🏛️ What Important People Are Buying</h2><div class="hint">Some grown-ups who help run the country tell everyone what stocks they buy. '
+                     f'The robot peeks at this as a little extra clue — not the main reason to bet.</div>'
+                     f'<div class="flow"><b>Stuff they bought lately:</b><br>{rows}</div>')
     if social_top:
         rows = "".join(
             f'<div class="pill">{e(t)} · {m} mentions{" · trending" if tr else ""}</div>'
             for t, m, bl, be, tr in social_top)
-        parts.append(f'<h2>💬 Social Buzz</h2><div class="hint">Loudest retail chatter on StockTwits / Reddit. '
-                     f'Heavy hype is often a <i>fade</i> — we weight this small.</div><div class="buzz"><b>Most talked-about:</b><br>{rows}</div>')
+        parts.append(f'<h2>💬 What Everyone Is Talking About</h2><div class="hint">The stocks people chat about most online. '
+                     f'When EVERYONE is super excited, it can mean the opposite — so the robot only uses this a tiny bit.</div><div class="buzz"><b>Most talked-about:</b><br>{rows}</div>')
     if playbook:
         items = "".join(f'<li><b>{e(tf)}:</b> {e(desc)}</li>' for tf, desc in playbook)
-        parts.append(f'<div class="buzz"><b>Proven strategy playbook</b> '
-                     f'<span class="hint">(vetted tactics from trading X/Reddit, folded in as education)</span>'
+        parts.append(f'<div class="buzz"><b>Smart trading tricks</b> '
+                     f'<span class="hint">(good tips from real traders, put in easy words to learn from)</span>'
                      f'<ul>{items}</ul></div>')
     parts.append('<div class="hint" style="margin:10px 0">'
                  + ('𝕏 Grok live X/news read is <b style="color:var(--green)">ON</b> for today\'s trades.' if grok_on
@@ -400,35 +421,32 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
                 continue
             by_date.setdefault(r["date"], []).append(r)
         if by_date:
-            parts.append('<h2>📜 Trade History</h2><div class="hint">Every trade from earlier days and how it turned out. Graded automatically after 10 trading days.</div>')
+            parts.append('<h2>📜 Old Bets — Did They Win?</h2><div class="hint">All the bets from earlier days and how they turned out. The robot checks each one after about 2 weeks.</div>')
             for d in sorted(by_date, reverse=True)[:14]:
                 rows = ""
                 for r in by_date[d]:
                     if r["status"] == "GRADED":
                         pl = r["est_pl_pct"]
                         col = "var(--green)" if str(pl).lstrip("-").replace(".", "").isdigit() and float(pl) >= 0 else "var(--red)"
-                        res = f'<span style="color:{col};font-weight:700">{r["result"]} ({float(pl):+.0f}%)</span>'
+                        res = f'<span style="color:{col};font-weight:700">{"WON 🎉" if r["result"]=="WIN" else "lost"} ({float(pl):+.0f}%)</span>'
                     else:
-                        res = '<span class="hint">open</span>'
+                        res = '<span class="hint">still going</span>'
                     kind = e(r["kind"])
                     tail = f' ${float(r["strike"]):.0f}' if r["kind"] != "SPOT" and r.get("strike") not in ("", "0", 0) else ""
                     rows += f'<div class="scn"><span>{e(r["ticker"])} · {kind}{tail}</span>{res}</div>'
                 parts.append(f'<div class="card"><div class="playtag">{e(d)}</div>{rows}</div>')
-    parts.append(f"""<h2>🏆 Performance</h2>
+    parts.append(f"""<h2>🏆 How We’re Doing</h2>
 <div class="record">
-<div class="stat"><div class="v">{record['wins']}-{record['losses']}</div><div class="l">Win / Loss</div></div>
-<div class="stat"><div class="v" style="color:{'#00b46e' if record['total_pl']>=0 else '#ff4d6d'}">{record['total_pl']:+.1f}%</div><div class="l">Est. cum P/L</div></div>
-<div class="stat"><div class="v">{record['open']}</div><div class="l">Open</div></div>
+<div class="stat"><div class="v">{record['wins']}-{record['losses']}</div><div class="l">Wins / Losses</div></div>
+<div class="stat"><div class="v" style="color:{'#00b46e' if record['total_pl']>=0 else '#ff4d6d'}">{record['total_pl']:+.1f}%</div><div class="l">Money grown</div></div>
+<div class="stat"><div class="v">{record['open']}</div><div class="l">Still going</div></div>
 </div>
-<div class="hint">Since {e(record['since'])} · graded automatically after {C.GRADE_WINDOW_DAYS} trading days</div>
+<div class="hint">Since {e(record['since'])} · the robot checks each bet after about 2 weeks</div>
 <div class="chart">{_spark(record['series'])}</div>
-<div class="disc"><b>⚠️ NOT financial advice.</b> I am not a professional trader and this is an automated
-research &amp; education experiment — nothing here is a recommendation to buy or sell anything. Trading stocks,
-options, crypto, forex and commodities involves real risk, and options and crypto can lose 100% of your money
-fast. Past results and backtests never guarantee the future. The moon / zodiac / numerology layer is just for
-fun. <b>Do your own research and move at your own risk.</b> Only ever trade money you can afford to lose.</div>
-<div class="foot">Made by St0ckMarken ✨ · safety threshold {C.MIN_CONVICTION:.0f} · free data via Yahoo Finance ·
-flat 1-position sizing · practice money only</div>""")
+<div class="disc"><b>⚠️ This is NOT real money advice.</b> This app is a fun way to LEARN about trading — it is not a grown-up telling you to buy or sell anything. '
+Trading real money is risky, and bets can lose ALL the money you put in. What happened before does not promise what happens next. The moon and number stuff is just for fun. '
+<b>Always ask a grown-up, and only ever use money you are okay to lose.</b></div>
+<div class="foot">Made by St0ckMarken ✨ · a place to learn · free info from Yahoo Finance · pretend money only</div>""")
     graded = [{"date": r["date"], "t": r["ticker"], "pl": float(r["est_pl_pct"] or 0), "result": r["result"]}
               for r in (picks_rows or []) if r.get("status") == "GRADED"]
     spot_plays = []
