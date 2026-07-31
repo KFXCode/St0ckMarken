@@ -52,7 +52,7 @@ def build_play(ticker, score, conviction, reasons, extras, spot_hint=None):
     if spot is None: spot = spot_hint
     if expiry is None or spot is None: return None
     hv_pctl = extras.get("hv_pctl")
-    sell_premium = bullish and hv_pctl is not None and hv_pctl >= C.HIGH_IV_HV_PCTL
+    sell_premium = C.ALLOW_CSP and bullish and hv_pctl is not None and hv_pctl >= C.HIGH_IV_HV_PCTL
 
     if sell_premium:  # rich vol + bullish -> cash-secured put
         c = _pick_contract(puts, spot * (1 - C.CSP_OTM_PCT))
@@ -86,8 +86,26 @@ def build_play(ticker, score, conviction, reasons, extras, spot_hint=None):
             "score": round(score, 1), "conviction": round(conviction, 1),
             "reasons": reasons, "size": "1 position"}
 
+def _build_list(graded, flavor_pts, flavor_notes, exclude=None):
+    plays = []
+    exclude = exclude or set()
+    for t, score, conv, reasons, extras, spot in graded:
+        if len(plays) >= C.MAX_PICKS: break
+        if t in exclude: continue
+        if conv < C.MIN_CONVICTION: continue
+        p = build_play(t, score, conv, reasons, extras, spot_hint=spot)
+        D.polite_pause()
+        if p:
+            p["reasons"] = p["reasons"] + [("Flavor", n, flavor_pts) for n in flavor_notes]
+            p["timeframe"] = timeframe_for(p["expiry"])
+            p["patterns"] = extras.get("patterns", [])
+            plays.append(p)
+    return plays
+
 def run_strategy(histories, spy_df, flavor_pts, flavor_notes, congress_act, social_bz):
-    """Score the universe; return (plays, near_misses)."""
+    """Score the universe once; return (beginner_plays, experienced_plays).
+    Beginner = low-priced stocks (little money in, big % reward), cheapest first.
+    Experienced = highest-conviction trades regardless of price (real, pricier plays)."""
     graded = []
     for t, df in histories.items():
         if t == "SPY": continue
@@ -97,28 +115,15 @@ def run_strategy(histories, spy_df, flavor_pts, flavor_notes, congress_act, soci
             graded.append((t, score, conv, reasons, extras, float(df["Close"].iloc[-1])))
         except Exception:
             continue
-    # Focus on low-priced stocks: little money in, big % reward. Cheaper names first,
-    # then by conviction (both still must clear the edge gate below).
-    if C.PREFER_CHEAP:
-        graded = [g for g in graded if g[5] <= C.MAX_UNDERLYING_PRICE] or graded
-        graded.sort(key=lambda g: (g[2] >= C.MIN_CONVICTION, -g[5], g[2]), reverse=True)
-    else:
-        graded.sort(key=lambda g: g[2], reverse=True)
 
-    plays, near = [], []
-    for t, score, conv, reasons, extras, spot in graded:
-        if conv >= C.MIN_CONVICTION and len(plays) < C.MAX_PICKS:
-            p = build_play(t, score, conv, reasons, extras, spot_hint=spot)
-            D.polite_pause()
-            if p:
-                p["reasons"] = p["reasons"] + [("Flavor", n, flavor_pts) for n in flavor_notes]
-                p["timeframe"] = timeframe_for(p["expiry"])
-                p["patterns"] = extras.get("patterns", [])
-                plays.append(p)
-        elif C.NEAR_MISS_BAND[0] <= conv < C.MIN_CONVICTION and len(near) < 6:
-            weakest = min(reasons, key=lambda r: abs(r[2] - 50) if score >= 50 else -(r[2] - 50))
-            blockers = [r for r in reasons if (r[2] < 45 if score >= 50 else r[2] > 55)]
-            why = "; ".join(b[1] for b in blockers[:2]) or weakest[1]
-            near.append({"ticker": t, "direction": "BULLISH" if score >= 50 else "BEARISH",
-                         "conviction": round(conv, 1), "why_not": why})
-    return plays, near
+    # Beginner: only low-priced names, cheapest first among qualifiers.
+    beg = [g for g in graded if g[5] <= C.MAX_UNDERLYING_PRICE]
+    beg.sort(key=lambda g: (g[2] >= C.MIN_CONVICTION, -g[5], g[2]), reverse=True)
+    beginner_plays = _build_list(beg, flavor_pts, flavor_notes)
+
+    # Experienced: best conviction across ALL prices (real trades, may cost >$100),
+    # skipping anything already shown to beginners.
+    exp = sorted(graded, key=lambda g: g[2], reverse=True)
+    exclude = {p["ticker"] for p in beginner_plays}
+    experienced_plays = _build_list(exp, flavor_pts, flavor_notes, exclude=exclude)
+    return beginner_plays, experienced_plays

@@ -2,11 +2,27 @@
 These don't have Yahoo options chains, so we score them for a simple spot
 (buy-the-thing) lean using trend + candlesticks, and present them as watch
 cards. Fully defensive: any symbol that fails is skipped."""
+import time
 import yfinance as yf
 from . import config as C
 from . import candles as CD
 from . import social as SO
 from .signals import score_trend
+
+def _download(sym, tries=3):
+    """Resilient single-symbol daily download with retry + polite pause."""
+    for i in range(tries):
+        try:
+            df = yf.download(sym, period="6mo", interval="1d",
+                             progress=False, auto_adjust=True, threads=False)
+            if df is not None and len(df) >= 30:
+                if hasattr(df.columns, "nlevels") and df.columns.nlevels > 1:
+                    df.columns = df.columns.get_level_values(0)
+                return df.dropna()
+        except Exception:
+            pass
+        time.sleep(1.2 * (i + 1))  # back off, then retry
+    return None
 
 def _scan(pairs):
     # Same social layer as stocks: Reddit (WSB/options/stocks) + StockTwits buzz,
@@ -19,13 +35,9 @@ def _scan(pairs):
     out = []
     for sym, name in pairs:
         try:
-            df = yf.download(sym, period="6mo", interval="1d",
-                             progress=False, auto_adjust=True)
-            if df is None or len(df) < 30:
+            df = _download(sym)
+            if df is None:
                 continue
-            if hasattr(df.columns, "nlevels") and df.columns.nlevels > 1:
-                df.columns = df.columns.get_level_values(0)
-            df = df.dropna()
             price = float(df["Close"].iloc[-1])
             wk = df["Close"].iloc[-6] if len(df) > 6 else df["Close"].iloc[0]
             chg = (price / float(wk) - 1) * 100
@@ -48,6 +60,8 @@ def _scan(pairs):
                         "pattern_name": pats[0][0] if pats else ""})
         except Exception:
             continue
+        finally:
+            time.sleep(0.5)  # be gentle with Yahoo between symbols
     out.sort(key=lambda x: abs(x["score"] - 50), reverse=True)
     return out[:C.WATCH_TOP]
 

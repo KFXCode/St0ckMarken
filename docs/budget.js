@@ -197,5 +197,13 @@ function applyFilter(v){document.querySelectorAll('[data-asset]').forEach(functi
  el.style.display=(v==='all'||el.dataset.asset===v)?'':'none'})}
 if(asset){asset.value=g('asset')||'all';applyFilter(asset.value);
  asset.onchange=function(){s('asset',asset.value);applyFilter(asset.value)}}
+// ---- level (beginner / experienced) tabs ----
+function applyMode(m){document.querySelectorAll('[data-mode]').forEach(function(el){
+  el.style.display=el.dataset.mode===m?'':'none'});
+ document.querySelectorAll('.modebtn').forEach(function(b){
+  b.classList.toggle('active',b.dataset.mode===m)})}
+var modeBtns=document.querySelectorAll('.modebtn');
+if(modeBtns.length){var cm=g('mode')||'beginner';applyMode(cm);
+ modeBtns.forEach(function(b){b.onclick=function(){s('mode',b.dataset.mode);applyMode(b.dataset.mode)}})}
 wire();labelBrokerBtns();render();
 })();

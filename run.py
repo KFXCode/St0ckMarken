@@ -48,7 +48,8 @@ def main():
     social_top = SO.top_buzz(social_bz)
 
     print("4b/7 scoring universe + building trades...")
-    plays, near = strategy.run_strategy(hist, spy, flavor_pts, flavor_notes, congress_act, social_bz)
+    beginner, experienced = strategy.run_strategy(hist, spy, flavor_pts, flavor_notes, congress_act, social_bz)
+    plays = beginner + experienced
 
     if GK.enabled():
         print("4c/7 Grok live X/news read on final trades...")
@@ -91,7 +92,7 @@ def main():
         rows = tracker.log_spot(spot_trades, date_str)
     record = tracker.record_summary(rows)
 
-    html_out = report.render(date_str, updated, plays, near, record, flavor_meta,
+    html_out = report.render(date_str, updated, beginner, experienced, record, flavor_meta,
                              market, earnings_warnings, warnings, picks_rows=rows,
                              congress_top=congress_top, social_top=social_top,
                              playbook=SO.STRATEGY_PLAYBOOK, grok_on=GK.enabled(),
@@ -99,7 +100,7 @@ def main():
     os.makedirs(os.path.dirname(C.REPORT_PATH), exist_ok=True)
     with open(C.REPORT_PATH, "w") as f:
         f.write(html_out)
-    print(f"done: {len(plays)} plays, {len(near)} near-misses -> {C.REPORT_PATH}")
+    print(f"done: {len(beginner)} beginner + {len(experienced)} experienced -> {C.REPORT_PATH}")
 
 if __name__ == "__main__":
     main()

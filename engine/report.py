@@ -85,6 +85,13 @@ padding:10px 0;margin:0 0 4px}
 .wtop{display:flex;justify-content:space-between;align-items:baseline}
 .wname{font-size:17px;font-weight:900} .wprice{font-size:15px;font-weight:800}
 .meme{background:linear-gradient(135deg,#fff0f6,#fff6e6);border:1.5px solid #ffcfe0}
+.trade summary{list-style:none;cursor:pointer;outline:none}
+.trade summary::-webkit-details-marker{display:none}
+.trade .chev{font-size:15px;color:var(--dim);transition:transform .2s}
+.trade[open] .chev{transform:rotate(180deg)}
+.modetabs{display:flex;gap:8px;background:var(--soft);border-radius:14px;padding:5px}
+.modebtn{flex:1;border:none;background:transparent;color:var(--dim);border-radius:10px;padding:11px 8px;font-size:14.5px;font-weight:800}
+.modebtn.active{background:#fff;color:var(--primary);box-shadow:0 3px 10px rgba(90,90,160,.14)}
 """
 
 GUIDE = """
@@ -203,7 +210,62 @@ def _watch_card(w, asset, meme=False):
 <div class="hint" style="margin-top:8px">💡 Trade this in your broker's <b>{section} section</b> (not as an option). <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">See the live chart →</a></div>
 </div>"""
 
-def render(date_str, updated_str, plays, near_misses, record, flavor_meta,
+def _stock_card(p, i, date_str):
+    e = html.escape
+    dircls = "dir-b" if p["direction"] == "BULLISH" else "dir-s"
+    bearcls = "" if p["direction"] == "BULLISH" else " bear"
+    reasons = "".join(f"<li><b>{e(k)}:</b> {e(n)}</li>" for k, n, _ in p["reasons"])
+    pats = p.get("patterns") or []
+    if pats:
+        lis = "".join(f'<li><b>{e(nm)}</b> ({"bullish" if d=="bull" else "bearish"}): {e(pl)}</li>' for nm, d, pl in pats)
+        cndl_html = f'<div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul>{lis}</ul></div>'
+    else:
+        cndl_html = ''
+    gk = p.get("grok")
+    if gk:
+        heads = "".join(f'<li>{e(x)}</li>' for x in gk.get("headlines", []))
+        grok_html = (f'<div class="grok"><b>𝕏 Grok live read:</b> {e(gk.get("take",""))}'
+                     + (f'<ul>{heads}</ul>' if heads else '') + '</div>')
+    else:
+        grok_html = ''
+    h = p.get("history")
+    if h:
+        sea = f" {h['month']} has averaged {h['sea']:+.1f}% for {e(p['ticker'])} historically." if h.get("sea") is not None else ""
+        hist_html = (f'<div class="hist"><b>History check ({h["years"]:g} yrs of data):</b> this exact signal setup '
+                     f'appeared <b>{h["n"]}</b> times; the stock moved ≥{C.WIN_MOVE_PCT:g}% in this direction within '
+                     f'{C.GRADE_WINDOW_DAYS} trading days <b>{h["hit"]:.0f}%</b> of the time (avg best move {h["avg"]:+.1f}%).{sea}</div>')
+    else:
+        hist_html = '<div class="hist"><b>History check:</b> not enough past occurrences of this setup to backtest — treat with extra caution.</div>'
+    c2, c5 = p["cost"] * 2, p["cost"] * 5
+    grow_html = (f'<div class="grow"><b>How your money can grow:</b> you pay ~${p["cost"]:,.0f} once (the ${p["premium"]:.2f} premium '
+                 f'× 100 shares) — and that is your entire risk. The contract moves several times faster than the stock. '
+                 f'If the premium doubles to ${p["premium"]*2:.2f}, your ${p["cost"]:,.0f} becomes ${c2:,.0f} (+100%). '
+                 f'On a big move past the ${p["strike"]:.0f} strike it could reach ${p["premium"]*5:.2f}, turning ${p["cost"]:,.0f} into '
+                 f'${c5:,.0f} (+400%). <b>Can you lose more than ${p["cost"]:,.0f}?</b> No — buying a call or put caps your loss at exactly what you paid. '
+                 f'<b>Can you gain more?</b> Yes — the upside is uncapped. <b>Remember:</b> profits are NOT automatic — tap "Sell to Close" in your broker to lock them in.</div>')
+    budget = '<span class="tag good">$100-friendly ✓</span>' if p["budget_ok"] else \
+             f'<span class="tag">needs ~${p["cost"]:,.0f}</span>'
+    return f"""<div class="card" data-asset="stocks" data-screen-label="Trade {i}">
+<details class="trade"><summary>
+<div class="playtag">Trade #{i} · {e(p.get('timeframe','SWING'))} · {e(p['size'])}</div>
+<div class="title">{e(p['ticker'])} <span class="{dircls}">{e(p['kind'])}</span> <span class="chev">▾</span></div>
+<div class="sub">{e(p['action'])} the ${p['strike']:.0f} strike · expires {e(p['expiry'])} · stock at ${p['spot']:.2f}</div>
+<div class="stats">
+<div class="stat"><div class="v">{p['conviction']:.0f}</div><div class="l">Conviction</div></div>
+<div class="stat"><div class="v">{p['score']:.0f}</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">${p['premium']:.2f}</div><div class="l">Premium</div></div>
+</div></summary>
+<div class="plain{bearcls}"><b>In plain English:</b> {e(p['plain'])}</div>{grow_html}{cndl_html}{grok_html}{hist_html}
+<div class="why">Why this trade sets up:</div><ul>{reasons}</ul>
+<div class="tagrow">{budget}<span class="tag">OI {p['oi']:,}</span><span class="tag">{e(p['direction'].title())}</span></div>
+</details>
+<div class="take" data-t="{e(p['ticker'])}" data-date="{e(date_str)}" data-cost="{p['cost']}" data-prem="{p['premium']}" data-spot="{p['spot']}" data-kind="{e(p['kind'])}" data-strike="{p['strike']:.0f}" data-exp="{e(p['expiry'])}" data-action="{e(p['action'])}">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div>"""
+
+def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
            market, earnings_warnings, warnings, picks_rows=None,
            congress_top=None, social_top=None, playbook=None, grok_on=False,
            watch=None, meme=None):
@@ -214,11 +276,11 @@ def render(date_str, updated_str, plays, near_misses, record, flavor_meta,
 <meta name="apple-mobile-web-app-title" content="St0ckMarken">
 <title>St0ckMarken — {e(date_str)}</title><style>{CSS}</style></head><body>
 <div class="topbar"><div class="brand">St0ckMarken ✨</div>
-<div class="hint">{e(date_str)}</div></div>
+<div class="hint" style="text-align:right;line-height:1.3">Updated<br><span style="font-size:11px">{e(updated_str)}</span></div></div>
 <div class="hero"><div class="pl">Your practice portfolio</div>
 <div class="pv" id="sm-hero-pv">Set money ↓</div>
 <div class="pc" id="sm-hero-pc"></div>
-<div class="mkt">📊 SPY {market['spy']} ({market['spy_chg']:+.1f}%) · VIX {market['vix']} · {len(plays)} trades today · scanned {market['scanned']}</div></div>
+<div class="mkt">📊 SPY {market['spy']} ({market['spy_chg']:+.1f}%) · VIX {market['vix']} · {len(beginner or [])+len(experienced or [])} trades today · scanned {market['scanned']}</div></div>
 <div class="wrap">"""]
     parts.append(BUDGET_CARD)
     parts.append(GUIDE)
@@ -227,68 +289,31 @@ def render(date_str, updated_str, plays, near_misses, record, flavor_meta,
     if earnings_warnings:
         items = "".join(f"<li>{e(x)}</li>" for x in earnings_warnings)
         parts.append(f'<div class="disc"><b>Earnings this week — extra risk</b><ul>{items}</ul></div>')
-    parts.append(f'<h2 data-asset="stocks">📈 Today\'s Stock Option Trades</h2>')
-    if not plays:
-        parts.append('<div class="card" data-asset="stocks"><div class="title">No stock trades today</div>'
-                     '<div class="hint">Nothing cleared the safety bar '
-                     f'({C.MIN_CONVICTION:.0f}+ conviction). No filler trades, ever — staying in cash IS a smart move.</div></div>')
-    for i, p in enumerate(plays, 1):
-        dircls = "dir-b" if p["direction"] == "BULLISH" else "dir-s"
-        bearcls = "" if p["direction"] == "BULLISH" else " bear"
-        reasons = "".join(f"<li><b>{e(k)}:</b> {e(n)}</li>" for k, n, _ in p["reasons"])
-        pats = p.get("patterns") or []
-        if pats:
-            lis = "".join(f'<li><b>{e(nm)}</b> ({"bullish" if d=="bull" else "bearish"}): {e(pl)}</li>' for nm, d, pl in pats)
-            cndl_html = f'<div class="cndl"><b>📊 Chart patterns spotted (from the Candlestick Bible):</b><ul>{lis}</ul></div>'
-        else:
-            cndl_html = ''
-        gk = p.get("grok")
-        if gk:
-            heads = "".join(f'<li>{e(x)}</li>' for x in gk.get("headlines", []))
-            grok_html = (f'<div class="grok"><b>𝕏 Grok live read:</b> {e(gk.get("take",""))}'
-                         + (f'<ul>{heads}</ul>' if heads else '') + '</div>')
-        else:
-            grok_html = ''
-        h = p.get("history")
-        if h:
-            sea = f" {h['month']} has averaged {h['sea']:+.1f}% for {e(p['ticker'])} historically." if h.get("sea") is not None else ""
-            hist_html = (f'<div class="hist"><b>History check ({h["years"]:g} yrs of data):</b> this exact signal setup '
-                         f'appeared <b>{h["n"]}</b> times; the stock moved ≥{C.WIN_MOVE_PCT:g}% in this direction within '
-                         f'{C.GRADE_WINDOW_DAYS} trading days <b>{h["hit"]:.0f}%</b> of the time (avg best move {h["avg"]:+.1f}%).{sea}</div>')
-        else:
-            hist_html = '<div class="hist"><b>History check:</b> not enough past occurrences of this setup to backtest — treat with extra caution.</div>'
-        if p["kind"] == "CASH-SECURED PUT":
-            grow_html = (f'<div class="grow"><b>How the money works here:</b> you set aside ${p["strike"]*100:,.0f} as collateral and '
-                         f'collect ~${p["premium"]*100:,.0f} up front — that premium is the most you can make, and you keep it if '
-                         f'{e(p["ticker"])} stays above ${p["strike"]:.0f}. <b>Can you lose more?</b> Yes: if the stock '
-                         f'drops below ${p["strike"]:.0f} you must buy 100 shares there, so losses grow the further it falls. That is why it needs the full collateral.</div>')
-        else:
-            c2, c5 = p["cost"] * 2, p["cost"] * 5
-            grow_html = (f'<div class="grow"><b>How your money can grow:</b> you pay ~${p["cost"]:,.0f} once (the ${p["premium"]:.2f} premium '
-                         f'× 100 shares) — and that is your entire risk. The contract moves several times faster than the stock. '
-                         f'If the premium doubles to ${p["premium"]*2:.2f}, your ${p["cost"]:,.0f} becomes ${c2:,.0f} (+100%). '
-                         f'On a big move past the ${p["strike"]:.0f} strike it could reach ${p["premium"]*5:.2f}, turning ${p["cost"]:,.0f} into '
-                         f'${c5:,.0f} (+400%). <b>Can you lose more than ${p["cost"]:,.0f}?</b> No — buying a call or put caps your loss at exactly what you paid. '
-                         f'<b>Can you gain more?</b> Yes — the upside is uncapped. <b>Remember:</b> profits are NOT automatic — tap "Sell to Close" in your broker to lock them in.</div>')
-        budget = '<span class="tag good">$100-friendly ✓</span>' if p["budget_ok"] else \
-                 f'<span class="tag">needs ~${p["cost"]:,.0f}</span>'
-        parts.append(f"""<div class="card" data-asset="stocks" data-screen-label="Trade {i}">
-<div class="playtag">Trade #{i} · {e(p.get('timeframe','SWING'))} · {e(p['size'])}</div>
-<div class="title">{e(p['ticker'])} <span class="{dircls}">{e(p['kind'])}</span></div>
-<div class="sub">{e(p['action'])} the ${p['strike']:.0f} strike · expires {e(p['expiry'])} · stock at ${p['spot']:.2f}</div>
-<div class="stats">
-<div class="stat"><div class="v">{p['conviction']:.0f}</div><div class="l">Conviction</div></div>
-<div class="stat"><div class="v">{p['score']:.0f}</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v">${p['premium']:.2f}</div><div class="l">Premium</div></div>
-</div>
-<div class="plain{bearcls}"><b>In plain English:</b> {e(p['plain'])}</div>{grow_html}{cndl_html}{grok_html}{hist_html}
-<div class="why">Why this trade sets up:</div><ul>{reasons}</ul>
-<div class="tagrow">{budget}<span class="tag">OI {p['oi']:,}</span><span class="tag">{e(p['direction'].title())}</span></div>
-<div class="take" data-t="{e(p['ticker'])}" data-date="{e(date_str)}" data-cost="{p['cost']}" data-prem="{p['premium']}" data-spot="{p['spot']}" data-kind="{e(p['kind'])}" data-strike="{p['strike']:.0f}" data-exp="{e(p['expiry'])}" data-action="{e(p['action'])}">
-<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
-<span class="hint">contracts</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
-<div class="pot"></div></div>
-</div>""")
+    parts.append('<h2>🎓 Choose your level</h2>'
+                 '<div class="filterbar"><div class="modetabs">'
+                 '<button class="modebtn" data-mode="beginner">🌱 Beginner</button>'
+                 '<button class="modebtn" data-mode="experienced">🚀 Experienced</button>'
+                 '</div></div>')
+    plays = (beginner or []) + (experienced or [])
+    # ---- Beginner stock trades (cheap / low-priced) ----
+    parts.append('<div data-mode="beginner">')
+    parts.append('<h2 data-asset="stocks">📈 Beginner Stock Option Trades <span class="hint" style="font-weight:600">(cheap, small-account)</span></h2>')
+    if not beginner:
+        parts.append('<div class="card" data-asset="stocks"><div class="title">No beginner trades today</div>'
+                     f'<div class="hint">Nothing low-priced cleared the safety bar ({C.MIN_CONVICTION:.0f}+ conviction). No filler trades — staying in cash IS a smart move.</div></div>')
+    for i, p in enumerate(beginner or [], 1):
+        parts.append(_stock_card(p, i, date_str))
+    parts.append('</div>')
+    # ---- Experienced stock trades (higher-value, real trades) ----
+    parts.append('<div data-mode="experienced" style="display:none">')
+    parts.append('<h2 data-asset="stocks">🚀 Experienced Stock Option Trades <span class="hint" style="font-weight:600">(higher-value real trades)</span></h2>')
+    parts.append('<div class="hint" data-asset="stocks">Best-conviction setups regardless of price — these can cost $100–$500+ per contract. Same full breakdown, bigger names.</div>')
+    if not experienced:
+        parts.append('<div class="card" data-asset="stocks"><div class="title">No experienced trades today</div>'
+                     f'<div class="hint">Nothing cleared the safety bar ({C.MIN_CONVICTION:.0f}+ conviction) at higher price points today.</div></div>')
+    for i, p in enumerate(experienced or [], 1):
+        parts.append(_stock_card(p, i, date_str))
+    parts.append('</div>')
 
     # ---- Other markets: crypto / forex / commodities ----
     labels = {"crypto": "🪙 Crypto Watch", "forex": "💱 Forex Watch", "commodities": "🛢️ Commodities Watch"}
@@ -300,7 +325,7 @@ def render(date_str, updated_str, plays, near_misses, record, flavor_meta,
             for w in items:
                 parts.append(_watch_card(w, cls))
         else:
-            parts.append(f'<div class="watch" data-asset="{cls}"><div class="hint">No {cls} data available today — check back tomorrow.</div></div>')
+            parts.append(f'<div class="watch" data-asset="{cls}"><div class="hint">⏳ {labels[cls].split(" ",1)[1] if " " in labels[cls] else cls} data didn\'t load from Yahoo this run (it sometimes rate-limits). It\'ll refresh on the next daily update.</div></div>')
 
     # ---- Meme coins ----
     parts.append('<h2 data-asset="meme">🐕 Meme Coin Watch <span style="font-size:13px;color:var(--red)">(high risk!)</span></h2>')
@@ -309,14 +334,8 @@ def render(date_str, updated_str, plays, near_misses, record, flavor_meta,
         for w in meme:
             parts.append(_watch_card(w, "meme", meme=True))
     else:
-        parts.append('<div class="watch meme" data-asset="meme"><div class="hint">No meme-coin data available today.</div></div>')
+        parts.append('<div class="watch meme" data-asset="meme"><div class="hint">⏳ Meme-coin data didn\'t load from Yahoo this run (it sometimes rate-limits). It\'ll refresh on the next daily update.</div></div>')
 
-    if near_misses:
-        parts.append('<h2 data-asset="stocks">🚫 Why NOT to trade these</h2><div class="hint" data-asset="stocks">Tempting, but they don\'t clear the bar:</div>')
-        for n in near_misses:
-            parts.append(f'<div class="avoid" data-asset="stocks"><b>{e(n["ticker"])}</b> — looked {e(n["direction"].lower())} '
-                         f'(conviction {n["conviction"]:.0f}, needs {C.MIN_CONVICTION:.0f}+)<br>'
-                         f'<span class="hint">{e(n["why_not"])}</span></div>')
     if congress_top:
         rows = "".join(
             f'<div class="pill">{e(t)} · {b} buys{("/"+str(s)+" sells") if s else ""}'
