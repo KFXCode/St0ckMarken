@@ -399,6 +399,7 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
                     tail = f' ${float(r["strike"]):.0f}' if r["kind"] != "SPOT" and r.get("strike") not in ("", "0", 0) else ""
                     rows += f'<div class="scn"><span>{e(r["ticker"])} · {kind}{tail}</span>{res}</div>'
                 parts.append(f'<div class="card"><div class="playtag">{e(d)}</div>{rows}</div>')
+    parts.append(f"""<h2>🏆 Performance</h2>
 <div class="record">
 <div class="stat"><div class="v">{record['wins']}-{record['losses']}</div><div class="l">Win / Loss</div></div>
 <div class="stat"><div class="v" style="color:{'#00b46e' if record['total_pl']>=0 else '#ff4d6d'}">{record['total_pl']:+.1f}%</div><div class="l">Est. cum P/L</div></div>
