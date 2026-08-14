@@ -48,6 +48,10 @@ def main():
         social_bz = {}
     congress_top = CG.top_buys(congress_act)
     social_top = SO.top_buzz(social_bz)
+    try:
+        follow_traders = CG.follow_list()
+    except Exception:
+        follow_traders = []
 
     print("4b/7 scoring universe + building trades...")
     beginner, experienced = strategy.run_strategy(hist, spy, flavor_pts, flavor_notes, congress_act, social_bz)
@@ -98,7 +102,8 @@ def main():
                              market, earnings_warnings, warnings, picks_rows=rows,
                              congress_top=congress_top, social_top=social_top,
                              playbook=SO.STRATEGY_PLAYBOOK, grok_on=GK.enabled(),
-                             watch=watch, meme=meme, is_weekend=is_weekend)
+                             watch=watch, meme=meme, is_weekend=is_weekend,
+                             follow_traders=follow_traders)
     os.makedirs(os.path.dirname(C.REPORT_PATH), exist_ok=True)
     with open(C.REPORT_PATH, "w") as f:
         f.write(html_out)

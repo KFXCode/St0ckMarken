@@ -86,8 +86,10 @@ WATCHLIST = {
 MEME_WATCH = [("DOGE-USD", "Dogecoin"), ("SHIB-USD", "Shiba Inu"), ("PEPE-USD", "Pepe"),
               ("WIF-USD", "dogwifhat"), ("FLOKI-USD", "Floki"), ("BONK-USD", "Bonk")]
 WATCH_TOP = 4  # how many movers to surface per asset class
-WATCH_TRADE_CONV = 24    # |score-50|*2 needed for an other-market mover to be a SUGGESTED trade
+WATCH_TRADE_CONV = 16    # |score-50|*2 needed for an other-market mover to be a SUGGESTED trade
 SPOT_POSITION_USD = 25   # flat suggested dollar size for a spot (crypto/forex/commodity) buy
+GRADE_WINDOW_SPOT = 3    # trading days to judge a fast spot/day trade (vs GRADE_WINDOW_DAYS for swings)
+EARLY_GRADE = True       # grade a pick a WIN the moment it hits its target — don't wait the full window
 
 # Tickers NOT tradeable on Robinhood — filtered out so every stock trade works there.
 # Add any others you find unsupported.

@@ -290,7 +290,7 @@ def _watch_card(w, asset, meme=False):
 <div class="limitbox"><b>🎯 Best price to sell at: {("$%.4f" % (w['price']*(1+ (0.15 if meme else 0.10)))) if w['price']<1 else ("$%,.2f" % (w['price']*(1+ (0.15 if meme else 0.10))))}</b> (about +{15 if meme else 10}% bigger) · <b>📈 The robot thinks it could grow about +{15 if meme else 10}%</b>. Tell your app to sell when it reaches that price (a sell limit) — then it sells for you and you don’t have to watch!</div>
 <div class="cndl"><b>📊 Shape the robot saw:</b>{pat if pat else " no clear shape — just following the trend"}.{warn}</div>
 <div class="hint">{where} <a href="https://finance.yahoo.com/quote/{html.escape(w['symbol'])}" target="_blank">See the live chart →</a></div>
-<div class="take" data-t="{html.escape(w['symbol'])}" data-base="{html.escape(base)}" data-date="__DATE__" data-cost="{size}" data-prem="{w['price']}" data-spot="{w['price']}" data-kind="SPOT" data-strike="0" data-exp="" data-action="BUY">
+<div class="take" data-t="{html.escape(w['symbol'])}" data-base="{html.escape(base)}" data-date="__DATE__" data-cost="{size}" data-prem="{w['price']}" data-spot="{w['price']}" data-kind="SPOT" data-rh="{'true' if (asset in ('crypto','meme') and base in RH_CRYPTO) else 'false'}" data-strike="0" data-exp="" data-action="BUY">
 <span class="hint">Pretend size ${size}</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
 </div>"""
@@ -366,7 +366,7 @@ def _stock_card(p, i, date_str):
 <div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
 <div class="tagrow">{budget}<span class="tag">OI {p['oi']:,}</span>{rh}</div>
 </details>
-<div class="take" data-t="{e(p['ticker'])}" data-date="{e(date_str)}" data-cost="{p['cost']}" data-prem="{p['premium']}" data-spot="{p['spot']}" data-kind="{e(p['kind'])}" data-strike="{p['strike']:.0f}" data-exp="{e(p['expiry'])}" data-action="{e(p['action'])}">
+<div class="take" data-t="{e(p['ticker'])}" data-date="{e(date_str)}" data-cost="{p['cost']}" data-prem="{p['premium']}" data-spot="{p['spot']}" data-kind="{e(p['kind'])}" data-rh="{'true' if p.get('rh', True) else 'false'}" data-strike="{p['strike']:.0f}" data-exp="{e(p['expiry'])}" data-action="{e(p['action'])}">
 <button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
 <span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
@@ -375,7 +375,7 @@ def _stock_card(p, i, date_str):
 def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
            market, earnings_warnings, warnings, picks_rows=None,
            congress_top=None, social_top=None, playbook=None, grok_on=False,
-           watch=None, meme=None, is_weekend=False):
+           watch=None, meme=None, is_weekend=False, follow_traders=None):
     e = html.escape
     parts = [f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
@@ -451,14 +451,32 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
     else:
         parts.append('<div class="watch meme" data-asset="meme"><div class="hint">⏳ Meme-coin data didn\'t load from Yahoo this run (it sometimes rate-limits). It\'ll refresh on the next daily update.</div></div>')
 
-    if congress_top:
-        rows = "".join(
-            f'<div class="pill">{e(t)} · {b} buys{("/"+str(s)+" sells") if s else ""}'
-            + (f' · {e(names[0])}' if names else "") + '</div>'
-            for t, b, s, names in congress_top)
-        parts.append(f'<h2>🏛️ What Important People Are Buying</h2><div class="hint">Some grown-ups who help run the country tell everyone what stocks they buy. '
-                     f'The robot peeks at this as a little extra clue — not the main reason to bet.</div>'
-                     f'<div class="flow"><b>Stuff they bought lately:</b><br>{rows}</div>')
+    if follow_traders:
+        robot_tickers = set()
+        for lst in ((watch or {}).values()):
+            robot_tickers |= {w["symbol"] for w in lst if w.get("is_trade")}
+        try:
+            robot_tickers |= {b["ticker"] for b in (beginner or [])} | {x["ticker"] for x in (experienced or [])}
+        except Exception:
+            pass
+        cards = ""
+        for p in follow_traders:
+            initials = "".join(w[0] for w in str(p["who"]).split()[:2]).upper() or "?"
+            star = ('<span class="tag good">⭐ Our robot likes this too!</span>'
+                    if p["ticker"] in robot_tickers else '')
+            amt = f' · {e(p["amount"])}' if p.get("amount") else ''
+            cards += (f'<div class="avoid" style="display:flex;gap:11px;align-items:flex-start">'
+                      f'<div style="width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;'
+                      f'font-weight:800;color:#fff;background:linear-gradient(135deg,#6c5ce7,#3aa0ff)">{e(initials)}</div>'
+                      f'<div style="flex:1"><b>{e(p["who"])}</b> <span class="hint">({e(p["role"])})</span><br>'
+                      f'bought <b>{e(p["ticker"])}</b>{amt}<br><span class="hint">{e(p["date"])}</span> {star}<br>'
+                      f'<button class="brokerbtn" style="margin-top:8px;padding:7px 13px;font-size:13px" '
+                      f'onclick="window.smFollow&&smFollow(\'{e(p["ticker"])}\')">＋ Follow this pick</button></div></div>')
+        parts.append('<h2>👥 Follow Real Traders</h2>'
+                     '<div class="hint">These are <b>real people</b> making <b>real trades</b> — members of Congress, '
+                     'who by law must tell everyone what stocks they buy. It\'s public info (the same data grown-up '
+                     '"copy-trading" apps use). A ⭐ means our robot picked the same thing — that\'s a strong clue!</div>'
+                     f'{cards}')
     if social_top:
         rows = "".join(
             f'<div class="pill">{e(t)} · {m} mentions{" · trending" if tr else ""}</div>'

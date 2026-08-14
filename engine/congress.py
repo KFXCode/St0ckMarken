@@ -44,3 +44,32 @@ def recent_activity(days=90):
 def top_buys(activity, n=5):
     ranked = sorted(activity.items(), key=lambda kv: kv[1]["buys"] - kv[1]["sells"], reverse=True)
     return [(t, a["buys"], a["sells"], a["names"][:2]) for t, a in ranked if a["buys"] > a["sells"]][:n]
+
+def follow_list(days=90, n=8):
+    """Person-level 'real traders to follow': each recent BUY with who, what, when.
+    Real named lawmakers + real public trades (STOCK Act disclosures). Keyless."""
+    people, cutoff = [], datetime.today() - timedelta(days=days)
+    seen = set()
+    for url in (HOUSE_URL, SENATE_URL):
+        try:
+            data = _get(url)
+        except Exception:
+            continue
+        for tx in data:
+            tkr = str(tx.get("ticker") or "").upper().strip()
+            if not tkr or tkr in ("--", "N/A", "NONE"): continue
+            typ = str(tx.get("type") or tx.get("transaction_type") or "").lower()
+            if not ("purch" in typ or typ == "buy"): continue
+            d = _parse_date(tx.get("transaction_date") or tx.get("disclosure_date"))
+            if d is None or d < cutoff: continue
+            who = tx.get("representative") or tx.get("senator") or "A lawmaker"
+            chamber = "Senator" if tx.get("senator") else "Representative"
+            amt = str(tx.get("amount") or "").strip()
+            key = (who, tkr)
+            if key in seen: continue
+            seen.add(key)
+            people.append({"who": who, "role": chamber, "ticker": tkr,
+                           "amount": amt, "date": d.strftime("%b %d, %Y"), "_d": d})
+    people.sort(key=lambda p: p["_d"], reverse=True)
+    for p in people: p.pop("_d", None)
+    return people[:n]

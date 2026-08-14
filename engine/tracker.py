@@ -56,6 +56,9 @@ def log_spot(spot_trades, run_date):
     _save(rows)
     return rows
 
+def _grade_window(row):
+    return C.GRADE_WINDOW_SPOT if row.get("kind") == "SPOT" else C.GRADE_WINDOW_DAYS
+
 def grade_open_picks():
     rows = _load()
     today = pd.Timestamp.today().normalize()
@@ -63,31 +66,37 @@ def grade_open_picks():
     for r in rows:
         if r["status"] != "OPEN": continue
         opened = pd.Timestamp(r["date"])
-        if len(pd.bdate_range(opened, today)) - 1 < C.GRADE_WINDOW_DAYS: continue
+        window = _grade_window(r)
+        elapsed = len(pd.bdate_range(opened, today)) - 1
         try:
             hist = yf.download(r["ticker"], start=opened.strftime("%Y-%m-%d"),
                                progress=False, auto_adjust=True)["Close"].dropna()
             if hist.empty: continue
             entry = float(r["spot"])
-            closes = hist.iloc[1:C.GRADE_WINDOW_DAYS + 1] if len(hist) > 1 else hist
+            closes = hist.iloc[1:window + 1] if len(hist) > 1 else hist
+            if len(closes) == 0: continue
             if r["direction"] == "BULLISH":
-                best = float(closes.max()); move = (best / entry - 1) * 100
+                best = float(closes.max()); best_move = (best / entry - 1) * 100
             else:
-                best = float(closes.min()); move = (entry / best - 1) * 100
-            win = move >= C.WIN_MOVE_PCT
+                best = float(closes.min()); best_move = (entry / best - 1) * 100
+            hit_target = best_move >= C.WIN_MOVE_PCT
+            window_done = elapsed >= window
+            # Early-grade a winner as soon as it hits target; otherwise wait for the window.
+            if not (hit_target and C.EARLY_GRADE) and not window_done:
+                continue
             prem = float(r["premium"]) or 0.01
+            final = float(closes.iloc[-1])
             if r["kind"] == "SPOT":
-                # Spot buy: profit/loss is simply the real % move (no leverage), close-based.
-                final = float(closes.iloc[-1])
-                move = (final / entry - 1) * 100
+                move = best_move if hit_target else (final / entry - 1) * 100
                 win = move >= C.WIN_MOVE_PCT
                 est_pl = round(move, 1)
             elif r["kind"] == "CASH-SECURED PUT":
-                # CSP wins if the stock stayed above strike at window end
-                final = float(closes.iloc[-1])
-                win = final >= float(r["strike"])
+                win = final >= float(r["strike"]) or hit_target
+                move = best_move
                 est_pl = 100.0 if win else max(-100.0, (final - float(r["strike"])) / prem * 100)
             else:
+                win = hit_target
+                move = best_move if hit_target else (final / entry - 1) * 100 * (1 if r["direction"] == "BULLISH" else -1)
                 leverage = entry / prem * C.DELTA_PROXY
                 signed = move if win else -abs(move)
                 est_pl = max(-100.0, round(signed / 100 * leverage * 100, 1))

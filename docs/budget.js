@@ -8,21 +8,21 @@ function fmt(n){return '$'+(Math.round(n*100)/100).toLocaleString()}
 function state(){return{start:g('start'),cash:g('cash')||0,open:g('open')||[],closed:g('closed')||[]}}
 function save(st){s('cash',st.cash);s('open',st.open);s('closed',st.closed)}
 var BROKERS={
- robinhood:{name:'Robinhood',url:function(t){return 'https://robinhood.com/stocks/'+t}},
- webull:{name:'Webull',url:function(t){return 'https://www.webull.com/quote/'+t.toLowerCase()}},
- fidelity:{name:'Fidelity',url:function(t){return 'https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol='+t}},
- schwab:{name:'Charles Schwab',url:function(t){return 'https://client.schwab.com/app/research/#/stocks/'+t}},
- etrade:{name:'E*TRADE',url:function(t){return 'https://us.etrade.com/etx/mkt/quotes?symbol='+t}},
- moomoo:{name:'moomoo',url:function(t){return 'https://www.moomoo.com/stock/'+t+'-US'}},
- thinkorswim:{name:'thinkorswim',url:function(t){return 'https://trade.thinkorswim.com/'}},
- ibkr:{name:'Interactive Brokers',url:function(t){return 'https://portal.interactivebrokers.com/'}},
- tastytrade:{name:'tastytrade',url:function(t){return 'https://my.tastytrade.com/app.html#/trading?symbol='+t}},
- public:{name:'Public',url:function(t){return 'https://public.com/stocks/'+t.toLowerCase()}},
- sofi:{name:'SoFi Invest',url:function(t){return 'https://www.sofi.com/invest/'}},
- ally:{name:'Ally Invest',url:function(t){return 'https://live.invest.ally.com/'}},
- tradestation:{name:'TradeStation',url:function(t){return 'https://www.tradestation.com/'}},
- firstrade:{name:'Firstrade',url:function(t){return 'https://invest.firstrade.com/cgi-bin/main#/cgi-bin/enter_transaction'}},
- coinbase:{name:'Coinbase',url:function(t){return 'https://www.coinbase.com/advanced-trade/spot/'+t.replace('-USD','')+'-USD'}}
+ robinhood:{name:'Robinhood',opt:true,crypto:true,url:function(t,kind){return kind&&kind.indexOf('CALL')<0&&kind.indexOf('PUT')<0?'https://robinhood.com/stocks/'+t:(kind?'https://robinhood.com/options/chains/'+t:'https://robinhood.com/stocks/'+t)}},
+ webull:{name:'Webull',opt:true,crypto:true,url:function(t){return 'https://www.webull.com/quote/'+t.toLowerCase()}},
+ public:{name:'Public',opt:true,crypto:true,url:function(t){return 'https://public.com/stocks/'+t.toLowerCase()}},
+ fidelity:{name:'Fidelity',opt:true,url:function(t){return 'https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol='+t}},
+ schwab:{name:'Charles Schwab',opt:true,url:function(t){return 'https://client.schwab.com/app/research/#/stocks/'+t}},
+ etrade:{name:'E*TRADE',opt:true,url:function(t){return 'https://us.etrade.com/etx/mkt/quotes?symbol='+t}},
+ moomoo:{name:'moomoo',opt:true,crypto:true,url:function(t){return 'https://www.moomoo.com/stock/'+t+'-US'}},
+ thinkorswim:{name:'thinkorswim',opt:true,url:function(t){return 'https://trade.thinkorswim.com/'}},
+ ibkr:{name:'Interactive Brokers',opt:true,url:function(t){return 'https://portal.interactivebrokers.com/'}},
+ tastytrade:{name:'tastytrade',opt:true,crypto:true,url:function(t,kind){return 'https://my.tastytrade.com/app.html#/trading?symbol='+t}},
+ sofi:{name:'SoFi Invest',opt:false,crypto:true,url:function(t){return 'https://www.sofi.com/invest/'}},
+ ally:{name:'Ally Invest',opt:true,url:function(t){return 'https://live.invest.ally.com/'}},
+ tradestation:{name:'TradeStation',opt:true,crypto:true,url:function(t){return 'https://www.tradestation.com/'}},
+ firstrade:{name:'Firstrade',opt:true,url:function(t){return 'https://invest.firstrade.com/cgi-bin/main#/cgi-bin/enter_transaction'}},
+ coinbase:{name:'Coinbase',opt:false,crypto:true,url:function(t){return 'https://www.coinbase.com/advanced-trade/spot/'+t.replace('-USD','')+'-USD'}}
 };
 /* Scenario math: simple linear delta model (delta ≈ 0.40). Est. option P/L for a move
    = position cost × move% × (spot/premium × 0.40) / 100, losses capped at what you paid. */
@@ -121,11 +121,15 @@ function wire(){document.querySelectorAll('.take').forEach(function(el){
  if(bb)bb.onclick=function(){
   var bk=g('broker');
   if(!bk||!BROKERS[bk]){alert('Pick your broker first — the broker dropdown is in the My Money box at the top.');return}
+  var B=BROKERS[bk], isOpt=(p.kind&&(p.kind.indexOf('CALL')>=0||p.kind.indexOf('PUT')>=0));
+  var rhOK=(d.rh!=='false'); // this exact trade exists on Robinhood-style apps
+  if(isOpt&&!B.opt){if(!confirm(B.name+' can\'t trade options. Easiest apps for options: Robinhood, Webull, or Public. Open '+B.name+' anyway?')){alert('Tip: switch your broker up top to Robinhood (easiest for options), then tap again.');return}}
+  if(p.kind==='SPOT'&&!rhOK){alert('Heads up: this one isn\'t on Robinhood. Best apps for it: for forex use OANDA or Forex.com; for gold/oil use your broker\'s futures section. Opening a live chart so you can decide.');}
   var order=orderText(p,q);
   var tgt=(p.kind==='SPOT'&&p.base)?p.base:p.t;
-  var go=function(){window.open(BROKERS[bk].url(tgt),'_blank');
-   bb.textContent='Order copied ✓ now tick “I took this trade”';
-   setTimeout(function(){bb.textContent='Open in '+BROKERS[bk].name},4500)};
+  var go=function(){window.open(B.url(tgt,p.kind),'_blank');
+   bb.textContent=isOpt?'Options chain opened ✓ pick '+p.strike+' '+(p.kind.indexOf('CALL')>=0?'Call':'Put')+', exp '+p.exp:'Order copied ✓ now tick “I took this trade”';
+   setTimeout(function(){bb.textContent='Open in '+B.name},6000)};
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(order).then(go,go);else go()};
  // ---- manual "I took this trade" checkbox ----
  var lab=document.createElement('label');
@@ -146,6 +150,17 @@ function wire(){document.querySelectorAll('.take').forEach(function(el){
    if(idx>=0){st.cash+=st.open[idx].cost;st.open.splice(idx,1);save(st);render();}
   }};
  })}
+window.smFollow=function(ticker){
+ var st=state();
+ if(st.start==null){alert('First set your money up top in "My Money," then you can follow a real trader\'s pick!');return}
+ var cost=25, date=(D.plays&&D.plays[0]&&D.plays[0].date)||new Date().toISOString().slice(0,10);
+ if(cost>st.cash){alert('Not enough free cash to follow this ($25 needed). Add money or close a trade first.');return}
+ if(st.open.concat(st.closed).some(function(p){return p.t===ticker&&p.date===date})){alert('You already followed '+ticker+' today. 👍');return}
+ st.cash-=cost;
+ st.open.push({t:ticker,kind:'SPOT',date:date,qty:1,cost:cost,prem:0,spot:0,followed:true});
+ save(st);render();
+ alert('Followed '+ticker+'! Added a $25 practice buy — it\'ll grade like your other trades. To do it for real, buy '+ticker+' in your broker.');
+};
 function labelBrokerBtns(){var bk=g('broker');
  document.querySelectorAll('.brokerbtn').forEach(function(b){
   b.textContent=bk&&BROKERS[bk]?('Open in '+BROKERS[bk].name):'Open in broker'})}

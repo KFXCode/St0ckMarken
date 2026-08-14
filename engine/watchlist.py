@@ -24,6 +24,31 @@ def _download(sym, tries=3):
         time.sleep(1.2 * (i + 1))  # back off, then retry
     return None
 
+def _download_batch(syms):
+    """One batched request for the whole class (far less rate-limiting than N calls),
+    with a per-symbol retry fallback for anything the batch missed."""
+    out = {}
+    try:
+        data = yf.download(syms, period="6mo", interval="1d", group_by="ticker",
+                           auto_adjust=True, progress=False, threads=True)
+        multi = hasattr(data.columns, "nlevels") and data.columns.nlevels > 1
+        for s in syms:
+            try:
+                df = (data[s] if multi else data).dropna()
+                if len(df) >= 30:
+                    out[s] = df
+            except Exception:
+                pass
+    except Exception:
+        pass
+    for s in syms:                      # fallback for any that didn't come back
+        if s not in out:
+            time.sleep(0.6)
+            df = _download(s)
+            if df is not None:
+                out[s] = df
+    return out
+
 def _scan(pairs):
     # Same social layer as stocks: Reddit (WSB/options/stocks) + StockTwits buzz,
     # matched on the ticker base (e.g. DOGE, BTC, PEPE). Free, keyless.
@@ -32,10 +57,11 @@ def _scan(pairs):
         bz = SO.buzz(bases)
     except Exception:
         bz = {}
+    hist = _download_batch([sym for sym, _ in pairs])
     out = []
     for sym, name in pairs:
         try:
-            df = _download(sym)
+            df = hist.get(sym)
             if df is None:
                 continue
             price = float(df["Close"].iloc[-1])
@@ -61,7 +87,7 @@ def _scan(pairs):
         except Exception:
             continue
         finally:
-            time.sleep(0.5)  # be gentle with Yahoo between symbols
+            pass
     out.sort(key=lambda x: abs(x["score"] - 50), reverse=True)
     return out[:C.WATCH_TOP]
 
