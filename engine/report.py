@@ -451,7 +451,8 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
     else:
         parts.append('<div class="watch meme" data-asset="meme"><div class="hint">⏳ Meme-coin data didn\'t load from Yahoo this run (it sometimes rate-limits). It\'ll refresh on the next daily update.</div></div>')
 
-    if follow_traders:
+    # Always show Follow Real Traders — even if the feed napped, we show a friendly fallback.
+    if True:
         robot_tickers = set()
         for lst in ((watch or {}).values()):
             robot_tickers |= {w["symbol"] for w in lst if w.get("is_trade")}
@@ -460,7 +461,7 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
         except Exception:
             pass
         cards = ""
-        for p in follow_traders:
+        for p in (follow_traders or []):
             initials = "".join(w[0] for w in str(p["who"]).split()[:2]).upper() or "?"
             star = ('<span class="tag good">⭐ Our robot likes this too!</span>'
                     if p["ticker"] in robot_tickers else '')
@@ -476,7 +477,11 @@ def render(date_str, updated_str, beginner, experienced, record, flavor_meta,
                      '<div class="hint">These are <b>real people</b> making <b>real trades</b> — members of Congress, '
                      'who by law must tell everyone what stocks they buy. It\'s public info (the same data grown-up '
                      '"copy-trading" apps use). A ⭐ means our robot picked the same thing — that\'s a strong clue!</div>'
-                     f'{cards}')
+                     + (cards if cards else
+                        '<div class="avoid"><b>Checking back soon…</b><br><span class="hint">'
+                        'The public disclosure feed didn\'t answer this morning (it\'s a free government site that '
+                        'sometimes naps). The robot will grab the newest real trades on the next run — this section '
+                        'fills right back in.</span></div>'))
     if social_top:
         rows = "".join(
             f'<div class="pill">{e(t)} · {m} mentions{" · trending" if tr else ""}</div>'
