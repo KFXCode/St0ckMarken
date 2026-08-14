@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#6c5ce7"><meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="St0ckMarken">
-<title>St0ckMarken — 2026-07-31 (SAMPLE)</title><style>
+<title>St0ckMarken — 2026-08-14</title><style>
 :root{--bg:#ffffff;--ink:#151530;--dim:#6b7280;--line:#e9ebf7;--soft:#f4f6ff;
 --primary:#6c5ce7;--primary2:#3aa0ff;--green:#00b46e;--red:#ff4d6d;--sun:#ff9f1c;--violet:#7c5cff;--card:#ffffff}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -105,13 +105,13 @@ padding:10px 0;margin:0 0 4px}
 .switch input:checked+.slider2:before{transform:translateX(22px)}
 .botgoal{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:13.5px;margin:12px 0}
 </style></head><body>
-<div class="topbar"><div class="brand">St0ckMarken ✨</div><div class="hint" style="text-align:right;line-height:1.3">Updated<br><span style="font-size:11px">Jul 31, 2026 - 06:00 AM EDT</span></div></div>
+<div class="topbar"><div class="brand">St0ckMarken ✨</div>
+<div class="hint" style="text-align:right;line-height:1.3">Updated<br><span style="font-size:11px">Aug 14, 2026 - 10:23 AM EDT</span></div></div>
 <div class="hero"><div class="pl">Your pretend money</div>
 <div class="pv" id="sm-hero-pv">Add money ↓</div>
 <div class="pc" id="sm-hero-pc"></div>
-<div class="mkt">📊 The whole market (SPY) is at 627.58 (+0.4% today) · 3 good bets today · robot looked at 98 stocks</div></div>
-<div class="wrap">
-<h2>💰 My Money</h2>
+<div class="mkt">📊 The whole market (SPY) is at 777.64 (-0.0% today) · 10 good bets today · robot looked at 118 stocks</div></div>
+<div class="wrap"><h2>💰 My Pretend Money</h2>
 <div class="card" id="sm-budget">
 <div id="sm-setup">
 <div class="title" style="font-size:18px">Set your starting money</div>
@@ -155,11 +155,9 @@ padding:10px 0;margin:0 0 4px}
 <option value="forex">💱 Forex</option>
 <option value="commodities">🛢️ Commodities</option>
 <option value="meme">🐕 Meme coins (high risk)</option>
-</select></div>
-
-<h2>🤖 Auto-Bot (pretend money)</h2>
+</select></div><h2>🤖 Auto-Bot (pretend money)</h2>
 <div class="botcard">
-<div class="hint" style="margin-bottom:10px">Turn this ON and the robot will <b>automatically "buy" trades for you</b> — no finger lifting! Its mission: <b>try to DOUBLE your money</b> by swinging on the best picks. Pick how fast to try (a week is safer!). All <b>pretend money</b>, so you can watch it safely.</div>
+<div class="hint" style="margin-bottom:10px">Turn this ON and the robot will <b>automatically "buy" trades for you every day</b> — no finger lifting! Its mission: <b>try to DOUBLE your money each day</b> by swinging big on the best picks (one trade, or a few trades — whatever it takes). It sets sell targets, closes bets, and keeps score. All <b>pretend money</b>, so you can watch a go-for-it bot with zero real risk.</div>
 <div id="bot-setup">
 <div class="title" style="font-size:18px">Give the bot some pretend money</div>
 <div class="hint">Pick a start amount. The bot does the rest by itself.</div>
@@ -239,165 +237,205 @@ padding:10px 0;margin:0 0 4px}
 <div class="gsec"><b>Volatility (IV)</b> = How wild and jumpy a stock is. Jumpy = more exciting but more risky.</div>
 <div class="gsec"><b>Max loss</b> = The MOST you can lose. Good news: it's only the money you paid — never more. 🛡️</div>
 <div class="gsec"><b>Conviction</b> = How SURE the computer is about the bet. Higher number = more sure!</div>
-</details>
-<h2>🎓 Pick how much money you have</h2>
-<div class="filterbar"><div class="modetabs">
-<button class="modebtn active" data-mode="beginner" onclick="smMode('beginner')">🌱 Just starting</button>
-<button class="modebtn" data-mode="experienced" onclick="smMode('experienced')">🚀 More money</button>
-</div></div>
-<script>function smMode(m){document.querySelectorAll("[data-mode]:not(.modebtn)").forEach(function(el){el.style.display=el.dataset.mode===m?"":"none"});document.querySelectorAll(".modebtn").forEach(function(b){b.classList.toggle("active",b.dataset.mode===m)});try{localStorage.setItem("sm_mode",JSON.stringify(m))}catch(e){}}try{var _m=JSON.parse(localStorage.getItem("sm_mode")||"\"beginner\"");smMode(_m)}catch(e){}</script>
-<div data-mode="beginner">
-<h2 data-asset="stocks">📈 Cheap Bets for Small Money <span class="hint" style="font-weight:600">(great if you have $100 or less)</span></h2>
-<div class="card" data-asset="stocks">
+</details><div class="disc"><b>Heads up:</b> Congressional-disclosure feed was unavailable today — elite-flows factor scored neutral.</div><h2>🎓 Pick how much money you have</h2><div class="filterbar"><div class="modetabs"><button class="modebtn active" data-mode="beginner" onclick="smMode('beginner')">🌱 Just starting</button><button class="modebtn" data-mode="experienced" onclick="smMode('experienced')">🚀 More money</button></div></div><script>function smMode(m){document.querySelectorAll("[data-mode]:not(.modebtn)").forEach(function(el){el.style.display=el.dataset.mode===m?"":"none"});document.querySelectorAll(".modebtn").forEach(function(b){b.classList.toggle("active",b.dataset.mode===m)});try{localStorage.setItem("sm_mode",JSON.stringify(m))}catch(e){}}try{var _m=JSON.parse(localStorage.getItem("sm_mode")||"\"beginner\"");smMode(_m)}catch(e){}</script><div data-mode="beginner"><h2 data-asset="stocks">📈 Cheap Bets for Small Money <span class="hint" style="font-weight:600">(great if you have $100 or less)</span></h2><div class="card" data-asset="stocks" data-screen-label="Trade 1">
 <details class="trade"><summary>
 <div class="playtag">Trade #1 · SWING (days–weeks) · 1 position</div>
-<div class="title">NIO <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
-<div class="sub">BUY the $5 strike · expires 2026-08-21 · stock at $4.85</div>
-<div class="stats"><div class="stat"><div class="v">28</div><div class="l">How sure</div></div>
-<div class="stat"><div class="v">63</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v">$0.35</div><div class="l">Bet price</div></div></div></summary>
-<div class="plain"><b>What to do, in easy words:</b> Buy the $5 call expiring 2026-08-21 for ~$35. Max loss = what you pay. Profits if NIO rises before expiry.</div>
-<div class="grow"><b>How your money can grow:</b> you pay about <b>$35</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $35 turns into <b>$70</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$175</b> (+400%, five times your money!). <b>Can you lose more than $35?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div>
-<div class="limitbox"><b>🎯 Best price to sell at: $0.56</b> (that is about +61% bigger than what you paid) · <b>📈 The robot thinks it could grow about +46%</b> before the bet ends (because it thinks the stock will move about 7.4%). Right after you buy, tell your app to “Sell when it reaches $0.56” (this is called a sell limit). Then the app sells it for you and you make about <b>+$21 on each bet</b> — you don't even have to watch! Easy money.</div>
-<div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Bullish Engulfing</b> (bullish): today's green candle swallows yesterday's red one.</li><li><b>Hammer</b> (bullish): a long tail poking down — buyers slapped price back up.</li></ul></div>
-<div class="hist"><b>History check (10 yrs of data):</b> this setup appeared <b>176</b> times; moved ≥1.5% up within 10 days <b>68%</b> of the time (avg best move +7.4%).</div>
-<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> price above both moving averages, +11.3% this month</li><li><b>Candlestick:</b> Bullish Engulfing, Hammer</li><li><b>Social buzz:</b> 12 mentions on Reddit, trending on StockTwits</li></ul>
+<div class="title">SNAP <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $6 strike · expires 2026-09-04 · stock at $5.47</div>
+<div class="stats">
+<div class="stat"><div class="v">31</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">65</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.26</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain"><b>What to do, in easy words:</b> Make a bet that SNAP will go UP. Buy the $6 call that ends on 2026-09-04 for about $27. The most you can lose is the $27 you pay — never more. You win if SNAP goes up before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$27</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $27 turns into <b>$54</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$135</b> (+400%, five times your money!). <b>Can you lose more than $27?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $0.43</b> (that is about +67% bigger than what you paid) · <b>📈 The robot thinks it could grow about +65%</b> before the bet ends (because it thinks SNAP will move about 6.9%). Right after you buy, tell your app to “Sell when it reaches $0.43” (this is called a sell limit). Then the app sells it for you and you make about <b>+$17 on each bet</b> — you don't even have to watch! Easy money.</div><div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Morning Star</b> (looks like it wants to go UP): Three candles: a big red, a tiny pause, then a big green. Classic &#x27;sun coming up&#x27; bottom — buyers take charge.</li></ul></div><div class="hist"><b>What happened before (looking back 9.5 years):</b> this same setup showed up <b>321</b> times. When it did, the stock moved the way we hoped <b>67 out of every 100 times</b> (about +6.9% at its best). In past years, August was usually a tricky month for SNAP (about -4.6%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +20.6%</li><li><b>Candlestick:</b> Morning Star</li><li><b>RSI:</b> RSI(14) = 60 (bullish momentum zone)</li><li><b>MACD:</b> MACD above signal, histogram falling</li><li><b>Volume:</b> volume 0.2x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: +16.0%</li><li><b>Volatility:</b> 20-day HV 74%, 91th percentile of past year (extreme — options likely overpriced)</li><li><b>News:</b> 10 headlines, mixed/neutral tone</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
 <div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
-<div class="tagrow"><span class="tag good">Great for $100 or less ✓</span><span class="tag">OI 41,900</span><span class="tag good">✓ Works on Robinhood</span></div>
+<div class="tagrow"><span class="tag good">Great for $100 or less ✓</span><span class="tag">OI 4,118</span><span class="tag good">✓ Works on Robinhood</span></div>
 </details>
-<div class="take" data-t="NIO" data-date="2026-07-31" data-cost="35" data-prem="0.35" data-spot="4.85" data-kind="LONG CALL" data-rh="true" data-strike="5" data-exp="2026-08-21" data-action="BUY">
+<div class="take" data-t="SNAP" data-date="2026-08-14" data-cost="27.0" data-prem="0.26" data-spot="5.47" data-kind="LONG CALL" data-rh="true" data-strike="6" data-exp="2026-09-04" data-action="BUY">
 <button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
 <span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
-</div>
-</div>
-<div data-mode="experienced" style="display:none">
-<h2 data-asset="stocks">🚀 Bigger Bets for More Money <span class="hint" style="font-weight:600">(these cost more)</span></h2>
-<div class="hint" data-asset="stocks">The robot's most-sure bets, even the pricey ones — these can cost $100 to $500+ each. Same easy breakdown, just bigger name-brand stocks.</div>
-<div class="card" data-asset="stocks">
-<details class="trade"><summary>
-<div class="playtag">Trade #1 · SWING (days–weeks) · 1 position</div>
-<div class="title">NVDA <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
-<div class="sub">BUY the $185 strike · expires 2026-08-21 · stock at $178.42</div>
-<div class="stats"><div class="stat"><div class="v">34</div><div class="l">How sure</div></div>
-<div class="stat"><div class="v">67</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v">$4.35</div><div class="l">Bet price</div></div></div></summary>
-<div class="plain"><b>What to do, in easy words:</b> Buy the $185 call expiring 2026-08-21 for ~$435. Max loss = what you pay. Profits if NVDA rises before expiry.</div>
-<div class="grow"><b>How your money can grow:</b> you pay about <b>$435</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $435 turns into <b>$870</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$2175</b> (+400%, five times your money!). <b>Can you lose more than $435?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div>
-<div class="limitbox"><b>🎯 Best price to sell at: $8.70</b> (that is about +100% bigger than what you paid) · <b>📈 The robot thinks it could grow about +85%</b> before the bet ends (because it thinks the stock will move about 4.6%). Right after you buy, tell your app to “Sell when it reaches $8.70” (this is called a sell limit). Then the app sells it for you and you make about <b>+$435 on each bet</b> — you don't even have to watch! Easy money.</div>
-<div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Bullish Engulfing</b> (bullish): today's green candle swallows yesterday's red one — buyers took over.</li></ul></div>
-<div class="hist"><b>History check (10 yrs of data):</b> this setup appeared <b>241</b> times; moved ≥1.5% up within 10 days <b>71%</b> of the time (avg best move +4.6%).</div>
-<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> strong uptrend, +9.2% this month</li><li><b>Candlestick:</b> Bullish Engulfing</li><li><b>Elite flows:</b> 3 lawmaker buys in 90d (incl. Nancy Pelosi)</li><li><b>Social buzz:</b> 41 mentions, trending</li></ul>
-<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
-<div class="tagrow"><span class="tag">needs ~$435</span><span class="tag">OI 88,200</span><span class="tag good">✓ Works on Robinhood</span></div>
-</details>
-<div class="take" data-t="NVDA" data-date="2026-07-31" data-cost="435" data-prem="4.35" data-spot="178.42" data-kind="LONG CALL" data-rh="true" data-strike="185" data-exp="2026-08-21" data-action="BUY">
-<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
-<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
-<div class="pot"></div></div>
-</div><div class="card" data-asset="stocks">
+</div><div class="card" data-asset="stocks" data-screen-label="Trade 2">
 <details class="trade"><summary>
 <div class="playtag">Trade #2 · SWING (days–weeks) · 1 position</div>
-<div class="title">AMD <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
-<div class="sub">BUY the $170 strike · expires 2026-08-21 · stock at $163.10</div>
-<div class="stats"><div class="stat"><div class="v">29</div><div class="l">How sure</div></div>
-<div class="stat"><div class="v">64</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v">$3.1</div><div class="l">Bet price</div></div></div></summary>
-<div class="plain"><b>What to do, in easy words:</b> Buy the $170 call expiring 2026-08-21 for ~$310. Max loss = what you pay. Profits if AMD rises before expiry.</div>
-<div class="grow"><b>How your money can grow:</b> you pay about <b>$310</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $310 turns into <b>$620</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$1550</b> (+400%, five times your money!). <b>Can you lose more than $310?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div>
-<div class="limitbox"><b>🎯 Best price to sell at: $5.05</b> (that is about +63% bigger than what you paid) · <b>📈 The robot thinks it could grow about +123%</b> before the bet ends (because it thinks the stock will move about 5.2%). Right after you buy, tell your app to “Sell when it reaches $5.05” (this is called a sell limit). Then the app sells it for you and you make about <b>+$195 on each bet</b> — you don't even have to watch! Easy money.</div>
-<div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Morning Star</b> (bullish): a big red, a tiny pause, then a big green — a bottom.</li></ul></div>
-<div class="hist"><b>History check (9 yrs of data):</b> this setup appeared <b>198</b> times; moved ≥1.5% up within 10 days <b>66%</b> of the time (avg best move +5.2%).</div>
-<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> reclaimed the 50-day average, +6.8% this month</li><li><b>MACD:</b> above signal, rising</li><li><b>Rel. strength:</b> +4.1% vs SPY</li></ul>
+<div class="title">MARA <span class="dir-s">LONG PUT</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $9 strike · expires 2026-09-04 · stock at $9.07</div>
+<div class="stats">
+<div class="stat"><div class="v">33</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">34</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.65</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain bear"><b>What to do, in easy words:</b> Make a bet that MARA will go DOWN. Buy the $9 put that ends on 2026-09-04 for about $66. The most you can lose is the $66 you pay — never more. You win if MARA goes down before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$66</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $66 turns into <b>$132</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$330</b> (+400%, five times your money!). <b>Can you lose more than $66?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $1.11</b> (that is about +70% bigger than what you paid) · <b>📈 The robot thinks it could grow about +92%</b> before the bet ends (because it thinks MARA will move about 14.6%). Right after you buy, tell your app to “Sell when it reaches $1.11” (this is called a sell limit). Then the app sells it for you and you make about <b>+$46 on each bet</b> — you don't even have to watch! Easy money.</div><div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Bearish Pin Bar</b> (looks like it wants to go DOWN): A skinny candle with a tall top wick. The market poked up high, got rejected, and closed low — like a &#x27;no thanks&#x27; to higher prices.</li></ul></div><div class="hist"><b>What happened before (looking back 10 years):</b> this same setup showed up <b>436</b> times. When it did, the stock moved the way we hoped <b>83 out of every 100 times</b> (about +14.6% at its best). In past years, August was usually a good month for MARA (about +1.2%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 below SMA50, price below SMA20, 1-month return -15.0%</li><li><b>Candlestick:</b> Bearish Pin Bar</li><li><b>RSI:</b> RSI(14) = 34 (bearish momentum zone)</li><li><b>MACD:</b> MACD below signal, histogram falling</li><li><b>Volume:</b> volume 0.1x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: -19.6%</li><li><b>Volatility:</b> 20-day HV 98%, 83th percentile of past year (elevated — good movement potential)</li><li><b>News:</b> 10 headlines, mixed/neutral tone</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
 <div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
-<div class="tagrow"><span class="tag">needs ~$310</span><span class="tag">OI 52,400</span><span class="tag good">✓ Works on Robinhood</span></div>
+<div class="tagrow"><span class="tag good">Great for $100 or less ✓</span><span class="tag">OI 1,098</span><span class="tag good">✓ Works on Robinhood</span></div>
 </details>
-<div class="take" data-t="AMD" data-date="2026-07-31" data-cost="310" data-prem="3.1" data-spot="163.10" data-kind="LONG CALL" data-rh="true" data-strike="170" data-exp="2026-08-21" data-action="BUY">
+<div class="take" data-t="MARA" data-date="2026-08-14" data-cost="66.0" data-prem="0.65" data-spot="9.07" data-kind="LONG PUT" data-rh="true" data-strike="9" data-exp="2026-09-04" data-action="BUY">
 <button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
 <span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
-</div>
-</div>
-<h2 data-asset="crypto">🪙 Crypto (digital money)</h2>
-<div class="card" data-asset="crypto">
-<div class="playtag">Robot’s Crypto pick · buy the real thing</div>
-<div class="wtop"><div class="title" style="margin:0">Bitcoin <span class="dir-b">BUY</span></div><div class="wprice">$68,420.00</div></div>
-<div class="stats"><div class="stat"><div class="v">32</div><div class="l">How sure</div></div>
-<div class="stat"><div class="v">66</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v" style="color:var(--green)">▲ +4.2%</div><div class="l">This week</div></div></div>
-<div class="plain"><b>What to do, in easy words:</b> the robot sees a strong uptrend with price above both moving averages — that looks good. Buy about $25 of it.</div>
-<div class="grow"><b>How this works:</b> buy about <b>$68,420.00 5 of Bitcoin</b> at $68,420.00 — you own the real thing, so there is no ending day — you can hold it as long as you want. If it goes up 10%, your $68,420.00 5 turns into about $68,420.00 8; if it goes up 50%, about $38. If it drops a lot you can lose most of your money, so keep it small.</div>
-<div class="limitbox"><b>🎯 Best price to sell at: $75,262.00</b> (about +10% bigger) · <b>📈 The robot thinks it could grow about +10%</b>. Tell your app to sell when it reaches that price (a sell limit) — then it sells for you and you don’t have to watch!</div>
-<div class="cndl"><b>📊 Shape the robot saw:</b> <b>Bullish Pin Bar</b> — buyers rejected lower prices. Social buzz: 34 Reddit/StockTwits mentions, bullish tone.</div>
-<div class="hint">📱 <b>Where to buy it:</b> Robinhood has it ✓ (you buy the real coin, not a bet). <a href="#" target="_blank">Live chart →</a></div>
-<div class="take" data-t="BTC-USD" data-base="BTC" data-date="2026-07-31" data-cost="25" data-prem="68420" data-spot="68420" data-kind="SPOT" data-rh="true" data-strike="0" data-exp="" data-action="BUY">
-<span class="hint">Pretend size $25</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+</div><div class="card" data-asset="stocks" data-screen-label="Trade 3">
+<details class="trade"><summary>
+<div class="playtag">Trade #3 · SWING (days–weeks) · 1 position</div>
+<div class="title">CLSK <span class="dir-s">LONG PUT</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $11 strike · expires 2026-09-04 · stock at $11.54</div>
+<div class="stats">
+<div class="stat"><div class="v">25</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">37</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.62</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain bear"><b>What to do, in easy words:</b> Make a bet that CLSK will go DOWN. Buy the $11 put that ends on 2026-09-04 for about $69. The most you can lose is the $69 you pay — never more. You win if CLSK goes down before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$69</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $69 turns into <b>$138</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$345</b> (+400%, five times your money!). <b>Can you lose more than $69?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $0.96</b> (that is about +55% bigger than what you paid) · <b>📈 The robot thinks it could grow about +114%</b> before the bet ends (because it thinks CLSK will move about 13.6%). Right after you buy, tell your app to “Sell when it reaches $0.96” (this is called a sell limit). Then the app sells it for you and you make about <b>+$34 on each bet</b> — you don't even have to watch! Easy money.</div><div class="hist"><b>What happened before (looking back 9.7 years):</b> this same setup showed up <b>414</b> times. When it did, the stock moved the way we hoped <b>79 out of every 100 times</b> (about +13.6% at its best). In past years, August was usually a tricky month for CLSK (about -5.4%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 below SMA50, price below SMA20, 1-month return -11.4%</li><li><b>Candlestick:</b> no clear candlestick pattern on the latest bar</li><li><b>RSI:</b> RSI(14) = 40 (bearish momentum zone)</li><li><b>MACD:</b> MACD below signal, histogram rising</li><li><b>Volume:</b> volume 0.2x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: -16.0%</li><li><b>Volatility:</b> 20-day HV 113%, 78th percentile of past year (elevated — good movement potential)</li><li><b>News:</b> 10 headlines: 2 positive vs 1 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
+<div class="tagrow"><span class="tag good">Great for $100 or less ✓</span><span class="tag">OI 281</span><span class="tag good">✓ Works on Robinhood</span></div>
+</details>
+<div class="take" data-t="CLSK" data-date="2026-08-14" data-cost="69.0" data-prem="0.62" data-spot="11.54" data-kind="LONG PUT" data-rh="true" data-strike="11" data-exp="2026-09-04" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
-</div>
-<h2 data-asset="forex">💱 Forex (money from other countries)</h2>
-<div class="watch" data-asset="forex">
-<div class="wtop"><div class="wname">Euro / USD <span class="dir-b">leaning UP</span></div><div class="wprice">$1.0870</div></div>
-<div class="hint">Forex · <span style="color:var(--green);font-weight:700">▲ +0.6% this week</span> · robot score 57/100 · <b>just watching</b></div>
-<div class="cndl" style="margin-top:10px">The robot sees a gentle uptrend off support. Chart shape spotted: <b>Bullish Pin Bar</b> — buyers defended the lows.</div>
-<div class="hint" style="margin-top:8px">📱 <b>Where to buy it:</b> Robinhood does NOT do this one — use OANDA, Interactive Brokers, or tastytrade.</div>
-</div>
-<h2 data-asset="commodities">🛢️ Commodities (stuff like gold & oil)</h2>
-<div class="card" data-asset="commodities">
-<div class="playtag">Robot’s Commodity pick · buy the real thing</div>
-<div class="wtop"><div class="title" style="margin:0">Gold <span class="dir-b">BUY</span></div><div class="wprice">$2,412.00</div></div>
-<div class="stats"><div class="stat"><div class="v">28</div><div class="l">How sure</div></div>
-<div class="stat"><div class="v">64</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v" style="color:var(--green)">▲ +1.9%</div><div class="l">This week</div></div></div>
-<div class="plain"><b>What to do, in easy words:</b> the robot sees a steady uptrend making higher highs — that looks good. Buy about $25 of it.</div>
-<div class="grow"><b>How this works:</b> buy about <b>$25 of Gold</b> at $2,412.00. You own the real thing, so there is no ending day. If it goes up 10%, your $25 turns into about $28; if it goes up 50%, about $38. If it drops a lot you can lose most of your money, so keep it small.</div>
-<div class="limitbox"><b>🎯 Best price to sell at: $2,653.20</b> (about +10% bigger) · <b>📈 The robot thinks it could grow about +10%</b>. Tell your app to sell when it reaches that price (a sell limit) — then it sells for you and you don’t have to watch!</div>
-<div class="cndl"><b>📊 Shape the robot saw:</b> <b>Bullish Engulfing</b> — a big green bar swallowing the prior red.</div>
-<div class="hint">📱 <b>Where to buy it:</b> Robinhood does NOT do this one — use tastytrade or Interactive Brokers (or a look-alike stock like GLD or USO on Robinhood). <a href="#" target="_blank">Live chart →</a></div>
-<div class="take" data-t="GC=F" data-base="GC=F" data-date="2026-07-31" data-cost="25" data-prem="2412" data-spot="2412" data-kind="SPOT" data-rh="false" data-strike="0" data-exp="" data-action="BUY">
-<span class="hint">Pretend size $25</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+</div><div class="card" data-asset="stocks" data-screen-label="Trade 4">
+<details class="trade"><summary>
+<div class="playtag">Trade #4 · SWING (days–weeks) · 1 position</div>
+<div class="title">NU <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $16 strike · expires 2026-09-04 · stock at $15.43</div>
+<div class="stats">
+<div class="stat"><div class="v">25</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">62</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.78</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain"><b>What to do, in easy words:</b> Make a bet that NU will go UP. Buy the $16 call that ends on 2026-09-04 for about $87. The most you can lose is the $87 you pay — never more. You win if NU goes up before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$87</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $87 turns into <b>$174</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$435</b> (+400%, five times your money!). <b>Can you lose more than $87?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $1.20</b> (that is about +54% bigger than what you paid) · <b>📈 The robot thinks it could grow about +48%</b> before the bet ends (because it thinks NU will move about 5.4%). Right after you buy, tell your app to “Sell when it reaches $1.20” (this is called a sell limit). Then the app sells it for you and you make about <b>+$42 on each bet</b> — you don't even have to watch! Easy money.</div><div class="hist"><b>What happened before (looking back 4.7 years):</b> this same setup showed up <b>226</b> times. When it did, the stock moved the way we hoped <b>76 out of every 100 times</b> (about +5.4% at its best). In past years, August was usually a good month for NU (about +10.9%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +13.8%</li><li><b>Candlestick:</b> no clear candlestick pattern on the latest bar</li><li><b>RSI:</b> RSI(14) = 67 (bullish momentum zone)</li><li><b>MACD:</b> MACD below signal, histogram rising</li><li><b>Volume:</b> volume 0.9x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: +9.1%</li><li><b>Volatility:</b> 20-day HV 50%, 90th percentile of past year (extreme — options likely overpriced)</li><li><b>News:</b> 10 headlines: 4 positive vs 0 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> 3 social mentions, tone +0 (StockTwits trending)</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
+<div class="tagrow"><span class="tag good">Great for $100 or less ✓</span><span class="tag">OI 288</span><span class="tag good">✓ Works on Robinhood</span></div>
+</details>
+<div class="take" data-t="NU" data-date="2026-08-14" data-cost="87.0" data-prem="0.78" data-spot="15.43" data-kind="LONG CALL" data-rh="true" data-strike="16" data-exp="2026-09-04" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
-</div>
-<h2 data-asset="meme">🐕 Meme Coins <span style="font-size:13px;color:var(--red)">(super risky!)</span></h2>
-<div class="disc" data-asset="meme"><b>Be careful:</b> meme coins are like a lottery ticket. They can jump up really big OR drop to almost nothing in one day. Only ever use tiny money you are totally okay to lose. There is no “safe” bet here!</div>
-<div class="card meme" data-asset="meme">
-<div class="playtag">Robot’s Meme coin pick · buy the real thing</div>
-<div class="wtop"><div class="title" style="margin:0">Dogecoin <span class="dir-b">BUY</span></div><div class="wprice">$0.1620</div></div>
-<div class="stats"><div class="stat"><div class="v">38</div><div class="l">How sure</div></div>
-<div class="stat"><div class="v">69</div><div class="l">Score /100</div></div>
-<div class="stat"><div class="v" style="color:var(--green)">▲ +8.4%</div><div class="l">This week</div></div></div>
-<div class="plain"><b>What to do, in easy words:</b> the robot sees a sharp momentum burst on heavy volume — that looks good. Buy about $25 of it.</div>
-<div class="grow"><b>How this works:</b> buy about <b>$25 of Dogecoin</b> at $0.1620. This one is a meme coin — treat it like lottery money.</div>
-<div class="limitbox"><b>🎯 Best price to sell at: $0.1863</b> (about +15% bigger) · <b>📈 The robot thinks it could grow about +15%</b>. Tell your app to sell when it reaches that price (a sell limit) — then it sells for you and you don’t have to watch!</div>
-<div class="cndl"><b>📊 Shape the robot saw:</b> <b>Bullish Engulfing</b> — buyers overpowered sellers. Social buzz: 210 Reddit/StockTwits mentions, very bullish tone.<div class="hint" style="color:#b3400f;margin-top:8px">⚠️ Meme coins are a high-risk lottery — only ever use tiny money you are 100% fine losing.</div></div>
-<div class="hint">📱 <b>Where to buy it:</b> Robinhood has it ✓. Only tiny money here! <a href="#" target="_blank">Live chart →</a></div>
-<div class="take" data-t="DOGE-USD" data-base="DOGE" data-date="2026-07-31" data-cost="25" data-prem="0.162" data-spot="0.162" data-kind="SPOT" data-rh="true" data-strike="0" data-exp="" data-action="BUY">
-<span class="hint">Pretend size $25</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+</div><div class="card" data-asset="stocks" data-screen-label="Trade 5">
+<details class="trade"><summary>
+<div class="playtag">Trade #5 · SWING (days–weeks) · 1 position</div>
+<div class="title">RIVN <span class="dir-s">LONG PUT</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $15 strike · expires 2026-09-04 · stock at $15.65</div>
+<div class="stats">
+<div class="stat"><div class="v">29</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">35</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.44</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain bear"><b>What to do, in easy words:</b> Make a bet that RIVN will go DOWN. Buy the $15 put that ends on 2026-09-04 for about $49. The most you can lose is the $49 you pay — never more. You win if RIVN goes down before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$49</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $49 turns into <b>$98</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$245</b> (+400%, five times your money!). <b>Can you lose more than $49?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $0.72</b> (that is about +64% bigger than what you paid) · <b>📈 The robot thinks it could grow about +150%</b> before the bet ends (because it thinks RIVN will move about 9.4%). Right after you buy, tell your app to “Sell when it reaches $0.72” (this is called a sell limit). Then the app sells it for you and you make about <b>+$28 on each bet</b> — you don't even have to watch! Easy money.</div><div class="hist"><b>What happened before (looking back 4.8 years):</b> this same setup showed up <b>227</b> times. When it did, the stock moved the way we hoped <b>81 out of every 100 times</b> (about +9.4% at its best). In past years, August was usually a tricky month for RIVN (about -5.6%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 below SMA50, price below SMA20, 1-month return -10.3%</li><li><b>Candlestick:</b> no clear candlestick pattern on the latest bar</li><li><b>RSI:</b> RSI(14) = 45 (neutral)</li><li><b>MACD:</b> MACD below signal, histogram falling</li><li><b>Volume:</b> volume 0.1x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: -14.9%</li><li><b>Volatility:</b> 20-day HV 54%, 42th percentile of past year (normal)</li><li><b>News:</b> 10 headlines: 0 positive vs 2 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
+<div class="tagrow"><span class="tag good">Great for $100 or less ✓</span><span class="tag">OI 700</span><span class="tag good">✓ Works on Robinhood</span></div>
+</details>
+<div class="take" data-t="RIVN" data-date="2026-08-14" data-cost="49.0" data-prem="0.44" data-spot="15.65" data-kind="LONG PUT" data-rh="true" data-strike="15" data-exp="2026-09-04" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
 <div class="pot"></div></div>
-</div>
-<h2>👥 Follow Real Traders</h2>
-<div class="hint">These are <b>real people</b> making <b>real trades</b> — members of Congress, who by law must tell everyone what stocks they buy. It's public info (the same data grown-up "copy-trading" apps use). A ⭐ means our robot picked the same thing — that's a strong clue!</div>
-<div class="avoid" style="display:flex;gap:11px;align-items:flex-start">
-<div style="width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;background:linear-gradient(135deg,#6c5ce7,#3aa0ff)">NP</div>
-<div style="flex:1"><b>Nancy Pelosi</b> <span class="hint">(Representative)</span><br>bought <b>NVDA</b> · $1M–$5M<br><span class="hint">Aug 08, 2026</span> <span class="tag good">⭐ Our robot likes this too!</span><br>
-<button class="brokerbtn" style="margin-top:8px;padding:7px 13px;font-size:13px" onclick="window.smFollow&&smFollow('NVDA')">＋ Follow this pick</button></div></div>
-<div class="avoid" style="display:flex;gap:11px;align-items:flex-start">
-<div style="width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;background:linear-gradient(135deg,#6c5ce7,#3aa0ff)">DC</div>
-<div style="flex:1"><b>Dan Crenshaw</b> <span class="hint">(Representative)</span><br>bought <b>PLTR</b> · $15K–$50K<br><span class="hint">Aug 05, 2026</span><br>
-<button class="brokerbtn" style="margin-top:8px;padding:7px 13px;font-size:13px" onclick="window.smFollow&&smFollow('PLTR')">＋ Follow this pick</button></div></div>
-<h2>📜 Old Bets — Did They Win?</h2><div class="hint">All the bets from earlier days and how they turned out. Winners show up fast — the robot marks a bet the moment it hits its target (losers wait out the window).</div>
-<div class="card"><div class="playtag">2026-07-30</div>
-<div class="scn"><span>SOFI · LONG CALL $17</span><span style="color:var(--green);font-weight:700">WON 🎉 (+128%)</span></div>
-<div class="scn"><span>MARA · LONG CALL $22</span><span style="color:var(--red);font-weight:700">lost (-100%)</span></div>
-<div class="scn"><span>BTC-USD · SPOT</span><span style="color:var(--green);font-weight:700">WON 🎉 (+6%)</span></div>
-</div>
-<h2>🏆 How We’re Doing</h2>
+</div></div><div data-mode="experienced" style="display:none"><h2 data-asset="stocks">🚀 Bigger Bets for More Money <span class="hint" style="font-weight:600">(these cost more)</span></h2><div class="hint" data-asset="stocks">The robot's most-sure bets, even the pricey ones — these can cost $100 to $500+ each. Same easy breakdown, just bigger name-brand stocks.</div><div class="card" data-asset="stocks" data-screen-label="Trade 1">
+<details class="trade"><summary>
+<div class="playtag">Trade #1 · SWING (days–weeks) · 1 position</div>
+<div class="title">GM <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $88 strike · expires 2026-09-04 · stock at $86.78</div>
+<div class="stats">
+<div class="stat"><div class="v">33</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">67</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$2.10</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain"><b>What to do, in easy words:</b> Make a bet that GM will go UP. Buy the $88 call that ends on 2026-09-04 for about $230. The most you can lose is the $230 you pay — never more. You win if GM goes up before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$230</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $230 turns into <b>$460</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$1,150</b> (+400%, five times your money!). <b>Can you lose more than $230?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $3.61</b> (that is about +72% bigger than what you paid) · <b>📈 The robot thinks it could grow about +82%</b> before the bet ends (because it thinks GM will move about 4.4%). Right after you buy, tell your app to “Sell when it reaches $3.61” (this is called a sell limit). Then the app sells it for you and you make about <b>+$151 on each bet</b> — you don't even have to watch! Easy money.</div><div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Bullish Pin Bar</b> (looks like it wants to go UP): A skinny candle with a long bottom wick. The market dipped, got rejected, and closed back up — like a &#x27;no thanks&#x27; to lower prices.</li><li><b>Doji</b> (looks like it wants to go UP): Open and close are almost the same — a tug-of-war tie. The trend is losing steam and may flip.</li><li><b>Bullish Harami</b> (looks like it wants to go UP): A small candle tucked inside yesterday&#x27;s big red one. The falling has paused — a turn up may be coming.</li><li><b>Tweezer Bottom</b> (looks like it wants to go UP): Two candles with almost the same LOW — price hit a floor twice and bounced. Support is holding.</li></ul></div><div class="hist"><b>What happened before (looking back 10 years):</b> this same setup showed up <b>393</b> times. When it did, the stock moved the way we hoped <b>67 out of every 100 times</b> (about +4.4% at its best). In past years, August was usually a good month for GM (about +0.7%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +14.1%</li><li><b>Candlestick:</b> Bullish Pin Bar, Doji, Bullish Harami, Tweezer Bottom</li><li><b>RSI:</b> RSI(14) = 56 (bullish momentum zone)</li><li><b>MACD:</b> MACD below signal, histogram falling</li><li><b>Volume:</b> volume 0.1x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: +9.5%</li><li><b>Volatility:</b> 20-day HV 36%, 69th percentile of past year (elevated — good movement potential)</li><li><b>News:</b> 10 headlines, mixed/neutral tone</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
+<div class="tagrow"><span class="tag">costs about $230</span><span class="tag">OI 115</span><span class="tag good">✓ Works on Robinhood</span></div>
+</details>
+<div class="take" data-t="GM" data-date="2026-08-14" data-cost="230.0" data-prem="2.1" data-spot="86.78" data-kind="LONG CALL" data-rh="true" data-strike="88" data-exp="2026-09-04" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div><div class="card" data-asset="stocks" data-screen-label="Trade 2">
+<details class="trade"><summary>
+<div class="playtag">Trade #2 · SWING (days–weeks) · 1 position</div>
+<div class="title">NOW <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $127 strike · expires 2026-09-04 · stock at $123.70</div>
+<div class="stats">
+<div class="stat"><div class="v">31</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">65</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$4.97</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain"><b>What to do, in easy words:</b> Make a bet that NOW will go UP. Buy the $127 call that ends on 2026-09-04 for about $525. The most you can lose is the $525 you pay — never more. You win if NOW goes up before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$525</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $525 turns into <b>$1,050</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$2,625</b> (+400%, five times your money!). <b>Can you lose more than $525?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $8.28</b> (that is about +67% bigger than what you paid) · <b>📈 The robot thinks it could grow about +37%</b> before the bet ends (because it thinks NOW will move about 3.3%). Right after you buy, tell your app to “Sell when it reaches $8.28” (this is called a sell limit). Then the app sells it for you and you make about <b>+$331 on each bet</b> — you don't even have to watch! Easy money.</div><div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Bearish Engulfing</b> (looks like it wants to go DOWN): Today&#x27;s red candle completely swallows yesterday&#x27;s green one. Sellers overpowered buyers in a big way.</li><li><b>Inside Bar</b> (looks like it wants to go UP): Today stayed completely inside yesterday&#x27;s range — the market is resting and squeezing. A breakout usually follows the trend.</li></ul></div><div class="hist"><b>What happened before (looking back 10 years):</b> this same setup showed up <b>494</b> times. When it did, the stock moved the way we hoped <b>65 out of every 100 times</b> (about +3.3% at its best). In past years, August was usually a good month for NOW (about +4.2%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +19.8%</li><li><b>Candlestick:</b> Bearish Engulfing, Inside Bar</li><li><b>RSI:</b> RSI(14) = 61 (bullish momentum zone)</li><li><b>MACD:</b> MACD above signal, histogram falling</li><li><b>Volume:</b> volume 0.2x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: +15.1%</li><li><b>Volatility:</b> 20-day HV 62%, 69th percentile of past year (elevated — good movement potential)</li><li><b>News:</b> 10 headlines, mixed/neutral tone</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
+<div class="tagrow"><span class="tag">costs about $525</span><span class="tag">OI 238</span><span class="tag good">✓ Works on Robinhood</span></div>
+</details>
+<div class="take" data-t="NOW" data-date="2026-08-14" data-cost="525.0" data-prem="4.97" data-spot="123.7" data-kind="LONG CALL" data-rh="true" data-strike="127" data-exp="2026-09-04" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div><div class="card" data-asset="stocks" data-screen-label="Trade 3">
+<details class="trade"><summary>
+<div class="playtag">Trade #3 · SWING (days–weeks) · 1 position</div>
+<div class="title">HIMS <span class="dir-s">LONG PUT</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $28 strike · expires 2026-09-04 · stock at $28.88</div>
+<div class="stats">
+<div class="stat"><div class="v">30</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">35</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$1.65</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain bear"><b>What to do, in easy words:</b> Make a bet that HIMS will go DOWN. Buy the $28 put that ends on 2026-09-04 for about $174. The most you can lose is the $174 you pay — never more. You win if HIMS goes down before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$174</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $174 turns into <b>$348</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$870</b> (+400%, five times your money!). <b>Can you lose more than $174?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $2.73</b> (that is about +66% bigger than what you paid) · <b>📈 The robot thinks it could grow about +95%</b> before the bet ends (because it thinks HIMS will move about 12.0%). Right after you buy, tell your app to “Sell when it reaches $2.73” (this is called a sell limit). Then the app sells it for you and you make about <b>+$108 on each bet</b> — you don't even have to watch! Easy money.</div><div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Bullish Harami</b> (looks like it wants to go UP): A small candle tucked inside yesterday&#x27;s big red one. The falling has paused — a turn up may be coming.</li></ul></div><div class="hist"><b>What happened before (looking back 6.9 years):</b> this same setup showed up <b>247</b> times. When it did, the stock moved the way we hoped <b>84 out of every 100 times</b> (about +12.0% at its best). In past years, August was usually a tricky month for HIMS (about -12.0%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 below SMA50, price below SMA20, 1-month return -12.0%</li><li><b>Candlestick:</b> Bullish Harami</li><li><b>RSI:</b> RSI(14) = 45 (bearish momentum zone)</li><li><b>MACD:</b> MACD below signal, histogram falling</li><li><b>Volume:</b> volume 0.1x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: -16.6%</li><li><b>Volatility:</b> 20-day HV 108%, 87th percentile of past year (extreme — options likely overpriced)</li><li><b>News:</b> 10 headlines, mixed/neutral tone</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
+<div class="tagrow"><span class="tag">costs about $174</span><span class="tag">OI 262</span><span class="tag good">✓ Works on Robinhood</span></div>
+</details>
+<div class="take" data-t="HIMS" data-date="2026-08-14" data-cost="174.0" data-prem="1.65" data-spot="28.88" data-kind="LONG PUT" data-rh="true" data-strike="28" data-exp="2026-09-04" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div><div class="card" data-asset="stocks" data-screen-label="Trade 4">
+<details class="trade"><summary>
+<div class="playtag">Trade #4 · SWING (days–weeks) · 1 position</div>
+<div class="title">ZS <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $190 strike · expires 2026-09-04 · stock at $185.85</div>
+<div class="stats">
+<div class="stat"><div class="v">30</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">65</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$12.82</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain"><b>What to do, in easy words:</b> Make a bet that ZS will go UP. Buy the $190 call that ends on 2026-09-04 for about $1365. The most you can lose is the $1365 you pay — never more. You win if ZS goes up before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$1,365</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $1,365 turns into <b>$2,730</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$6,825</b> (+400%, five times your money!). <b>Can you lose more than $1,365?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $21.18</b> (that is about +65% bigger than what you paid) · <b>📈 The robot thinks it could grow about +34%</b> before the bet ends (because it thinks ZS will move about 5.2%). Right after you buy, tell your app to “Sell when it reaches $21.18” (this is called a sell limit). Then the app sells it for you and you make about <b>+$836 on each bet</b> — you don't even have to watch! Easy money.</div><div class="hist"><b>What happened before (looking back 8.4 years):</b> this same setup showed up <b>367</b> times. When it did, the stock moved the way we hoped <b>71 out of every 100 times</b> (about +5.2% at its best). In past years, August was usually a good month for ZS (about +7.0%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +24.0%</li><li><b>Candlestick:</b> no clear candlestick pattern on the latest bar</li><li><b>RSI:</b> RSI(14) = 74 (overbought — chase risk)</li><li><b>MACD:</b> MACD above signal, histogram rising</li><li><b>Volume:</b> volume 0.3x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: +19.4%</li><li><b>Volatility:</b> 20-day HV 45%, 38th percentile of past year (normal)</li><li><b>News:</b> 10 headlines: 2 positive vs 0 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
+<div class="tagrow"><span class="tag">costs about $1,365</span><span class="tag">OI 166</span><span class="tag good">✓ Works on Robinhood</span></div>
+</details>
+<div class="take" data-t="ZS" data-date="2026-08-14" data-cost="1365.0" data-prem="12.82" data-spot="185.85" data-kind="LONG CALL" data-rh="true" data-strike="190" data-exp="2026-09-04" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div><div class="card" data-asset="stocks" data-screen-label="Trade 5">
+<details class="trade"><summary>
+<div class="playtag">Trade #5 · SWING (days–weeks) · 1 position</div>
+<div class="title">SLB <span class="dir-b">LONG CALL</span> <span class="chev">▾</span></div>
+<div class="sub">BUY the $55 strike · expires 2026-09-04 · stock at $53.53</div>
+<div class="stats">
+<div class="stat"><div class="v">29</div><div class="l">How sure</div></div>
+<div class="stat"><div class="v">65</div><div class="l">Score /100</div></div>
+<div class="stat"><div class="v">$0.98</div><div class="l">Bet price</div></div>
+</div></summary>
+<div class="plain"><b>What to do, in easy words:</b> Make a bet that SLB will go UP. Buy the $55 call that ends on 2026-09-04 for about $109. The most you can lose is the $109 you pay — never more. You win if SLB goes up before 2026-09-04.</div><div class="grow"><b>How your money can grow:</b> you pay about <b>$109</b> one time. That is the MOST you can lose — never more. A bet like this grows way faster than the stock (that is called leverage — a tiny push moves a big swing). If the bet's price doubles, your $109 turns into <b>$218</b> (that is +100%, your money got twice as big). On a really good move it could reach <b>$545</b> (+400%, five times your money!). <b>Can you lose more than $109?</b> Nope — only what you paid. <b>Can you win more?</b> Yes — the top is wide open. <b>Remember:</b> the money is not yours until you SELL. Tap “Sell to Close” in your app to keep it.</div><div class="limitbox"><b>🎯 Best price to sell at: $1.60</b> (that is about +63% bigger than what you paid) · <b>📈 The robot thinks it could grow about +118%</b> before the bet ends (because it thinks SLB will move about 4.8%). Right after you buy, tell your app to “Sell when it reaches $1.60” (this is called a sell limit). Then the app sells it for you and you make about <b>+$62 on each bet</b> — you don't even have to watch! Easy money.</div><div class="cndl"><b>📊 Shapes the robot saw on the price chart:</b><ul><li><b>Morning Star</b> (looks like it wants to go UP): Three candles: a big red, a tiny pause, then a big green. Classic &#x27;sun coming up&#x27; bottom — buyers take charge.</li></ul></div><div class="hist"><b>What happened before (looking back 10 years):</b> this same setup showed up <b>375</b> times. When it did, the stock moved the way we hoped <b>64 out of every 100 times</b> (about +4.8% at its best). In past years, August was usually a tricky month for SLB (about -1.8%).</div>
+<div class="why">Why the robot likes this bet:</div><ul><li><b>Trend:</b> SMA20 above SMA50, price above SMA20, 1-month return +13.9%</li><li><b>Candlestick:</b> Morning Star</li><li><b>RSI:</b> RSI(14) = 61 (bullish momentum zone)</li><li><b>MACD:</b> MACD above signal, histogram falling</li><li><b>Volume:</b> volume 0.1x 20-day avg (no spike)</li><li><b>Rel. strength:</b> 1-month return vs SPY: +9.3%</li><li><b>Volatility:</b> 20-day HV 51%, 99th percentile of past year (extreme — options likely overpriced)</li><li><b>News:</b> 10 headlines: 4 positive vs 0 negative keyword hits</li><li><b>Elite flows:</b> no recent lawmaker trades on file</li><li><b>Social buzz:</b> no notable social buzz</li><li><b>Flavor:</b> New Moon (2% illuminated) -&gt; mild bullish bias</li><li><b>Flavor:</b> Moon in Virgo (earth sign) -&gt; risk-off tilt</li><li><b>Flavor:</b> Date reduces to 5 -&gt; momentum bias</li></ul>
+<div class="hint" style="margin-top:10px">📱 <b>Where to buy it:</b> this is a normal stock bet — you can buy it on <b>Robinhood</b> (tap the Options tab) or any big app (Webull, Fidelity, Schwab, tastytrade). If Robinhood doesn't show it, use tastytrade or Webull.</div>
+<div class="tagrow"><span class="tag">costs about $109</span><span class="tag">OI 256</span><span class="tag good">✓ Works on Robinhood</span></div>
+</details>
+<div class="take" data-t="SLB" data-date="2026-08-14" data-cost="109.0" data-prem="0.98" data-spot="53.53" data-kind="LONG CALL" data-rh="true" data-strike="55" data-exp="2026-09-04" data-action="BUY">
+<button class="tbtn" data-d="-1">−</button><span class="tq">1</span><button class="tbtn" data-d="1">+</button>
+<span class="hint">bets</span><button class="takebtn">Take this trade</button><button class="brokerbtn">Open in broker</button>
+<div class="pot"></div></div>
+</div></div><h2 data-asset="crypto">🪙 Crypto (digital money)</h2><div class="watch" data-asset="crypto"><div class="hint">⏳ Crypto (digital money) data didn't load from Yahoo this run (it sometimes rate-limits). It'll refresh on the next daily update.</div></div><h2 data-asset="forex">💱 Forex (money from other countries)</h2><div class="watch" data-asset="forex"><div class="hint">⏳ Forex (money from other countries) data didn't load from Yahoo this run (it sometimes rate-limits). It'll refresh on the next daily update.</div></div><h2 data-asset="commodities">🛢️ Commodities (stuff like gold & oil)</h2><div class="watch" data-asset="commodities"><div class="hint">⏳ Commodities (stuff like gold & oil) data didn't load from Yahoo this run (it sometimes rate-limits). It'll refresh on the next daily update.</div></div><h2 data-asset="meme">🐕 Meme Coins <span style="font-size:13px;color:var(--red)">(super risky!)</span></h2><div class="disc" data-asset="meme"><b>Be careful:</b> meme coins are like a lottery ticket. They can jump up really big OR drop to almost nothing in one day. Only ever use tiny money you are totally okay to lose. There is no “safe” bet here!</div><div class="watch meme" data-asset="meme"><div class="hint">⏳ Meme-coin data didn't load from Yahoo this run (it sometimes rate-limits). It'll refresh on the next daily update.</div></div><h2>💬 What Everyone Is Talking About</h2><div class="hint">The stocks people chat about most online. When EVERYONE is super excited, it can mean the opposite — so the robot only uses this a tiny bit.</div><div class="buzz"><b>Most talked-about:</b><br><div class="pill">AVGO · 3 mentions · trending</div><div class="pill">AMAT · 3 mentions · trending</div><div class="pill">NU · 3 mentions · trending</div><div class="pill">JPM · 3 mentions · trending</div></div><div class="buzz"><b>Smart trading tricks</b> <span class="hint">(good tips from real traders, put in easy words to learn from)</span><ul><li><b>Day trade:</b> Opening Range Breakout (ORB) — mark the high/low of the first 5-30 minutes, then trade the breakout with volume confirmation. Repeatedly called one of the cleanest, most reliable day setups.</li><li><b>Day trade:</b> VWAP + 9/20 EMA pullbacks — on 5-10 min charts, buy retests in the direction of the trend. Strong on SPY/QQQ, often paired with ORB.</li><li><b>Swing:</b> Weekly trend + Optimal Trade Entry (Fib 62-79%) — trade with the weekly trend, enter on the pullback, target ~3R, and close if it takes longer than ~2 weeks.</li><li><b>Swing:</b> Momentum breakout after first consolidation — fresh trend with stacked 8/20/50 EMAs, buy the first clean pullback/consolidation breakout.</li><li><b>Swing:</b> 200 SMA flip — price breaks above the daily 200 SMA and it turns from resistance into support. Simple continuation.</li><li><b>Rule:</b> Specialize in ONE setup and use strict risk (~1% or less per trade). High-signal accounts say this discipline IS the edge — swing traders generally out-earn pure day traders.</li></ul></div><div class="hint" style="margin:10px 0">𝕏 Grok live X/news read is <b style="color:var(--green)">ON</b> for today's trades.</div><h2>🏆 How We’re Doing</h2>
 <div class="record">
 <div class="stat"><div class="v">0-0</div><div class="l">Wins / Losses</div></div>
 <div class="stat"><div class="v" style="color:#00b46e">+0.0%</div><div class="l">Money grown</div></div>
-<div class="stat"><div class="v">0</div><div class="l">Still going</div></div></div>
-<div class="hint">Since 2026-07-31 · winners grade the moment they hit target; spot trades check in ~3 days</div>
+<div class="stat"><div class="v">10</div><div class="l">Still going</div></div>
+</div>
+<div class="hint">Since 2026-08-14 · the robot checks each bet after about 2 weeks</div>
 <div class="chart"><div class="hint">Chart appears once at least two trades are graded.</div></div>
-<div class="disc"><b>⚠️ This is NOT real money advice.</b> This app is a fun way to LEARN about trading — it is not a grown-up telling you to buy or sell anything. Trading real money is risky, and bets can lose ALL the money you put in. What happened before does not promise what happens next. The moon and number stuff is just for fun. <b>Always ask a grown-up, and only ever use money you are okay to lose.</b></div>
-<div class="foot">Made by St0ckMarken ✨ · a place to learn · free info from Yahoo Finance · pretend money only</div>
-</div><script>window.SM_DATA={"plays":[{"t":"NIO","date":"2026-07-31","kind":"LONG CALL","cost":35,"prem":0.35,"spot":4.85,"rh":true},{"t":"NVDA","date":"2026-07-31","kind":"LONG CALL","cost":435,"prem":4.35,"spot":178.42,"rh":true},{"t":"AMD","date":"2026-07-31","kind":"LONG CALL","cost":310,"prem":3.10,"spot":163.10,"rh":true},{"t":"BTC-USD","date":"2026-07-31","kind":"SPOT","cost":25,"prem":68420,"spot":68420,"rh":true},{"t":"GC=F","date":"2026-07-31","kind":"SPOT","cost":25,"prem":2412,"spot":2412,"rh":false},{"t":"DOGE-USD","date":"2026-07-31","kind":"SPOT","cost":25,"prem":0.162,"spot":0.162,"rh":true}],"graded":[]};</script>
-<script src="budget.js"></script></body></html>
+<div class="disc"><b>⚠️ This is NOT real money advice.</b> This app is a fun way to LEARN about trading — it is not a grown-up telling you to buy or sell anything. '
+Trading real money is risky, and bets can lose ALL the money you put in. What happened before does not promise what happens next. The moon and number stuff is just for fun. '
+<b>Always ask a grown-up, and only ever use money you are okay to lose.</b></div>
+<div class="foot">Made by St0ckMarken ✨ · a place to learn · free info from Yahoo Finance · pretend money only</div></div><script>window.SM_DATA={"plays": [{"t": "SNAP", "date": "2026-08-14", "kind": "LONG CALL", "cost": 27.0, "prem": 0.26, "spot": 5.47, "rh": true}, {"t": "MARA", "date": "2026-08-14", "kind": "LONG PUT", "cost": 66.0, "prem": 0.65, "spot": 9.07, "rh": true}, {"t": "CLSK", "date": "2026-08-14", "kind": "LONG PUT", "cost": 69.0, "prem": 0.62, "spot": 11.54, "rh": true}, {"t": "NU", "date": "2026-08-14", "kind": "LONG CALL", "cost": 87.0, "prem": 0.78, "spot": 15.43, "rh": true}, {"t": "RIVN", "date": "2026-08-14", "kind": "LONG PUT", "cost": 49.0, "prem": 0.44, "spot": 15.65, "rh": true}, {"t": "GM", "date": "2026-08-14", "kind": "LONG CALL", "cost": 230.0, "prem": 2.1, "spot": 86.78, "rh": true}, {"t": "NOW", "date": "2026-08-14", "kind": "LONG CALL", "cost": 525.0, "prem": 4.97, "spot": 123.7, "rh": true}, {"t": "HIMS", "date": "2026-08-14", "kind": "LONG PUT", "cost": 174.0, "prem": 1.65, "spot": 28.88, "rh": true}, {"t": "ZS", "date": "2026-08-14", "kind": "LONG CALL", "cost": 1365.0, "prem": 12.82, "spot": 185.85, "rh": true}, {"t": "SLB", "date": "2026-08-14", "kind": "LONG CALL", "cost": 109.0, "prem": 0.98, "spot": 53.53, "rh": true}], "graded": []};</script><script src="budget.js"></script></body></html>
